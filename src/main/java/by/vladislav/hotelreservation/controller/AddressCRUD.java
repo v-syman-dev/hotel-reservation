@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.AddressDTO;
 import by.vladislav.hotelreservation.service.AddressService;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 import org.springframework.http.HttpStatus;
@@ -27,7 +28,7 @@ public class AddressCRUD {
   }
 
   @PutMapping
-  public ResponseEntity<AddressDTO> update(@PathVariable Long hotelId, @RequestBody AddressDTO addressDTO) {
+  public ResponseEntity<AddressDTO> update(@PathVariable Long hotelId, @Valid @RequestBody AddressDTO addressDTO) {
     return ResponseEntity.status(HttpStatus.OK).body(addressService.update(hotelId, addressDTO));
   }
 

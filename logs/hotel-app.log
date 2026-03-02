@@ -1,19 +1,21 @@
-2026-02-25 00:05:48 [main] INFO  b.v.h.HotelreservationApplication - Starting HotelreservationApplication using Java 21.0.9 with PID 15540 (D:\aPROGRAMMING\Java\hotelreservation\target\classes started by Admin in D:\aPROGRAMMING\Java\hotelreservation)
-2026-02-25 00:05:48 [main] INFO  b.v.h.HotelreservationApplication - No active profile set, falling back to 1 default profile: "default"
-2026-02-25 00:05:49 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-02-25 00:05:50 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 130 ms. Found 5 JPA repository interfaces.
-2026-02-25 00:05:52 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-02-25 00:05:52 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-02-25 00:05:52 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-02-25 00:05:52 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
-2026-02-25 00:05:53 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 4327 ms
-2026-02-25 00:05:54 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-02-25 00:05:54 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
-2026-02-25 00:05:55 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-02-25 00:05:55 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-02-25 00:05:56 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@7ca0166c
-2026-02-25 00:05:56 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-02-25 00:05:56 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2026-03-01 13:32:59 [main] INFO  b.v.h.HotelreservationApplication - Starting HotelreservationApplication using Java 21.0.9 with PID 17476 (D:\aPROGRAMMING\Java\hotelreservation\target\classes started by Admin in D:\aPROGRAMMING\Java\hotelreservation)
+2026-03-01 13:32:59 [main] DEBUG b.v.h.HotelreservationApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-03-01 13:32:59 [main] INFO  b.v.h.HotelreservationApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-01 13:33:00 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-03-01 13:33:03 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-01 13:33:04 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 265 ms. Found 5 JPA repository interfaces.
+2026-03-01 13:33:07 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-01 13:33:07 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-03-01 13:33:07 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-01 13:33:07 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-03-01 13:33:08 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 8364 ms
+2026-03-01 13:33:09 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-01 13:33:09 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-03-01 13:33:10 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-01 13:33:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-01 13:33:11 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@5b715ea
+2026-03-01 13:33:11 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-01 13:33:11 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/hotel-reservation]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -25,184 +27,34 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-02-25 00:05:58 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - set client_min_messages = WARNING
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists bookings drop constraint if exists FKrgoycol97o21kpjodw1qox4nc
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists hotel_conveniences drop constraint if exists FKev69ppsh1sr9920gkko7fjuaq
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists hotel_conveniences drop constraint if exists FKmejs8a02vjfvnoklc46gfem85
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists hotels drop constraint if exists FKr5xj11kvydj8pj000hv3i2lbi
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists rooms drop constraint if exists FKp5lufxy0ghq53ugm93hdc941k
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - drop table if exists addresses cascade
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - drop table if exists bookings cascade
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - drop table if exists conveniences cascade
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - drop table if exists hotel_conveniences cascade
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - drop table if exists hotels cascade
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - drop table if exists rooms cascade
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - create table addresses (id bigint generated by default as identity, city varchar(255) not null, country varchar(255) not null, street varchar(255) not null, primary key (id))
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - create table bookings (check_in_date date not null, check_out_date date not null, total_price numeric(38,2) not null, id bigint generated by default as identity, room_id bigint not null, guest_name varchar(255) not null, primary key (id))
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - create table conveniences (id bigint generated by default as identity, name varchar(255) not null unique, primary key (id))
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - create table hotel_conveniences (convenience_id bigint not null, hotel_id bigint not null, primary key (convenience_id, hotel_id))
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - create table hotels (rating numeric(38,2), address_id bigint not null unique, id bigint generated by default as identity, name varchar(255) not null unique, primary key (id))
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - create table rooms (number integer not null, price_per_night numeric(38,2) not null, hotel_id bigint, id bigint generated by default as identity, type varchar(255) not null, primary key (id))
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists bookings add constraint FKrgoycol97o21kpjodw1qox4nc foreign key (room_id) references rooms
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists hotel_conveniences add constraint FKev69ppsh1sr9920gkko7fjuaq foreign key (convenience_id) references conveniences
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists hotel_conveniences add constraint FKmejs8a02vjfvnoklc46gfem85 foreign key (hotel_id) references hotels
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists hotels add constraint FKr5xj11kvydj8pj000hv3i2lbi foreign key (address_id) references addresses
-2026-02-25 00:05:58 [main] DEBUG org.hibernate.SQL - alter table if exists rooms add constraint FKp5lufxy0ghq53ugm93hdc941k foreign key (hotel_id) references hotels
-2026-02-25 00:05:58 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-02-25 00:05:58 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-02-25 00:06:00 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-02-25 00:06:00 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-02-25 00:06:00 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-02-25 00:06:00 [main] INFO  b.v.h.HotelreservationApplication - Started HotelreservationApplication in 12.97 seconds (process running for 14.498)
-2026-02-25 00:08:32 [http-nio-8080-exec-3] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-02-25 00:08:32 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-02-25 00:08:32 [http-nio-8080-exec-3] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:33 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0 where c1_0.name in (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into addresses (city,country,street) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotels (address_id,name,rating) values (?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into rooms (hotel_id,number,price_per_night,type) values (?,?,?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:34 [http-nio-8080-exec-3] DEBUG org.hibernate.SQL - insert into hotel_conveniences (hotel_id,convenience_id) values (?,?)
-2026-02-25 00:08:40 [http-nio-8080-exec-4] WARN  o.s.w.s.m.s.DefaultHandlerExceptionResolver - Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'POST' is not supported]
-2026-02-25 00:08:43 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select h1_0.id,h1_0.address_id,c1_0.hotel_id,c1_1.id,c1_1.name,h1_0.name,h1_0.rating,r1_0.hotel_id,r1_0.id,r1_0.number,r1_0.price_per_night,r1_0.type from hotels h1_0 left join hotel_conveniences c1_0 on h1_0.id=c1_0.hotel_id left join conveniences c1_1 on c1_1.id=c1_0.convenience_id left join rooms r1_0 on h1_0.id=r1_0.hotel_id
-2026-02-25 00:08:43 [http-nio-8080-exec-7] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:50 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select h1_0.id,h1_0.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,c1_0.hotel_id,c1_1.id,c1_1.name,h1_0.name,h1_0.rating from hotels h1_0 join addresses a1_0 on a1_0.id=h1_0.address_id left join hotel_conveniences c1_0 on h1_0.id=c1_0.hotel_id left join conveniences c1_1 on c1_1.id=c1_0.convenience_id where h1_0.id=?
-2026-02-25 00:08:50 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:08:51 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select c1_0.hotel_id,c1_1.id,c1_1.name from hotel_conveniences c1_0 join conveniences c1_1 on c1_1.id=c1_0.convenience_id where c1_0.hotel_id=?
-2026-02-25 00:08:51 [http-nio-8080-exec-6] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:10:42 [http-nio-8080-exec-8] DEBUG org.hibernate.SQL - select c1_0.id,c1_0.name from conveniences c1_0
-2026-02-25 00:11:01 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select h1_0.id,h1_0.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,c1_0.hotel_id,c1_1.id,c1_1.name,h1_0.name,h1_0.rating from hotels h1_0 join addresses a1_0 on a1_0.id=h1_0.address_id left join hotel_conveniences c1_0 on h1_0.id=c1_0.hotel_id left join conveniences c1_1 on c1_1.id=c1_0.convenience_id where h1_0.id=?
-2026-02-25 00:11:01 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:11:01 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select c1_0.hotel_id,c1_1.id,c1_1.name from hotel_conveniences c1_0 join conveniences c1_1 on c1_1.id=c1_0.convenience_id where c1_0.hotel_id=?
-2026-02-25 00:11:01 [http-nio-8080-exec-10] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:13:32 [main] INFO  b.v.h.HotelreservationApplication - Starting HotelreservationApplication using Java 21.0.9 with PID 5812 (D:\aPROGRAMMING\Java\hotelreservation\target\classes started by Admin in D:\aPROGRAMMING\Java\hotelreservation)
-2026-02-25 00:13:32 [main] INFO  b.v.h.HotelreservationApplication - No active profile set, falling back to 1 default profile: "default"
-2026-02-25 00:13:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
-2026-02-25 00:13:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 102 ms. Found 5 JPA repository interfaces.
-2026-02-25 00:13:35 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
-2026-02-25 00:13:35 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
-2026-02-25 00:13:35 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
-2026-02-25 00:13:35 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
-2026-02-25 00:13:35 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2409 ms
-2026-02-25 00:13:35 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
-2026-02-25 00:13:35 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
-2026-02-25 00:13:36 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
-2026-02-25 00:13:36 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
-2026-02-25 00:13:37 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@22002459
-2026-02-25 00:13:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
-2026-02-25 00:13:37 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+2026-03-01 13:33:14 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-01 13:33:14 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01 13:33:15 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-01 13:33:20 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-01 13:33:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-03-01 13:33:22 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-01 13:33:23 [main] INFO  b.v.h.HotelreservationApplication - Started HotelreservationApplication in 24.2 seconds (process running for 26.015)
+2026-03-01 13:34:06 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-01 13:34:06 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-01 13:34:06 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2026-03-01 14:17:18 [main] INFO  b.v.h.HotelreservationApplication - Starting HotelreservationApplication using Java 21.0.9 with PID 21812 (D:\aPROGRAMMING\Java\hotelreservation\target\classes started by Admin in D:\aPROGRAMMING\Java\hotelreservation)
+2026-03-01 14:17:18 [main] DEBUG b.v.h.HotelreservationApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-03-01 14:17:18 [main] INFO  b.v.h.HotelreservationApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-01 14:17:19 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-03-01 14:17:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-01 14:17:20 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 82 ms. Found 5 JPA repository interfaces.
+2026-03-01 14:17:22 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-01 14:17:22 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-03-01 14:17:22 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-01 14:17:22 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-03-01 14:17:22 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3471 ms
+2026-03-01 14:17:22 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-01 14:17:22 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-03-01 14:17:23 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-01 14:17:23 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-01 14:17:23 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@6978a32a
+2026-03-01 14:17:23 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-01 14:17:24 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
 	Database JDBC URL [jdbc:postgresql://localhost:5432/hotel-reservation]
 	Database driver: PostgreSQL JDBC Driver
 	Database dialect: PostgreSQLDialect
@@ -214,32 +66,94 @@
 	Pool: DataSourceConnectionProvider
 	Minimum pool size: undefined/unknown
 	Maximum pool size: undefined/unknown
-2026-02-25 00:13:38 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
-2026-02-25 00:13:38 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
-2026-02-25 00:13:38 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
-2026-02-25 00:13:40 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2026-02-25 00:13:41 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
-2026-02-25 00:13:41 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
-2026-02-25 00:13:41 [main] INFO  b.v.h.HotelreservationApplication - Started HotelreservationApplication in 8.977 seconds (process running for 10.1)
-2026-02-25 00:14:01 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
-2026-02-25 00:14:01 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
-2026-02-25 00:14:01 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
-2026-02-25 00:14:01 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select h1_0.id,h1_0.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,c1_0.hotel_id,c1_1.id,c1_1.name,h1_0.name,h1_0.rating from hotels h1_0 join addresses a1_0 on a1_0.id=h1_0.address_id left join hotel_conveniences c1_0 on h1_0.id=c1_0.hotel_id left join conveniences c1_1 on c1_1.id=c1_0.convenience_id where h1_0.id=?
-2026-02-25 00:14:01 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:14:01 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select c1_0.hotel_id,c1_1.id,c1_1.name from hotel_conveniences c1_0 join conveniences c1_1 on c1_1.id=c1_0.convenience_id where c1_0.hotel_id=?
-2026-02-25 00:14:01 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - select h1_0.convenience_id,h1_1.id,h1_1.address_id,a1_0.id,a1_0.city,a1_0.country,a1_0.street,h1_1.name,h1_1.rating from hotel_conveniences h1_0 join hotels h1_1 on h1_1.id=h1_0.hotel_id left join addresses a1_0 on a1_0.id=h1_1.address_id where h1_0.convenience_id=?
-2026-02-25 00:18:28 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@7810b4aa (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:18:31 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@2ad1d007 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:18:34 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@57999413 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:18:47 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@57367fa1 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:18:51 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@1f14b62c (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:18:55 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@4b690d1 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:18:56 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@60992c91 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:18:57 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@538ef44d (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:19:19 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@69118dc6 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:19:23 [HikariPool-1:housekeeper] WARN  com.zaxxer.hikari.pool.PoolBase - HikariPool-1 - Failed to validate connection org.postgresql.jdbc.PgConnection@22002459 (Соединение уже было закрыто). Possibly consider using a shorter maxLifetime value.
-2026-02-25 00:28:02 [SpringApplicationShutdownHook] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
-2026-02-25 00:28:02 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
-2026-02-25 00:28:02 [SpringApplicationShutdownHook] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
-2026-02-25 00:28:02 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
-2026-02-25 00:28:02 [SpringApplicationShutdownHook] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-03-01 14:17:25 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-01 14:17:25 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01 14:17:26 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-01 14:17:29 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-01 14:17:31 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-03-01 14:17:31 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-01 14:17:31 [main] INFO  b.v.h.HotelreservationApplication - Started HotelreservationApplication in 13.699 seconds (process running for 15.168)
+2026-03-01 14:17:40 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-01 14:17:40 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-01 14:17:40 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-03-01 14:23:07 [main] INFO  b.v.h.HotelreservationApplication - Starting HotelreservationApplication using Java 21.0.9 with PID 22044 (D:\aPROGRAMMING\Java\hotelreservation\target\classes started by Admin in D:\aPROGRAMMING\Java\hotelreservation)
+2026-03-01 14:23:07 [main] DEBUG b.v.h.HotelreservationApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-03-01 14:23:07 [main] INFO  b.v.h.HotelreservationApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-01 14:23:08 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-03-01 14:23:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-01 14:23:09 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 93 ms. Found 5 JPA repository interfaces.
+2026-03-01 14:23:10 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-01 14:23:10 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-03-01 14:23:10 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-01 14:23:10 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-03-01 14:23:11 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3349 ms
+2026-03-01 14:23:11 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-01 14:23:11 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-03-01 14:23:12 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-01 14:23:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-01 14:23:12 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@723b8eff
+2026-03-01 14:23:12 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-01 14:23:13 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/hotel-reservation]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: hotel-reservation/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-01 14:23:14 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-01 14:23:14 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01 14:23:15 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-01 14:23:18 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-01 14:23:20 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-03-01 14:23:20 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-01 14:23:20 [main] INFO  b.v.h.HotelreservationApplication - Started HotelreservationApplication in 13.201 seconds (process running for 14.664)
+2026-03-01 14:23:31 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-01 14:23:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-01 14:23:31 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2026-03-01 14:25:32 [main] INFO  b.v.h.HotelreservationApplication - Starting HotelreservationApplication using Java 21.0.9 with PID 17828 (D:\aPROGRAMMING\Java\hotelreservation\target\classes started by Admin in D:\aPROGRAMMING\Java\hotelreservation)
+2026-03-01 14:25:32 [main] DEBUG b.v.h.HotelreservationApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-03-01 14:25:32 [main] INFO  b.v.h.HotelreservationApplication - No active profile set, falling back to 1 default profile: "default"
+2026-03-01 14:25:33 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 9.0.1.Final
+2026-03-01 14:25:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-03-01 14:25:34 [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 92 ms. Found 5 JPA repository interfaces.
+2026-03-01 14:25:35 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-03-01 14:25:35 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-03-01 14:25:35 [main] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-03-01 14:25:35 [main] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-03-01 14:25:35 [main] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3251 ms
+2026-03-01 14:25:36 [main] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-03-01 14:25:36 [main] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-03-01 14:25:36 [main] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-03-01 14:25:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-03-01 14:25:37 [main] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection org.postgresql.jdbc.PgConnection@731fae
+2026-03-01 14:25:37 [main] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-03-01 14:25:37 [main] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:postgresql://localhost:5432/hotel-reservation]
+	Database driver: PostgreSQL JDBC Driver
+	Database dialect: PostgreSQLDialect
+	Database version: 18.1
+	Default catalog/schema: hotel-reservation/public
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-03-01 14:25:40 [main] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-03-01 14:25:40 [main] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-03-01 14:25:44 [main] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-03-01 14:25:47 [main] WARN  o.s.b.j.a.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-03-01 14:25:48 [main] INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-03-01 14:25:49 [main] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-03-01 14:25:49 [main] INFO  b.v.h.HotelreservationApplication - Started HotelreservationApplication in 17.391 seconds (process running for 18.782)
+2026-03-01 14:25:49 [main] WARN  o.s.c.events.SpringDocAppInitializer - SpringDoc /v3/api-docs endpoint is enabled by default. To disable it in production, set the property 'springdoc.api-docs.enabled=false'
+2026-03-01 14:25:49 [main] WARN  o.s.c.events.SpringDocAppInitializer - SpringDoc /swagger-ui.html endpoint is enabled by default. To disable it in production, set the property 'springdoc.swagger-ui.enabled=false'
+2026-03-01 14:25:57 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-03-01 14:25:57 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-03-01 14:25:57 [http-nio-8080-exec-1] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 3 ms
+2026-03-01 14:26:01 [http-nio-8080-exec-8] INFO  o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 2341 ms
