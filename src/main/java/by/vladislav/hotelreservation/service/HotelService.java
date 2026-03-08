@@ -81,13 +81,11 @@ public class HotelService {
     return hotelMapper.toDTO(hotel);
   }
 
-  public List<HotelDTO> findAll() {
-    List<Hotel> hotels = hotelRepository.findAll();
-    List<HotelDTO> hotelsDTO = new ArrayList<>(hotels.size());
-    for (Hotel hotel : hotels) {
-      hotelsDTO.add(hotelMapper.toDTO(hotel));
-    }
-    return hotelsDTO;
+  public Page<HotelDTO> findAll(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Hotel> hotels = hotelRepository.findAll(pageable);
+
+    return hotels.map(hotelMapper::toDTO);
   }
 
   public Page<HotelDTO> findByCountryAndGreaterThanMinRating(String country, BigDecimal minRating, int page, int size) {

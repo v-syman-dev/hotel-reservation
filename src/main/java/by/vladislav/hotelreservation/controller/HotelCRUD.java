@@ -72,13 +72,14 @@ public class HotelCRUD {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findById(id));
   }
 
-  @Deprecated
-  @GetMapping
   @Operation(summary = "Get all hotels (deprecated)", description = "Use paginated search instead")
   @ApiResponse(responseCode = "200", 
       description = "List of all hotels", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
-  public ResponseEntity<List<HotelDTO>> findAll() {
-    return ResponseEntity.status(HttpStatus.OK).body(hotelService.findAll());
+  @GetMapping
+  public ResponseEntity<Page<HotelDTO>> findAll(
+      @RequestParam(defaultValue = "0") int page,
+      @RequestParam(defaultValue = "10") int size) {
+    return ResponseEntity.status(HttpStatus.OK).body(hotelService.findAll(page, size));
   }
 
   @GetMapping("/search")

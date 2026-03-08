@@ -68,9 +68,4 @@ public class RoomService {
     Room room = findByIdAndHotelId(id, hotelId);
     roomRepository.delete(room);
   }
-
-  private Room findByIdAndHotelId(Long id, Long hotelId) {
-    return roomRepository.findByIdAndHotelId(id, hotelId)
-        .orElseThrow(() -> new EntityNotFoundException(EntityType.ROOM, "id", id));
-  }
 }
