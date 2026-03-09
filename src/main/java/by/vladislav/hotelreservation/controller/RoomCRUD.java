@@ -28,8 +28,8 @@ public class RoomCRUD {
   }
 
   @GetMapping("/{id}")
-  public ResponseEntity<RoomDTO> findById(@PathVariable Long hotelId, @PathVariable Long id) {
-    return ResponseEntity.status(HttpStatus.OK).body(roomService.findById(hotelId, id));
+  public ResponseEntity<RoomDTO> findById(@PathVariable Long id) {
+    return ResponseEntity.status(HttpStatus.OK).body(roomService.findById(id));
   }
 
   @GetMapping

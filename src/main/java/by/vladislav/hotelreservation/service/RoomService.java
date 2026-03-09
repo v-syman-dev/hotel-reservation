@@ -47,15 +47,17 @@ public class RoomService {
     return roomDTOs;
   }
 
-  public RoomDTO findById(Long hotelId, Long id) {
-    Room room = findByIdAndHotelId(id, hotelId);
+  public RoomDTO findById(Long id) {
+    Room room = roomRepository.findById(id).orElseThrow(
+        () -> new EntityNotFoundException(EntityType.ROOM, "id", id));
 
     return roomMapper.toDTO(room);
   }
 
   @Transactional
-  public RoomDTO update(Long hotelId, RoomDTO roomDTO) {
-    Room room = findByIdAndHotelId(roomDTO.id(), hotelId);
+  public RoomDTO update(RoomDTO roomDTO) {
+    Room room = roomRepository.findById(roomDTO.id()).orElseThrow(
+        () -> new EntityNotFoundException(EntityType.ROOM, "id", roomDTO.id()));
 
     room.setNumber(roomDTO.number());
     room.setType(roomDTO.type());
@@ -64,8 +66,9 @@ public class RoomService {
     return roomMapper.toDTO(room);
   }
 
-  public void deleteById(Long hotelId, Long id) {
-    Room room = findByIdAndHotelId(id, hotelId);
+  public void deleteById(Long id) {
+    Room room = roomRepository.findById(id).orElseThrow(
+        () -> new EntityNotFoundException(EntityType.ROOM, "id", id));
     roomRepository.delete(room);
   }
 }
