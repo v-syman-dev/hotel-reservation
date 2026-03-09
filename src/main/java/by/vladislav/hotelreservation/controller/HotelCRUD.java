@@ -77,8 +77,8 @@ public class HotelCRUD {
       description = "List of all hotels", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
   @GetMapping
   public ResponseEntity<Page<HotelDTO>> findAll(
-      @RequestParam(defaultValue = "0") int page,
-      @RequestParam(defaultValue = "10") int size) {
+      @RequestParam(defaultValue = "0") Integer page,
+      @RequestParam(defaultValue = "10") Integer size) {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findAll(page, size));
   }
 
