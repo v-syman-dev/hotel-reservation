@@ -36,8 +36,8 @@ public class RoomService {
     return roomMapper.toDTO(createdRoom);
   }
 
-  public List<RoomDTO> findAll(Long hotelId) {
-    List<Room> rooms = roomRepository.findByHotelId(hotelId);
+  public List<RoomDTO> findAll() {
+    List<Room> rooms = roomRepository.findAll();
     List<RoomDTO> roomDTOs = new ArrayList<>(rooms.size());
     for (Room room : rooms) {
       RoomDTO roomDTO = roomMapper.toDTO(room);

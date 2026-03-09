@@ -22,29 +22,34 @@ public class RoomCRUD {
 
   private final RoomService roomService;
 
-  @PostMapping
+  @PostMapping("/hotels/{hotelId}/rooms")
   public ResponseEntity<RoomDTO> create(@PathVariable Long hotelId, @RequestBody RoomDTO roomRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(roomService.create(hotelId, roomRequest));
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/rooms/{id}")
   public ResponseEntity<RoomDTO> findById(@PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(roomService.findById(id));
   }
 
-  @GetMapping
-  public ResponseEntity<List<RoomDTO>> findAll(@PathVariable Long hotelId) {
-    return ResponseEntity.status(HttpStatus.OK).body(roomService.findAll(hotelId));
+  @GetMapping("/hotels/{hotelId}/rooms")
+  public ResponseEntity<List<RoomDTO>> findAllByHotel(@PathVariable Long hotelId) {
+    return ResponseEntity.status(HttpStatus.OK).body(roomService.findAllByHotel(hotelId));
   }
 
-  @PutMapping
-  public ResponseEntity<RoomDTO> update(@PathVariable Long hotelId, @RequestBody RoomDTO roomRequest) {
-    return ResponseEntity.status(HttpStatus.OK).body(roomService.update(hotelId, roomRequest));
+  @GetMapping("/rooms")
+  public ResponseEntity<List<RoomDTO>> findAll() {
+    return ResponseEntity.status(HttpStatus.OK).body(roomService.findAll());
   }
 
-  @DeleteMapping("/{id}")
-  public ResponseEntity<String> deleteById(@PathVariable Long hotelId, @PathVariable Long id) {
-    roomService.deleteById(hotelId, id);
+  @PutMapping("/rooms")
+  public ResponseEntity<RoomDTO> update(@RequestBody RoomDTO roomRequest) {
+    return ResponseEntity.status(HttpStatus.OK).body(roomService.update(roomRequest));
+  }
+
+  @DeleteMapping("/rooms/{id}")
+  public ResponseEntity<String> deleteById(@PathVariable Long id) {
+    roomService.deleteById(id);
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
   }
 }
