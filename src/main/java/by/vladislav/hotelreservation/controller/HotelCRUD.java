@@ -52,16 +52,21 @@ public class HotelCRUD {
 
   @PostMapping("/list")
   @Operation(summary = "Create list of new hotels", description = "Adds multiple hotels and clears cache")
-  @ApiResponse(responseCode = "201", description = "Hotels created successfully", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
-  @ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @ApiResponse(responseCode = "201", 
+      description = "Hotels created successfully", 
+      content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<List<HotelDTO>> createList(@Valid @RequestBody List<HotelDTO> hotelRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.createList(hotelRequest));
   }
 
   @GetMapping("/{id}")
   @Operation(summary = "Get hotel by ID")
-  @ApiResponse(responseCode = "200", description = "Hotel found", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
-  @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @ApiResponse(responseCode = "200", 
+      description = "Hotel found", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+  @ApiResponse(responseCode = "404", 
+      description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<HotelDTO> findById(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findById(id));
@@ -70,19 +75,24 @@ public class HotelCRUD {
   @Deprecated
   @GetMapping
   @Operation(summary = "Get all hotels (deprecated)", description = "Use paginated search instead")
-  @ApiResponse(responseCode = "200", description = "List of all hotels", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+  @ApiResponse(responseCode = "200", 
+      description = "List of all hotels", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
   public ResponseEntity<List<HotelDTO>> findAll() {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findAll());
   }
 
   @GetMapping("/search")
   @Operation(summary = "Search hotels by country and minimum rating", description = "Returns paginated results")
-  @ApiResponse(responseCode = "200", description = "Successful search", content = @Content(schema = @Schema(implementation = Page.class)))
-  @ApiResponse(responseCode = "400", description = "Invalid search parameters", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @ApiResponse(responseCode = "200", 
+      description = "Successful search", content = @Content(schema = @Schema(implementation = Page.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid search parameters", 
+      content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<Page<HotelDTO>> search(
       @Parameter(description = "Country to filter", example = "USA", required = true) @RequestParam String country,
 
-      @Parameter(description = "Minimum rating (inclusive)", example = "4.5", required = true) @RequestParam BigDecimal minRating,
+      @Parameter(description = "Minimum rating (inclusive)", 
+      example = "4.5", required = true) @RequestParam BigDecimal minRating,
 
       @Parameter(description = "Page number (0‑based)", example = "0") @RequestParam(defaultValue = "0") int page,
 
@@ -93,17 +103,22 @@ public class HotelCRUD {
 
   @PutMapping
   @Operation(summary = "Update hotel", description = "Updates hotel data and clears cache")
-  @ApiResponse(responseCode = "200", description = "Hotel updated successfully", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
-  @ApiResponse(responseCode = "400", description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @ApiResponse(responseCode = "200", 
+      description = "Hotel updated successfully", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @ApiResponse(responseCode = "404", 
+      description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<HotelDTO> update(@Valid @RequestBody HotelDTO hotelRequest) {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.update(hotelRequest));
   }
 
   @DeleteMapping("/{id}")
   @Operation(summary = "Delete hotel", description = "Deletes hotel and clears cache")
-  @ApiResponse(responseCode = "200", description = "Hotel deleted successfully", content = @Content(schema = @Schema(example = "Deleted")))
-  @ApiResponse(responseCode = "404", description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @ApiResponse(responseCode = "200", 
+      description = "Hotel deleted successfully", content = @Content(schema = @Schema(example = "Deleted")))
+  @ApiResponse(responseCode = "404", 
+      description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<String> removeById(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long id) {
     hotelService.deleteById(id);
