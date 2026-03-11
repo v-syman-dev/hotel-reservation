@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.AddressDTO;
 import by.vladislav.hotelreservation.service.AddressService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 @AllArgsConstructor
 @RestController
 @RequestMapping("hotels/{hotelId}/address")
+@Tag(name = "Address API", description = "CRUD operations for addresses")
 public class AddressCRUD {
 
   private final AddressService addressService;

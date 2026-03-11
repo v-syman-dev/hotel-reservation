@@ -36,6 +36,17 @@ public class RoomService {
     return roomMapper.toDTO(createdRoom);
   }
 
+  public List<RoomDTO> findAllByHotel(Long hotelId) {
+    List<Room> rooms = roomRepository.findByHotelId(hotelId);
+    List<RoomDTO> roomDTOs = new ArrayList<>(rooms.size());
+    for (Room room : rooms) {
+      RoomDTO roomDTO = roomMapper.toDTO(room);
+      roomDTOs.add(roomDTO);
+    }
+
+    return roomDTOs;
+  }
+
   public List<RoomDTO> findAll() {
     List<Room> rooms = roomRepository.findAll();
     List<RoomDTO> roomDTOs = new ArrayList<>(rooms.size());
@@ -49,15 +60,15 @@ public class RoomService {
 
   public RoomDTO findById(Long id) {
     Room room = roomRepository.findById(id).orElseThrow(
-        () -> new EntityNotFoundException(EntityType.ROOM, "id", id));
+
+    );
 
     return roomMapper.toDTO(room);
   }
 
   @Transactional
   public RoomDTO update(RoomDTO roomDTO) {
-    Room room = roomRepository.findById(roomDTO.id()).orElseThrow(
-        () -> new EntityNotFoundException(EntityType.ROOM, "id", roomDTO.id()));
+    Room room = roomRepository.findById(roomDTO.id()).orElseThrow();
 
     room.setNumber(roomDTO.number());
     room.setType(roomDTO.type());
@@ -67,8 +78,7 @@ public class RoomService {
   }
 
   public void deleteById(Long id) {
-    Room room = roomRepository.findById(id).orElseThrow(
-        () -> new EntityNotFoundException(EntityType.ROOM, "id", id));
+    Room room = roomRepository.findById(id).orElseThrow();
     roomRepository.delete(room);
   }
 }

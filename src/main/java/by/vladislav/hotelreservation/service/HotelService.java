@@ -100,11 +100,15 @@ public class HotelService {
   }
 
   @Transactional
-  public HotelDTO update(HotelDTO dto) {
-
-    Hotel hotel = hotelRepository.findById(dto.id())
-        .orElseThrow(
-            () -> new EntityNotFoundException(EntityType.HOTEL, "id", dto.id()));
+  public HotelDTO update(Long id, HotelDTO dto) {
+    Hotel hotel;
+    if (id == null) {
+      hotel = hotelRepository.findById(dto.id()).orElseThrow(
+          () -> new EntityNotFoundException(EntityType.HOTEL, "id", dto.id()));
+    } else {
+      hotel = hotelRepository.findById(id).orElseThrow(
+          () -> new EntityNotFoundException(EntityType.HOTEL, "id", dto.id()));
+    }
 
     hotel.setName(dto.name());
     hotel.setRating(dto.rating());

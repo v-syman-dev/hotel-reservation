@@ -15,11 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDTO;
 import by.vladislav.hotelreservation.service.ConvenienceService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
 @RequestMapping("/conveniences")
+@Tag(name = "Conveniences API", description = "CRUD operations for conveniences")
 public class ConvenienceCRUD {
   private final ConvenienceService convenienceService;
 

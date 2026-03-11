@@ -72,7 +72,7 @@ public class HotelCRUD {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findById(id));
   }
 
-  @Operation(summary = "Get all hotels (deprecated)", description = "Use paginated search instead")
+  @Operation(summary = "Get all hotels", description = "Returns paged hotels")  
   @ApiResponse(responseCode = "200", 
       description = "List of all hotels", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
   @GetMapping
@@ -102,7 +102,7 @@ public class HotelCRUD {
     return ResponseEntity.ok(result);
   }
 
-  @PutMapping
+  @PutMapping("/{id}")
   @Operation(summary = "Update hotel", description = "Updates hotel data and clears cache")
   @ApiResponse(responseCode = "200", 
       description = "Hotel updated successfully", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
@@ -110,8 +110,8 @@ public class HotelCRUD {
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @ApiResponse(responseCode = "404", 
       description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<HotelDTO> update(@Valid @RequestBody HotelDTO hotelRequest) {
-    return ResponseEntity.status(HttpStatus.OK).body(hotelService.update(hotelRequest));
+  public ResponseEntity<HotelDTO> update(@PathVariable Long id, @Valid @RequestBody HotelDTO hotelRequest) {
+    return ResponseEntity.status(HttpStatus.OK).body(hotelService.update(id, hotelRequest));
   }
 
   @DeleteMapping("/{id}")
