@@ -14,7 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDTO;
+import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
 import by.vladislav.hotelreservation.service.ConvenienceService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
@@ -25,26 +30,56 @@ import lombok.AllArgsConstructor;
 public class ConvenienceCRUD {
   private final ConvenienceService convenienceService;
 
+  @Operation(summary = "Create new convenience", description = "Create one new convenience")
+  @ApiResponse(responseCode = "201", 
+      description = "Conveniences created successfully", 
+      content = @Content(schema = @Schema(implementation = ConvenienceDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PostMapping
   public ResponseEntity<ConvenienceDTO> create(@RequestBody ConvenienceDTO hotelRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.create(hotelRequest));
   }
 
+  @Operation(summary = "Get convenience by id", description = "Return convenienceDto by id")
+  @ApiResponse(responseCode = "200", 
+      description = "Convenience founded", 
+      content = @Content(schema = @Schema(implementation = ConvenienceDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @GetMapping("/{id}")
   public ResponseEntity<ConvenienceDTO> findById(@PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(convenienceService.findById(id));
   }
 
+  @Operation(summary = "Get all conveniences", description = "Return all existed conveniences")
+  @ApiResponse(responseCode = "200", 
+      description = "Conveniences founded", 
+      content = @Content(schema = @Schema(implementation = ConvenienceDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @GetMapping
   public ResponseEntity<List<ConvenienceDTO>> findAll() {
     return ResponseEntity.status(HttpStatus.OK).body(convenienceService.findAll());
   }
 
+  @Operation(summary = "Update convenience by id", description = "Update convenience by id")
+  @ApiResponse(responseCode = "200", 
+      description = "Convenience updated", 
+      content = @Content(schema = @Schema(implementation = ConvenienceDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PutMapping
   public ResponseEntity<ConvenienceDTO> update(@RequestBody ConvenienceDTO convenienceRequest) {
     return ResponseEntity.status(HttpStatus.OK).body(convenienceService.update(convenienceRequest));
   }
 
+  @Operation(summary = "Delete convenience", description = "Delete convenience by id")
+  @ApiResponse(responseCode = "200", 
+      description = "Convenience deleted", 
+      content = @Content(schema = @Schema(implementation = ConvenienceDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @DeleteMapping("/{id}")
   public ResponseEntity<String> removeById(@PathVariable Long id) {
     convenienceService.removeById(id);

@@ -4,7 +4,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.AddressDTO;
+import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
 import by.vladislav.hotelreservation.service.AddressService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -24,11 +29,23 @@ public class AddressCRUD {
 
   private final AddressService addressService;
 
+  @Operation(summary = "Get address", description = "Return addressDto by Hotel id")
+  @ApiResponse(responseCode = "200", 
+      description = "Address founded", 
+      content = @Content(schema = @Schema(implementation = AddressDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @GetMapping
   public ResponseEntity<AddressDTO> findAddress(@PathVariable Long hotelId) {
     return ResponseEntity.status(HttpStatus.OK).body(addressService.findAddress(hotelId));
   }
 
+  @Operation(summary = "Update address", description = "Update address by Hotel id")
+  @ApiResponse(responseCode = "200", 
+      description = "Address updated", 
+      content = @Content(schema = @Schema(implementation = AddressDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))  
   @PutMapping
   public ResponseEntity<AddressDTO> update(@PathVariable Long hotelId, @Valid @RequestBody AddressDTO addressDTO) {
     return ResponseEntity.status(HttpStatus.OK).body(addressService.update(hotelId, addressDTO));

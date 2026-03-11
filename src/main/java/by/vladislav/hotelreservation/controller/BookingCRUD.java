@@ -14,8 +14,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.BookingDTO;
+import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
 import by.vladislav.hotelreservation.service.BookingService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -23,28 +30,60 @@ import lombok.AllArgsConstructor;
 @RequestMapping("rooms/{roomId}/bookings")
 @Tag(name = "Booking API", description = "CRUD operations for bookings")
 public class BookingCRUD {
+
   private final BookingService bookingService;
 
   @PostMapping
-  public ResponseEntity<BookingDTO> create(@PathVariable Long roomId, @RequestBody BookingDTO bookingRequest) {
+  @Operation(summary = "Create new booking", description = "Creates a new booking for a specific room")
+  @ApiResponse(responseCode = "201", 
+      description = "Booking created successfully", 
+      content = @Content(schema = @Schema(implementation = BookingDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  public ResponseEntity<BookingDTO> create(
+      @Parameter(description = "ID of the room", example = "1", required = true) @PathVariable Long roomId,
+      @Valid @RequestBody BookingDTO bookingRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.create(roomId, bookingRequest));
   }
 
   @GetMapping
-  public ResponseEntity<List<BookingDTO>> findById(@PathVariable Long roomId) {
+  @Operation(summary = "Get bookings by Room ID", 
+      description = "Returns a list of all bookings associated with a specific room")
+  @ApiResponse(responseCode = "200", 
+      description = "List of bookings found", content = @Content(schema = @Schema(implementation = BookingDTO.class)))
+  public ResponseEntity<List<BookingDTO>> findByRoomId(
+      @Parameter(description = "ID of the room", example = "1", required = true) @PathVariable Long roomId) {
     return ResponseEntity.status(HttpStatus.OK).body(bookingService.findByRoomId(roomId));
   }
 
   @PutMapping("/{bookingId}")
-  public ResponseEntity<BookingDTO> update(@PathVariable Long roomId, @PathVariable Long bookingId,
-      @RequestBody BookingDTO bookingRequest) {
+  @Operation(summary = "Update booking", description = "Updates an existing booking's information")
+  @ApiResponse(responseCode = "200", 
+      description = "Booking updated successfully", 
+      content = @Content(schema = @Schema(implementation = BookingDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", 
+      content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @ApiResponse(responseCode = "404", 
+      description = "Booking or Room not found", 
+      content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  public ResponseEntity<BookingDTO> update(
+      @Parameter(description = "ID of the room", example = "1", required = true) @PathVariable Long roomId,
+      @Parameter(description = "ID of the booking", example = "10", required = true) @PathVariable Long bookingId,
+      @Valid @RequestBody BookingDTO bookingRequest) {
     return ResponseEntity.status(HttpStatus.OK).body(bookingService.update(roomId, bookingId, bookingRequest));
   }
 
   @DeleteMapping("/{id}")
-  public ResponseEntity<String> removeById(@PathVariable Long roomId, @PathVariable Long id) {
+  @Operation(summary = "Delete booking", description = "Removes a booking by its ID")
+  @ApiResponse(responseCode = "200", 
+      description = "Booking deleted successfully", content = @Content(schema = @Schema(example = "Deleted")))
+  @ApiResponse(responseCode = "404", 
+      description = "Booking not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  public ResponseEntity<String> removeById(
+      @Parameter(description = "ID of the room", example = "1", required = true) @PathVariable Long roomId,
+      @Parameter(description = "ID of the booking to delete", example = "10", required = true) @PathVariable Long id) {
     bookingService.removeById(roomId, id);
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
   }
-
 }
