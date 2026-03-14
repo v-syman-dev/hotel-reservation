@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import by.vladislav.hotelreservation.entity.dto.ConvenienceDtox;
+import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
 import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
 import by.vladislav.hotelreservation.service.ConvenienceService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -33,22 +33,22 @@ public class ConvenienceController {
   @Operation(summary = "Create new convenience", description = "Create one new convenience")
   @ApiResponse(responseCode = "201", 
       description = "Conveniences created successfully", 
-      content = @Content(schema = @Schema(implementation = ConvenienceDtox.class)))
+      content = @Content(schema = @Schema(implementation = ConvenienceDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PostMapping
-  public ResponseEntity<ConvenienceDtox> create(@RequestBody ConvenienceDtox convenienceRequest) {
+  public ResponseEntity<ConvenienceDto> create(@RequestBody ConvenienceDto convenienceRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.create(convenienceRequest));
   }
 
   @Operation(summary = "Create new conveniences", description = "Create a list of new conveniences")
   @ApiResponse(responseCode = "201", 
       description = "Conveniences created successfully", 
-      content = @Content(schema = @Schema(implementation = ConvenienceDtox.class)))
+      content = @Content(schema = @Schema(implementation = ConvenienceDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PostMapping("/bulk")
-  public ResponseEntity<List<ConvenienceDtox>> createBulk(@RequestBody List<ConvenienceDtox> convenienceRequest) {
+  public ResponseEntity<List<ConvenienceDto>> createBulk(@RequestBody List<ConvenienceDto> convenienceRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.saveBulk(convenienceRequest));
   }
 
@@ -56,40 +56,40 @@ public class ConvenienceController {
   @Operation(summary = "Get convenience by id", description = "Return convenienceDto by id")
   @ApiResponse(responseCode = "200", 
       description = "Convenience founded", 
-      content = @Content(schema = @Schema(implementation = ConvenienceDtox.class)))
+      content = @Content(schema = @Schema(implementation = ConvenienceDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @GetMapping("/{id}")
-  public ResponseEntity<ConvenienceDtox> findById(@PathVariable Long id) {
+  public ResponseEntity<ConvenienceDto> findById(@PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(convenienceService.findById(id));
   }
 
   @Operation(summary = "Get all conveniences", description = "Return all existed conveniences")
   @ApiResponse(responseCode = "200", 
       description = "Conveniences founded", 
-      content = @Content(schema = @Schema(implementation = ConvenienceDtox.class)))
+      content = @Content(schema = @Schema(implementation = ConvenienceDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @GetMapping
-  public ResponseEntity<List<ConvenienceDtox>> findAll() {
+  public ResponseEntity<List<ConvenienceDto>> findAll() {
     return ResponseEntity.status(HttpStatus.OK).body(convenienceService.findAll());
   }
 
   @Operation(summary = "Update convenience by id", description = "Update convenience by id")
   @ApiResponse(responseCode = "200", 
       description = "Convenience updated", 
-      content = @Content(schema = @Schema(implementation = ConvenienceDtox.class)))
+      content = @Content(schema = @Schema(implementation = ConvenienceDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PutMapping
-  public ResponseEntity<ConvenienceDtox> update(@RequestBody ConvenienceDtox convenienceRequest) {
+  public ResponseEntity<ConvenienceDto> update(@RequestBody ConvenienceDto convenienceRequest) {
     return ResponseEntity.status(HttpStatus.OK).body(convenienceService.update(convenienceRequest));
   }
 
   @Operation(summary = "Delete convenience", description = "Delete convenience by id")
   @ApiResponse(responseCode = "200", 
       description = "Convenience deleted", 
-      content = @Content(schema = @Schema(implementation = ConvenienceDtox.class)))
+      content = @Content(schema = @Schema(implementation = ConvenienceDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @DeleteMapping("/{id}")

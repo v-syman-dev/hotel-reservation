@@ -15,7 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import by.vladislav.hotelreservation.entity.Convenience;
-import by.vladislav.hotelreservation.entity.dto.ConvenienceDtox;
+import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.ConvenienceMapper;
 import by.vladislav.hotelreservation.repository.ConvenienceRepository;
@@ -35,12 +35,12 @@ public class ConvenienceServiceTest {
   void findByIdSuccess() {
     long id = 1;
     Convenience entity = new Convenience();
-    ConvenienceDtox dto = new ConvenienceDtox(id, "WIFI");
+    ConvenienceDto dto = new ConvenienceDto(id, "WIFI");
 
     when(convenienceRepository.findById(id)).thenReturn(Optional.of(entity));
     when(convenienceMapper.toDTO(entity)).thenReturn(dto);
 
-    ConvenienceDtox result = convenienceService.findById(id);
+    ConvenienceDto result = convenienceService.findById(id);
 
     assertNotNull(result);
     assertEquals("WIFI", result.name());

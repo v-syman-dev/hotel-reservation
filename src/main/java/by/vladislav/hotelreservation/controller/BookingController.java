@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import by.vladislav.hotelreservation.entity.dto.BookingDtox;
+import by.vladislav.hotelreservation.entity.dto.BookingDto;
 import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
 import by.vladislav.hotelreservation.service.BookingService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -37,12 +37,12 @@ public class BookingController {
   @Operation(summary = "Create new booking", description = "Creates a new booking for a specific room")
   @ApiResponse(responseCode = "201", 
       description = "Booking created successfully", 
-      content = @Content(schema = @Schema(implementation = BookingDtox.class)))
+      content = @Content(schema = @Schema(implementation = BookingDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<BookingDtox> create(
+  public ResponseEntity<BookingDto> create(
       @Parameter(description = "ID of the room", example = "1", required = true) @PathVariable Long roomId,
-      @Valid @RequestBody BookingDtox bookingRequest) {
+      @Valid @RequestBody BookingDto bookingRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(bookingService.create(roomId, bookingRequest));
   }
 
@@ -50,8 +50,8 @@ public class BookingController {
   @Operation(summary = "Get bookings by Room ID", 
       description = "Returns a list of all bookings associated with a specific room")
   @ApiResponse(responseCode = "200", 
-      description = "List of bookings found", content = @Content(schema = @Schema(implementation = BookingDtox.class)))
-  public ResponseEntity<List<BookingDtox>> findByRoomId(
+      description = "List of bookings found", content = @Content(schema = @Schema(implementation = BookingDto.class)))
+  public ResponseEntity<List<BookingDto>> findByRoomId(
       @Parameter(description = "ID of the room", example = "1", required = true) @PathVariable Long roomId) {
     return ResponseEntity.status(HttpStatus.OK).body(bookingService.findByRoomId(roomId));
   }
@@ -60,17 +60,17 @@ public class BookingController {
   @Operation(summary = "Update booking", description = "Updates an existing booking's information")
   @ApiResponse(responseCode = "200", 
       description = "Booking updated successfully", 
-      content = @Content(schema = @Schema(implementation = BookingDtox.class)))
+      content = @Content(schema = @Schema(implementation = BookingDto.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", 
       content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @ApiResponse(responseCode = "404", 
       description = "Booking or Room not found", 
       content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<BookingDtox> update(
+  public ResponseEntity<BookingDto> update(
       @Parameter(description = "ID of the room", example = "1", required = true) @PathVariable Long roomId,
       @Parameter(description = "ID of the booking", example = "10", required = true) @PathVariable Long bookingId,
-      @Valid @RequestBody BookingDtox bookingRequest) {
+      @Valid @RequestBody BookingDto bookingRequest) {
     return ResponseEntity.status(HttpStatus.OK).body(bookingService.update(roomId, bookingId, bookingRequest));
   }
 

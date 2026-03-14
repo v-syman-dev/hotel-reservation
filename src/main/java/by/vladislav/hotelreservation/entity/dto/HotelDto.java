@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Data transfer object for hotel")
-public record HotelDtox(
+public record HotelDto(
     @Schema(description = "Unique identifier", example = "10") 
     Long id,
 
@@ -22,15 +22,15 @@ public record HotelDtox(
     @NotNull(message = "Address is required") 
     @Valid 
     @Schema(description = "Hotel address") 
-    AddressDtox address,
+    AddressDto address,
 
     @Min(value = 1, message = "Rating must be positive") 
     @Schema(description = "Hotel rating", example = "4.5") 
     BigDecimal rating,
 
     @Schema(description = "List of rooms in the hotel") 
-    List<@Valid RoomDtox> rooms,
+    List<@Valid RoomDto> rooms,
 
     @Schema(description = "Set of conveniences offered") 
-    Set<@Valid ConvenienceDtox> conveniences) {
+    Set<@Valid ConvenienceDto> conveniences) {
 }

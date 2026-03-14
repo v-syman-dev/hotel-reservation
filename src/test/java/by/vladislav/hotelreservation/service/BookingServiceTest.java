@@ -19,8 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import by.vladislav.hotelreservation.entity.Booking;
 import by.vladislav.hotelreservation.entity.Room;
-import by.vladislav.hotelreservation.entity.dto.BookingDtox;
-import by.vladislav.hotelreservation.entity.dto.RoomDtox;
+import by.vladislav.hotelreservation.entity.dto.BookingDto;
+import by.vladislav.hotelreservation.entity.dto.RoomDto;
 import by.vladislav.hotelreservation.mapper.BookingMapper;
 import by.vladislav.hotelreservation.repository.BookingRepository;
 import by.vladislav.hotelreservation.repository.RoomRepository;
@@ -44,7 +44,7 @@ public class BookingServiceTest {
     LocalDate out = in.plusDays(3);
     BigDecimal pricePerNight = BigDecimal.valueOf(100);
     Room room = Room.builder().pricePerNight(pricePerNight).build();
-    BookingDtox requestDto = new BookingDtox(null, "Guest N1", in, out, new RoomDtox(roomId, 101, "Suite", pricePerNight));
+    BookingDto requestDto = new BookingDto(null, "Guest N1", in, out, new RoomDto(roomId, 101, "Suite", pricePerNight));
 
     when(bookingRepository.existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(any(), any(), any()))
         .thenReturn(false);
@@ -61,7 +61,7 @@ public class BookingServiceTest {
 
   @Test
   void createShouldThrowIfDatesAreWrong() {
-    BookingDtox dto = new BookingDtox(null, "guest N1", LocalDate.now().plusDays(5), LocalDate.now().plusDays(2), null);
+    BookingDto dto = new BookingDto(null, "guest N1", LocalDate.now().plusDays(5), LocalDate.now().plusDays(2), null);
 
     assertThrows(IllegalArgumentException.class, () -> bookingService.create(1L, dto));
   }
