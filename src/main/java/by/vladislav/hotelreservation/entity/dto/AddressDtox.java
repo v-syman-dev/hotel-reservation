@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "Data transfer object for address")
-public record AddressDTO(
+public record AddressDtox(
     @Schema(description = "Unique identifier", example = "1") 
     Long id,
 

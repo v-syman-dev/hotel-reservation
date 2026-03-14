@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import by.vladislav.hotelreservation.entity.Hotel;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
-import by.vladislav.hotelreservation.entity.dto.RoomDTO;
+import by.vladislav.hotelreservation.entity.dto.RoomDtox;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.RoomMapper;
 import by.vladislav.hotelreservation.repository.HotelRepository;
@@ -24,7 +24,7 @@ public class RoomService {
   private final HotelRepository hotelRepository;
 
   @Transactional
-  public RoomDTO create(Long hotelId, RoomDTO roomRequest) {
+  public RoomDtox create(Long hotelId, RoomDtox roomRequest) {
     Room newRoom = roomMapper.toEntity(roomRequest);
 
     Hotel hotel = hotelRepository.findById(hotelId)
@@ -38,13 +38,13 @@ public class RoomService {
   }
 
   @Transactional
-  public List<RoomDTO> saveBulk(Long hotelId, List<RoomDTO> roomRequest) {
+  public List<RoomDtox> saveBulk(Long hotelId, List<RoomDtox> roomRequest) {
     Hotel hotel = hotelRepository.findById(hotelId)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
 
-    List<RoomDTO> result = new ArrayList<>(roomRequest.size());
+    List<RoomDtox> result = new ArrayList<>(roomRequest.size());
 
-    for (RoomDTO newRoomDto : roomRequest) {
+    for (RoomDtox newRoomDto : roomRequest) {
       Room newRoom = roomMapper.toEntity(newRoomDto);
 
       newRoom.setHotel(hotel);
@@ -57,29 +57,29 @@ public class RoomService {
     return result;
   }
 
-  public List<RoomDTO> findAllByHotel(Long hotelId) {
+  public List<RoomDtox> findAllByHotel(Long hotelId) {
     List<Room> rooms = roomRepository.findByHotelId(hotelId);
-    List<RoomDTO> roomDTOs = new ArrayList<>(rooms.size());
+    List<RoomDtox> roomDTOs = new ArrayList<>(rooms.size());
     for (Room room : rooms) {
-      RoomDTO roomDTO = roomMapper.toDTO(room);
+      RoomDtox roomDTO = roomMapper.toDTO(room);
       roomDTOs.add(roomDTO);
     }
 
     return roomDTOs;
   }
 
-  public List<RoomDTO> findAll() {
+  public List<RoomDtox> findAll() {
     List<Room> rooms = roomRepository.findAll();
-    List<RoomDTO> roomDTOs = new ArrayList<>(rooms.size());
+    List<RoomDtox> roomDTOs = new ArrayList<>(rooms.size());
     for (Room room : rooms) {
-      RoomDTO roomDTO = roomMapper.toDTO(room);
+      RoomDtox roomDTO = roomMapper.toDTO(room);
       roomDTOs.add(roomDTO);
     }
 
     return roomDTOs;
   }
 
-  public RoomDTO findById(Long id) {
+  public RoomDtox findById(Long id) {
     Room room = roomRepository.findById(id).orElseThrow(
 
     );
@@ -88,7 +88,7 @@ public class RoomService {
   }
 
   @Transactional
-  public RoomDTO update(RoomDTO roomDTO) {
+  public RoomDtox update(RoomDtox roomDTO) {
     Room room = roomRepository.findById(roomDTO.id()).orElseThrow();
 
     room.setNumber(roomDTO.number());
@@ -104,14 +104,14 @@ public class RoomService {
     roomRepository.delete(room);
   }
 
-  public List<RoomDTO> saveBulkNonTransactional(Long hotelId, List<RoomDTO> roomRequest, boolean isException) {
+  public List<RoomDtox> saveBulkNonTransactional(Long hotelId, List<RoomDtox> roomRequest, boolean isException) {
     Hotel hotel = hotelRepository.findById(hotelId)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
 
-    List<RoomDTO> result = new ArrayList<>(roomRequest.size());
+    List<RoomDtox> result = new ArrayList<>(roomRequest.size());
 
     int i = 0;
-    for (RoomDTO newRoomDto : roomRequest) {
+    for (RoomDtox newRoomDto : roomRequest) {
       Room newRoom = roomMapper.toEntity(newRoomDto);
 
       newRoom.setHotel(hotel);

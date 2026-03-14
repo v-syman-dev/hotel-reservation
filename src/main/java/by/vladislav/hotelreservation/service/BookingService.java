@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import by.vladislav.hotelreservation.entity.Booking;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
-import by.vladislav.hotelreservation.entity.dto.BookingDTO;
+import by.vladislav.hotelreservation.entity.dto.BookingDtox;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.BookingMapper;
 import by.vladislav.hotelreservation.repository.BookingRepository;
@@ -28,7 +28,7 @@ public class BookingService {
   private final RoomRepository roomRepository;
 
   @Transactional
-  public BookingDTO create(Long roomId, BookingDTO dto) {
+  public BookingDtox create(Long roomId, BookingDtox dto) {
 
     if (dto.checkOutDate().isBefore(dto.checkInDate())) {
       throw new IllegalArgumentException("Check-out date must be after check-in date");
@@ -61,18 +61,18 @@ public class BookingService {
     return bookingMapper.toDTO(entity);
   }
 
-  public List<BookingDTO> findByRoomId(long roomId) {
+  public List<BookingDtox> findByRoomId(long roomId) {
     List<Booking> list = bookingRepository.findByRoomId(roomId);
-    List<BookingDTO> result = new ArrayList<>(list.size());
+    List<BookingDtox> result = new ArrayList<>(list.size());
     for (Booking booking : list) {
-      BookingDTO dto = bookingMapper.toDTO(booking);
+      BookingDtox dto = bookingMapper.toDTO(booking);
       result.add(dto);
     }
     return result;
   }
 
   @Transactional
-  public BookingDTO update(Long roomId, Long bookingId, BookingDTO dto) {
+  public BookingDtox update(Long roomId, Long bookingId, BookingDtox dto) {
 
     if (dto.checkOutDate().isBefore(dto.checkInDate())) {
       throw new IllegalArgumentException("Check-out date must be after check-in date");

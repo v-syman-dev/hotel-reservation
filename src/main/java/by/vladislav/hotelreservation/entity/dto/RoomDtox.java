@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Data transfer object for room")
-public record RoomDTO(
+public record RoomDtox(
     @Schema(description = "Unique identifier", example = "20") 
     Long id,
 

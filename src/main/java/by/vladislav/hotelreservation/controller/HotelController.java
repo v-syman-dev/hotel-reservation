@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
-import by.vladislav.hotelreservation.entity.dto.HotelDTO;
+import by.vladislav.hotelreservation.entity.dto.HotelDtox;
 import by.vladislav.hotelreservation.service.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -32,7 +32,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/hotels")
 @Tag(name = "Hotels API", description = "CRUD operations for hotels")
-public class HotelCRUD {
+public class HotelController {
 
   private final HotelService hotelService;
 
@@ -41,12 +41,12 @@ public class HotelCRUD {
   @ApiResponse(
       responseCode = "201", 
       description = "Hotel created successfully", 
-      content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+      content = @Content(schema = @Schema(implementation = HotelDtox.class)))
   @ApiResponse(
       responseCode = "400", 
       description = "Invalid input data", 
       content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<HotelDTO> create(@Valid @RequestBody HotelDTO hotelRequest) {
+  public ResponseEntity<HotelDtox> create(@Valid @RequestBody HotelDtox hotelRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.create(hotelRequest));
   }
 
@@ -54,29 +54,29 @@ public class HotelCRUD {
   @Operation(summary = "Create list of new hotels", description = "Adds multiple hotels and clears cache")
   @ApiResponse(responseCode = "201", 
       description = "Hotels created successfully", 
-      content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+      content = @Content(schema = @Schema(implementation = HotelDtox.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<List<HotelDTO>> createList(@Valid @RequestBody List<HotelDTO> hotelRequest) {
+  public ResponseEntity<List<HotelDtox>> createList(@Valid @RequestBody List<HotelDtox> hotelRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.saveBulk(hotelRequest));
   }
 
   @GetMapping("/{id}")
   @Operation(summary = "Get hotel by ID")
   @ApiResponse(responseCode = "200", 
-      description = "Hotel found", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+      description = "Hotel found", content = @Content(schema = @Schema(implementation = HotelDtox.class)))
   @ApiResponse(responseCode = "404", 
       description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<HotelDTO> findById(
+  public ResponseEntity<HotelDtox> findById(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findById(id));
   }
 
   @Operation(summary = "Get all hotels", description = "Returns paged hotels")  
   @ApiResponse(responseCode = "200", 
-      description = "List of all hotels", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+      description = "List of all hotels", content = @Content(schema = @Schema(implementation = HotelDtox.class)))
   @GetMapping
-  public ResponseEntity<Page<HotelDTO>> findAll(
+  public ResponseEntity<Page<HotelDtox>> findAll(
       @RequestParam(defaultValue = "0") Integer page,
       @RequestParam(defaultValue = "10") Integer size) {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findAll(page, size));
@@ -89,7 +89,7 @@ public class HotelCRUD {
   @ApiResponse(responseCode = "400", 
       description = "Invalid search parameters", 
       content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<Page<HotelDTO>> search(
+  public ResponseEntity<Page<HotelDtox>> search(
       @Parameter(description = "Country to filter", example = "USA", required = true) @RequestParam String country,
 
       @Parameter(description = "Minimum rating (inclusive)", 
@@ -98,19 +98,19 @@ public class HotelCRUD {
       @Parameter(description = "Page number (0‑based)", example = "0") @RequestParam(defaultValue = "0") int page,
 
       @Parameter(description = "Page size", example = "10") @RequestParam(defaultValue = "10") int size) {
-    Page<HotelDTO> result = hotelService.findByCountryAndGreaterThanMinRating(country, minRating, page, size);
+    Page<HotelDtox> result = hotelService.findByCountryAndGreaterThanMinRating(country, minRating, page, size);
     return ResponseEntity.ok(result);
   }
 
   @PutMapping("/{id}")
   @Operation(summary = "Update hotel", description = "Updates hotel data and clears cache")
   @ApiResponse(responseCode = "200", 
-      description = "Hotel updated successfully", content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+      description = "Hotel updated successfully", content = @Content(schema = @Schema(implementation = HotelDtox.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @ApiResponse(responseCode = "404", 
       description = "Hotel not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<HotelDTO> update(@PathVariable Long id, @Valid @RequestBody HotelDTO hotelRequest) {
+  public ResponseEntity<HotelDtox> update(@PathVariable Long id, @Valid @RequestBody HotelDtox hotelRequest) {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.update(id, hotelRequest));
   }
 
@@ -131,10 +131,10 @@ public class HotelCRUD {
        description = "Adds half of hotels")
   @ApiResponse(responseCode = "201", 
       description = "Hotels created successfully", 
-      content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+      content = @Content(schema = @Schema(implementation = HotelDtox.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<List<HotelDTO>> createListWithError(@Valid @RequestBody List<HotelDTO> hotelRequest) {
+  public ResponseEntity<List<HotelDtox>> createListWithError(@Valid @RequestBody List<HotelDtox> hotelRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.saveBulkNonTransactional(hotelRequest, true));
   }
 }

@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import by.vladislav.hotelreservation.entity.Address;
-import by.vladislav.hotelreservation.entity.dto.AddressDTO;
+import by.vladislav.hotelreservation.entity.dto.AddressDtox;
 import by.vladislav.hotelreservation.mapper.AddressMapper;
 import by.vladislav.hotelreservation.repository.AddressRepository;
 
@@ -29,7 +29,7 @@ public class AddressServiceTest {
   @Test
   void updateSuccess() {
     Long hotelId = 1L;
-    AddressDTO updateRequest = new AddressDTO(null, "USA", "NY", "Wall St");
+    AddressDtox updateRequest = new AddressDtox(null, "USA", "NY", "Wall St");
     Address existingAddress = new Address();
 
     when(addressRepository.findByHotelId(hotelId)).thenReturn(Optional.of(existingAddress));

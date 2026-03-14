@@ -3,7 +3,7 @@ package by.vladislav.hotelreservation.mapper;
 import org.springframework.stereotype.Component;
 
 import by.vladislav.hotelreservation.entity.Booking;
-import by.vladislav.hotelreservation.entity.dto.BookingDTO;
+import by.vladislav.hotelreservation.entity.dto.BookingDtox;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -12,7 +12,7 @@ public class BookingMapper {
 
   private final RoomMapper roomMapper;
 
-  public Booking toEntity(BookingDTO dto) {
+  public Booking toEntity(BookingDtox dto) {
 
     return Booking.builder()
         .guestName(dto.guestName())
@@ -23,8 +23,8 @@ public class BookingMapper {
         .build();
   }
 
-  public BookingDTO toDTO(Booking entity) {
-    return new BookingDTO(
+  public BookingDtox toDTO(Booking entity) {
+    return new BookingDtox(
         entity.getId(),
         entity.getGuestName(),
         entity.getCheckInDate(),

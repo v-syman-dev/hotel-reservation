@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
-import by.vladislav.hotelreservation.entity.dto.RoomDTO;
+import by.vladislav.hotelreservation.entity.dto.RoomDtox;
 import by.vladislav.hotelreservation.service.RoomService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,41 +27,41 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @RestController
 @Tag(name = "Rooms API", description = "CRUD operations for rooms")
-public class RoomCRUD {
+public class RoomController {
 
   private final RoomService roomService;
 
   @PostMapping("/hotels/{hotelId}/rooms")
   @Operation(summary = "Create new room", description = "Adds a room to a specific hotel")
   @ApiResponse(responseCode = "201", 
-      description = "Room created successfully", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
+      description = "Room created successfully", content = @Content(schema = @Schema(implementation = RoomDtox.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<RoomDTO> create(
+  public ResponseEntity<RoomDtox> create(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId,
-      @Valid @RequestBody RoomDTO roomRequest) {
+      @Valid @RequestBody RoomDtox roomRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(roomService.create(hotelId, roomRequest));
   }
 
   @PostMapping("/hotels/{hotelId}/rooms/bulk")
   @Operation(summary = "Create new bulk rooms", description = "Adds a list of rooms to a specific hotel")
   @ApiResponse(responseCode = "201", 
-      description = "Rooms created successfully", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
+      description = "Rooms created successfully", content = @Content(schema = @Schema(implementation = RoomDtox.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<List<RoomDTO>> createBulk(
+  public ResponseEntity<List<RoomDtox>> createBulk(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId,
-      @Valid @RequestBody List<RoomDTO> roomRequest) {
+      @Valid @RequestBody List<RoomDtox> roomRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(roomService.saveBulk(hotelId, roomRequest));
   }
 
   @GetMapping("/rooms/{id}")
   @Operation(summary = "Get room by ID")
   @ApiResponse(responseCode = "200", 
-      description = "Room found", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
+      description = "Room found", content = @Content(schema = @Schema(implementation = RoomDtox.class)))
   @ApiResponse(responseCode = "404", 
       description = "Room not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<RoomDTO> findById(
+  public ResponseEntity<RoomDtox> findById(
       @Parameter(description = "Room ID", example = "1", required = true) @PathVariable Long id) {
     return ResponseEntity.status(HttpStatus.OK).body(roomService.findById(id));
   }
@@ -69,8 +69,8 @@ public class RoomCRUD {
   @GetMapping("/hotels/{hotelId}/rooms")
   @Operation(summary = "Get all rooms by hotel ID")
   @ApiResponse(responseCode = "200", 
-      description = "List of rooms for the hotel", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
-  public ResponseEntity<List<RoomDTO>> findAllByHotel(
+      description = "List of rooms for the hotel", content = @Content(schema = @Schema(implementation = RoomDtox.class)))
+  public ResponseEntity<List<RoomDtox>> findAllByHotel(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId) {
     return ResponseEntity.status(HttpStatus.OK).body(roomService.findAllByHotel(hotelId));
   }
@@ -78,20 +78,20 @@ public class RoomCRUD {
   @GetMapping("/rooms")
   @Operation(summary = "Get all rooms", description = "Returns a list of all rooms in the system")
   @ApiResponse(responseCode = "200", 
-      description = "List of all rooms", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
-  public ResponseEntity<List<RoomDTO>> findAll() {
+      description = "List of all rooms", content = @Content(schema = @Schema(implementation = RoomDtox.class)))
+  public ResponseEntity<List<RoomDtox>> findAll() {
     return ResponseEntity.status(HttpStatus.OK).body(roomService.findAll());
   }
 
   @PutMapping("/rooms")
   @Operation(summary = "Update room", description = "Updates room data")
   @ApiResponse(responseCode = "200", 
-      description = "Room updated successfully", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
+      description = "Room updated successfully", content = @Content(schema = @Schema(implementation = RoomDtox.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @ApiResponse(responseCode = "404", 
       description = "Room not found", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<RoomDTO> update(@Valid @RequestBody RoomDTO roomRequest) {
+  public ResponseEntity<RoomDtox> update(@Valid @RequestBody RoomDtox roomRequest) {
     return ResponseEntity.status(HttpStatus.OK).body(roomService.update(roomRequest));
   }
 
@@ -111,12 +111,12 @@ public class RoomCRUD {
   @Operation(summary = "Create new bulk rooms with error",
        description = "Adds a half of list of rooms to a specific hotel")
   @ApiResponse(responseCode = "201", 
-      description = "Rooms created successfully", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
+      description = "Rooms created successfully", content = @Content(schema = @Schema(implementation = RoomDtox.class)))
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<List<RoomDTO>> createBulkWithError(
+  public ResponseEntity<List<RoomDtox>> createBulkWithError(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId,
-      @Valid @RequestBody List<RoomDTO> roomRequest) {
+      @Valid @RequestBody List<RoomDtox> roomRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(
       roomService.saveBulkNonTransactional(hotelId, roomRequest, true));
   }

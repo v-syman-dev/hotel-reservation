@@ -17,7 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import by.vladislav.hotelreservation.entity.Hotel;
 import by.vladislav.hotelreservation.entity.Room;
-import by.vladislav.hotelreservation.entity.dto.RoomDTO;
+import by.vladislav.hotelreservation.entity.dto.RoomDtox;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.RoomMapper;
 import by.vladislav.hotelreservation.repository.HotelRepository;
@@ -38,18 +38,18 @@ public class RoomServiceTest {
   @Test
   void createSuccess() {
     Long hotelId = 1L;
-    RoomDTO roomRequest = new RoomDTO(null, 101, "Deluxe", BigDecimal.valueOf(100));
+    RoomDtox roomRequest = new RoomDtox(null, 101, "Deluxe", BigDecimal.valueOf(100));
     Hotel hotel = new Hotel();
     Room roomEntity = new Room();
     Room savedRoom = new Room();
-    RoomDTO expectedDto = new RoomDTO(1L, 101, "Deluxe", BigDecimal.valueOf(100));
+    RoomDtox expectedDto = new RoomDtox(1L, 101, "Deluxe", BigDecimal.valueOf(100));
 
     when(roomMapper.toEntity(roomRequest)).thenReturn(roomEntity);
     when(hotelRepository.findById(hotelId)).thenReturn(Optional.of(hotel));
     when(roomRepository.save(roomEntity)).thenReturn(savedRoom);
     when(roomMapper.toDTO(savedRoom)).thenReturn(expectedDto);
 
-    RoomDTO result = roomService.create(hotelId, roomRequest);
+    RoomDtox result = roomService.create(hotelId, roomRequest);
 
     assertNotNull(result);
     assertEquals(101, result.number());
@@ -64,6 +64,6 @@ public class RoomServiceTest {
     when(hotelRepository.findById(hotelId)).thenReturn(Optional.empty());
 
     assertThrows(EntityNotFoundException.class,
-        () -> roomService.create(hotelId, new RoomDTO(null, 1, "Type", BigDecimal.ZERO)));
+        () -> roomService.create(hotelId, new RoomDtox(null, 1, "Type", BigDecimal.ZERO)));
   }
 }

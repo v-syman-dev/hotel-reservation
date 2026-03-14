@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Data transfer object for booking")
-public record BookingDTO(
+public record BookingDtox(
     @Schema(description = "Unique identifier", example = "100") 
     Long id,
 
@@ -24,5 +24,5 @@ public record BookingDTO(
     LocalDate checkOutDate,
 
     @Schema(description = "Booked room") 
-    RoomDTO room) {
+    RoomDtox room) {
 }

@@ -3,12 +3,12 @@ package by.vladislav.hotelreservation.mapper;
 import org.springframework.stereotype.Component;
 
 import by.vladislav.hotelreservation.entity.Room;
-import by.vladislav.hotelreservation.entity.dto.RoomDTO;
+import by.vladislav.hotelreservation.entity.dto.RoomDtox;
 
 @Component
 public class RoomMapper {
 
-  public Room toEntity(RoomDTO roomRequest) {
+  public Room toEntity(RoomDtox roomRequest) {
     return Room.builder()
         .number(roomRequest.number())
         .type(roomRequest.type())
@@ -16,8 +16,8 @@ public class RoomMapper {
         .build();
   }
 
-  public RoomDTO toDTO(Room roomEntity) {
-    return new RoomDTO(
+  public RoomDtox toDTO(Room roomEntity) {
+    return new RoomDtox(
         roomEntity.getId(),
         roomEntity.getNumber(),
         roomEntity.getType(),

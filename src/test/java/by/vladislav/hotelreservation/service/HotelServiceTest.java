@@ -20,7 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import by.vladislav.hotelreservation.entity.Hotel;
-import by.vladislav.hotelreservation.entity.dto.HotelDTO;
+import by.vladislav.hotelreservation.entity.dto.HotelDtox;
 import by.vladislav.hotelreservation.mapper.HotelMapper;
 import by.vladislav.hotelreservation.repository.HotelRepository;
 
@@ -43,7 +43,7 @@ public class HotelServiceTest {
     Pageable pageable = PageRequest.of(page, size);
 
     Hotel hotel = new Hotel();
-    HotelDTO dto = new HotelDTO(1L, "Luxury Hotel", null, rating, null, null);
+    HotelDtox dto = new HotelDtox(1L, "Luxury Hotel", null, rating, null, null);
 
     Page<Hotel> hotelPage = new PageImpl<>(List.of(hotel), pageable, 1);
 
@@ -51,7 +51,7 @@ public class HotelServiceTest {
         .thenReturn(hotelPage);
     when(hotelMapper.toDTO(hotel)).thenReturn(dto);
 
-    Page<HotelDTO> result1 = hotelService.findByCountryAndGreaterThanMinRating(country, rating, page, size);
+    Page<HotelDtox> result1 = hotelService.findByCountryAndGreaterThanMinRating(country, rating, page, size);
 
     hotelService.findByCountryAndGreaterThanMinRating(country, rating, page, size);
 

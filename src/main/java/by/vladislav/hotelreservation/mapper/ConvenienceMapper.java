@@ -3,18 +3,18 @@ package by.vladislav.hotelreservation.mapper;
 import org.springframework.stereotype.Component;
 
 import by.vladislav.hotelreservation.entity.Convenience;
-import by.vladislav.hotelreservation.entity.dto.ConvenienceDTO;
+import by.vladislav.hotelreservation.entity.dto.ConvenienceDtox;
 
 @Component
 public class ConvenienceMapper {
-  public Convenience toEntity(ConvenienceDTO convenienceDTO) {
+  public Convenience toEntity(ConvenienceDtox convenienceDTO) {
     return Convenience.builder()
         .name(convenienceDTO.name())
         .build();
   }
 
-  public ConvenienceDTO toDTO(Convenience entity) {
-    return new ConvenienceDTO(
+  public ConvenienceDtox toDTO(Convenience entity) {
+    return new ConvenienceDtox(
         entity.getId(),
         entity.getName());
   }

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import by.vladislav.hotelreservation.entity.Convenience;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
-import by.vladislav.hotelreservation.entity.dto.ConvenienceDTO;
+import by.vladislav.hotelreservation.entity.dto.ConvenienceDtox;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.ConvenienceMapper;
 import by.vladislav.hotelreservation.repository.ConvenienceRepository;
@@ -22,17 +22,17 @@ public class ConvenienceService {
   private final ConvenienceMapper convenienceMapper;
 
   @Transactional
-  public ConvenienceDTO create(ConvenienceDTO convenienceDTO) {
+  public ConvenienceDtox create(ConvenienceDtox convenienceDTO) {
     Convenience entity = convenienceMapper.toEntity(convenienceDTO);
     entity = convenienceRepository.save(entity);
     return convenienceMapper.toDTO(entity);
   }
 
   @Transactional
-  public List<ConvenienceDTO> saveBulk(List<ConvenienceDTO> convenienceRequest) {
-    List<ConvenienceDTO> result = new ArrayList<>(convenienceRequest.size());
+  public List<ConvenienceDtox> saveBulk(List<ConvenienceDtox> convenienceRequest) {
+    List<ConvenienceDtox> result = new ArrayList<>(convenienceRequest.size());
 
-    for (ConvenienceDTO newConvenienceDto : convenienceRequest) {
+    for (ConvenienceDtox newConvenienceDto : convenienceRequest) {
       Convenience newConvenience = convenienceMapper.toEntity(newConvenienceDto);
       newConvenience = convenienceRepository.save(newConvenience);
 
@@ -42,14 +42,14 @@ public class ConvenienceService {
     return result;
   }
 
-  public ConvenienceDTO findById(long id) {
+  public ConvenienceDtox findById(long id) {
     Convenience entity = convenienceRepository.findById(id)
         .orElseThrow(
             () -> new EntityNotFoundException(EntityType.CONVENIENCE, "id", id));
     return convenienceMapper.toDTO(entity);
   }
 
-  public List<ConvenienceDTO> findAll() {
+  public List<ConvenienceDtox> findAll() {
     List<Convenience> entityList = convenienceRepository.findAll();
 
     return entityList.stream()
@@ -58,7 +58,7 @@ public class ConvenienceService {
   }
 
   @Transactional
-  public ConvenienceDTO update(ConvenienceDTO convenienceDTO) {
+  public ConvenienceDtox update(ConvenienceDtox convenienceDTO) {
     Convenience convenienceEntity = convenienceRepository.findById(convenienceDTO.id())
         .orElseThrow(
             () -> new EntityNotFoundException(EntityType.CONVENIENCE, "id", convenienceDTO.id()));

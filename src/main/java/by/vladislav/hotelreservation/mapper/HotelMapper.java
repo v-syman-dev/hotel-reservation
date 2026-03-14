@@ -8,10 +8,10 @@ import org.springframework.stereotype.Component;
 
 import by.vladislav.hotelreservation.entity.Address;
 import by.vladislav.hotelreservation.entity.Hotel;
-import by.vladislav.hotelreservation.entity.dto.AddressDTO;
-import by.vladislav.hotelreservation.entity.dto.ConvenienceDTO;
-import by.vladislav.hotelreservation.entity.dto.HotelDTO;
-import by.vladislav.hotelreservation.entity.dto.RoomDTO;
+import by.vladislav.hotelreservation.entity.dto.AddressDtox;
+import by.vladislav.hotelreservation.entity.dto.ConvenienceDtox;
+import by.vladislav.hotelreservation.entity.dto.HotelDtox;
+import by.vladislav.hotelreservation.entity.dto.RoomDtox;
 import lombok.AllArgsConstructor;
 
 @Component
@@ -21,7 +21,7 @@ public class HotelMapper {
   private final RoomMapper roomMapper;
   private final ConvenienceMapper convenienceMapper;
 
-  public Hotel toEntity(HotelDTO dto) {
+  public Hotel toEntity(HotelDtox dto) {
     Address address = Address.builder()
         .country(dto.address().country())
         .city(dto.address().city())
@@ -35,23 +35,23 @@ public class HotelMapper {
         .build();
   }
 
-  public HotelDTO toDTO(Hotel hotel) {
+  public HotelDtox toDTO(Hotel hotel) {
 
-    AddressDTO addressDTO = new AddressDTO(
+    AddressDtox addressDTO = new AddressDtox(
         hotel.getAddress().getId(),
         hotel.getAddress().getCountry(),
         hotel.getAddress().getCity(),
         hotel.getAddress().getStreet());
 
-    Set<ConvenienceDTO> conveniencesDTOs = hotel.getConveniences().stream()
+    Set<ConvenienceDtox> conveniencesDTOs = hotel.getConveniences().stream()
         .map(convenienceMapper::toDTO)
         .collect(Collectors.toSet());
 
-    List<RoomDTO> roomsDTO = hotel.getRooms().stream()
+    List<RoomDtox> roomsDTO = hotel.getRooms().stream()
         .map(room -> roomMapper.toDTO(room))
         .toList();
 
-    return new HotelDTO(
+    return new HotelDtox(
         hotel.getId(),
         hotel.getName(),
         addressDTO,

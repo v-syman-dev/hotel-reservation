@@ -19,8 +19,8 @@ import by.vladislav.hotelreservation.entity.Hotel;
 import by.vladislav.hotelreservation.entity.HotelSearchKey;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
-import by.vladislav.hotelreservation.entity.dto.ConvenienceDTO;
-import by.vladislav.hotelreservation.entity.dto.HotelDTO;
+import by.vladislav.hotelreservation.entity.dto.ConvenienceDtox;
+import by.vladislav.hotelreservation.entity.dto.HotelDtox;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.HotelMapper;
 import by.vladislav.hotelreservation.mapper.RoomMapper;
@@ -38,10 +38,10 @@ public class HotelService {
   private final RoomMapper roomMapper;
   private final ConvenienceRepository convenienceRepository;
 
-  private final Map<HotelSearchKey, Page<HotelDTO>> searchCache = new ConcurrentHashMap<>();
+  private final Map<HotelSearchKey, Page<HotelDtox>> searchCache = new ConcurrentHashMap<>();
 
   @Transactional
-  public HotelDTO create(HotelDTO dto) {
+  public HotelDtox create(HotelDtox dto) {
     Set<Convenience> conveniences = getConveniences(dto.conveniences());
 
     Hotel hotel = hotelMapper.toEntity(dto);
@@ -65,10 +65,10 @@ public class HotelService {
   }
 
   @Transactional
-  public List<HotelDTO> saveBulk(List<HotelDTO> hotelRequest) {
-    List<HotelDTO> hotelDTOs = new ArrayList<>(hotelRequest.size());
+  public List<HotelDtox> saveBulk(List<HotelDtox> hotelRequest) {
+    List<HotelDtox> hotelDTOs = new ArrayList<>(hotelRequest.size());
 
-    for (HotelDTO dto : hotelRequest) {
+    for (HotelDtox dto : hotelRequest) {
       Set<Convenience> conveniences = getConveniences(dto.conveniences());
 
       Hotel hotel = hotelMapper.toEntity(dto);
@@ -94,20 +94,20 @@ public class HotelService {
   }
 
   @Transactional
-  public HotelDTO findById(long id) {
+  public HotelDtox findById(long id) {
     Hotel hotel = hotelRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", id));
     return hotelMapper.toDTO(hotel);
   }
 
-  public Page<HotelDTO> findAll(int page, int size) {
+  public Page<HotelDtox> findAll(int page, int size) {
     Pageable pageable = PageRequest.of(page, size);
     Page<Hotel> hotels = hotelRepository.findAll(pageable);
 
     return hotels.map(hotelMapper::toDTO);
   }
 
-  public Page<HotelDTO> findByCountryAndGreaterThanMinRating(String country, BigDecimal minRating, int page, int size) {
+  public Page<HotelDtox> findByCountryAndGreaterThanMinRating(String country, BigDecimal minRating, int page, int size) {
     HotelSearchKey key = new HotelSearchKey(country, minRating, page, size);
 
     return searchCache.computeIfAbsent(key, k -> {
@@ -119,7 +119,7 @@ public class HotelService {
   }
 
   @Transactional
-  public HotelDTO update(Long id, HotelDTO dto) {
+  public HotelDtox update(Long id, HotelDtox dto) {
     Hotel hotel;
     if (id == null) {
       hotel = hotelRepository.findById(dto.id()).orElseThrow(
@@ -164,21 +164,21 @@ public class HotelService {
     searchCache.clear();
   }
 
-  private Set<Convenience> getConveniences(Collection<ConvenienceDTO> dtos) {
+  private Set<Convenience> getConveniences(Collection<ConvenienceDtox> dtos) {
     Set<String> convenienceStrings = new HashSet<>();
-    for (ConvenienceDTO dto : dtos) {
+    for (ConvenienceDtox dto : dtos) {
       convenienceStrings.add(dto.name());
     }
 
     return new HashSet<>(convenienceRepository.findByNameIn(convenienceStrings));
   }
 
-  public List<HotelDTO> saveBulkNonTransactional(List<HotelDTO> hotelRequest, boolean isException) {
-    List<HotelDTO> hotelDTOs = new ArrayList<>(hotelRequest.size());
+  public List<HotelDtox> saveBulkNonTransactional(List<HotelDtox> hotelRequest, boolean isException) {
+    List<HotelDtox> hotelDTOs = new ArrayList<>(hotelRequest.size());
 
     int i = 0;
 
-    for (HotelDTO dto : hotelRequest) {
+    for (HotelDtox dto : hotelRequest) {
       i++;
       Set<Convenience> conveniences = getConveniences(dto.conveniences());
 
