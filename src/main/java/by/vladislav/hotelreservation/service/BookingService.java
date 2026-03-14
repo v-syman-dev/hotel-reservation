@@ -106,6 +106,7 @@ public class BookingService {
     return bookingMapper.toDTO(updatedEntity);
   }
 
+  @Transactional
   public void removeById(Long roomId, Long bookingId) {
     Booking booking = findBooking(roomId, bookingId);
     bookingRepository.delete(booking);

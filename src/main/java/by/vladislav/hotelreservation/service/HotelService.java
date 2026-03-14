@@ -65,11 +65,30 @@ public class HotelService {
   }
 
   @Transactional
-  public List<HotelDTO> createList(List<HotelDTO> hotelRequest) {
+  public List<HotelDTO> saveBulk(List<HotelDTO> hotelRequest) {
     List<HotelDTO> hotelDTOs = new ArrayList<>(hotelRequest.size());
-    for (HotelDTO hotelDTO : hotelRequest) {
-      hotelDTOs.add(create(hotelDTO));
+
+    for (HotelDTO dto : hotelRequest) {
+      Set<Convenience> conveniences = getConveniences(dto.conveniences());
+
+      Hotel hotel = hotelMapper.toEntity(dto);
+      hotel.setConveniences(conveniences);
+
+      Hotel savedHotel = hotelRepository.save(hotel);
+
+      if (dto.rooms() != null) {
+        List<Room> rooms = dto.rooms().stream()
+            .map(roomMapper::toEntity)
+            .toList();
+
+        rooms.forEach(room -> room.setHotel(savedHotel));
+
+        savedHotel.setRooms(rooms);
+      }
+      hotelDTOs.add(dto);
     }
+
+    searchCache.clear();
 
     return hotelDTOs;
   }
@@ -152,5 +171,40 @@ public class HotelService {
     }
 
     return new HashSet<>(convenienceRepository.findByNameIn(convenienceStrings));
+  }
+
+  public List<HotelDTO> saveBulkNonTransactional(List<HotelDTO> hotelRequest, boolean isException) {
+    List<HotelDTO> hotelDTOs = new ArrayList<>(hotelRequest.size());
+
+    int i = 0;
+
+    for (HotelDTO dto : hotelRequest) {
+      i++;
+      Set<Convenience> conveniences = getConveniences(dto.conveniences());
+
+      Hotel hotel = hotelMapper.toEntity(dto);
+      hotel.setConveniences(conveniences);
+
+      Hotel savedHotel = hotelRepository.save(hotel);
+
+      if (i >= hotelRequest.size() / 2 && isException) {
+        throw new IllegalArgumentException("Error");
+      }
+
+      if (dto.rooms() != null) {
+        List<Room> rooms = dto.rooms().stream()
+            .map(roomMapper::toEntity)
+            .toList();
+
+        rooms.forEach(room -> room.setHotel(savedHotel));
+
+        savedHotel.setRooms(rooms);
+      }
+      hotelDTOs.add(dto);
+    }
+
+    searchCache.clear();
+
+    return hotelDTOs;
   }
 }

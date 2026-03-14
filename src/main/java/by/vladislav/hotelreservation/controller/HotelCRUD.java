@@ -50,7 +50,7 @@ public class HotelCRUD {
     return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.create(hotelRequest));
   }
 
-  @PostMapping("/list")
+  @PostMapping("/bulk")
   @Operation(summary = "Create list of new hotels", description = "Adds multiple hotels and clears cache")
   @ApiResponse(responseCode = "201", 
       description = "Hotels created successfully", 
@@ -58,7 +58,7 @@ public class HotelCRUD {
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<List<HotelDTO>> createList(@Valid @RequestBody List<HotelDTO> hotelRequest) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.createList(hotelRequest));
+    return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.saveBulk(hotelRequest));
   }
 
   @GetMapping("/{id}")
@@ -124,5 +124,17 @@ public class HotelCRUD {
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long id) {
     hotelService.deleteById(id);
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+  }
+
+  @PostMapping("/bulk-non-transactional")
+  @Operation(summary = "Create list of new hotels with exception",
+       description = "Adds half of hotels")
+  @ApiResponse(responseCode = "201", 
+      description = "Hotels created successfully", 
+      content = @Content(schema = @Schema(implementation = HotelDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  public ResponseEntity<List<HotelDTO>> createListWithError(@Valid @RequestBody List<HotelDTO> hotelRequest) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.saveBulkNonTransactional(hotelRequest, true));
   }
 }

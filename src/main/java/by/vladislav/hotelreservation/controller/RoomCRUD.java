@@ -43,6 +43,18 @@ public class RoomCRUD {
     return ResponseEntity.status(HttpStatus.CREATED).body(roomService.create(hotelId, roomRequest));
   }
 
+  @PostMapping("/hotels/{hotelId}/rooms/bulk")
+  @Operation(summary = "Create new bulk rooms", description = "Adds a list of rooms to a specific hotel")
+  @ApiResponse(responseCode = "201", 
+      description = "Rooms created successfully", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  public ResponseEntity<List<RoomDTO>> createBulk(
+      @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId,
+      @Valid @RequestBody List<RoomDTO> roomRequest) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(roomService.saveBulk(hotelId, roomRequest));
+  }
+
   @GetMapping("/rooms/{id}")
   @Operation(summary = "Get room by ID")
   @ApiResponse(responseCode = "200", 
@@ -93,5 +105,19 @@ public class RoomCRUD {
       @Parameter(description = "Room ID", example = "1", required = true) @PathVariable Long id) {
     roomService.deleteById(id);
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
+  }
+
+  @PostMapping("/hotels/{hotelId}/rooms/bulk")
+  @Operation(summary = "Create new bulk rooms with error",
+       description = "Adds a half of list of rooms to a specific hotel")
+  @ApiResponse(responseCode = "201", 
+      description = "Rooms created successfully", content = @Content(schema = @Schema(implementation = RoomDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  public ResponseEntity<List<RoomDTO>> createBulkWithError(
+      @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId,
+      @Valid @RequestBody List<RoomDTO> roomRequest) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(
+      roomService.saveBulkNonTransactional(hotelId, roomRequest, true));
   }
 }

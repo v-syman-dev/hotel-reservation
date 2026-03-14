@@ -23,8 +23,9 @@ public class RoomService {
   private final RoomMapper roomMapper;
   private final HotelRepository hotelRepository;
 
-  public RoomDTO create(Long hotelId, RoomDTO hotelRequest) {
-    Room newRoom = roomMapper.toEntity(hotelRequest);
+  @Transactional
+  public RoomDTO create(Long hotelId, RoomDTO roomRequest) {
+    Room newRoom = roomMapper.toEntity(roomRequest);
 
     Hotel hotel = hotelRepository.findById(hotelId)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
@@ -34,6 +35,26 @@ public class RoomService {
     Room createdRoom = roomRepository.save(newRoom);
 
     return roomMapper.toDTO(createdRoom);
+  }
+
+  @Transactional
+  public List<RoomDTO> saveBulk(Long hotelId, List<RoomDTO> roomRequest) {
+    Hotel hotel = hotelRepository.findById(hotelId)
+        .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
+
+    List<RoomDTO> result = new ArrayList<>(roomRequest.size());
+
+    for (RoomDTO newRoomDto : roomRequest) {
+      Room newRoom = roomMapper.toEntity(newRoomDto);
+
+      newRoom.setHotel(hotel);
+
+      Room createdRoom = roomRepository.save(newRoom);
+
+      result.add(roomMapper.toDTO(createdRoom));
+    }
+
+    return result;
   }
 
   public List<RoomDTO> findAllByHotel(Long hotelId) {
@@ -77,8 +98,33 @@ public class RoomService {
     return roomMapper.toDTO(room);
   }
 
+  @Transactional
   public void deleteById(Long id) {
     Room room = roomRepository.findById(id).orElseThrow();
     roomRepository.delete(room);
+  }
+
+  public List<RoomDTO> saveBulkNonTransactional(Long hotelId, List<RoomDTO> roomRequest, boolean isException) {
+    Hotel hotel = hotelRepository.findById(hotelId)
+        .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
+
+    List<RoomDTO> result = new ArrayList<>(roomRequest.size());
+
+    int i = 0;
+    for (RoomDTO newRoomDto : roomRequest) {
+      Room newRoom = roomMapper.toEntity(newRoomDto);
+
+      newRoom.setHotel(hotel);
+
+      Room createdRoom = roomRepository.save(newRoom);
+
+      if (i >= roomRequest.size() / 2 && isException) {
+        throw new IllegalArgumentException("Error");
+      }
+
+      result.add(roomMapper.toDTO(createdRoom));
+    }
+
+    return result;
   }
 }

@@ -37,9 +37,21 @@ public class ConvenienceCRUD {
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PostMapping
-  public ResponseEntity<ConvenienceDTO> create(@RequestBody ConvenienceDTO hotelRequest) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.create(hotelRequest));
+  public ResponseEntity<ConvenienceDTO> create(@RequestBody ConvenienceDTO convenienceRequest) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.create(convenienceRequest));
   }
+
+  @Operation(summary = "Create new conveniences", description = "Create a list of new conveniences")
+  @ApiResponse(responseCode = "201", 
+      description = "Conveniences created successfully", 
+      content = @Content(schema = @Schema(implementation = ConvenienceDTO.class)))
+  @ApiResponse(responseCode = "400", 
+      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
+  @PostMapping("/bulk")
+  public ResponseEntity<List<ConvenienceDTO>> createBulk(@RequestBody List<ConvenienceDTO> convenienceRequest) {
+    return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.saveBulk(convenienceRequest));
+  }
+
 
   @Operation(summary = "Get convenience by id", description = "Return convenienceDto by id")
   @ApiResponse(responseCode = "200", 
