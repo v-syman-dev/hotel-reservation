@@ -107,7 +107,7 @@ public class RoomCRUD {
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
   }
 
-  @PostMapping("/hotels/{hotelId}/rooms/bulk")
+  @PostMapping("/hotels/{hotelId}/rooms/bulk-non-transactional")
   @Operation(summary = "Create new bulk rooms with error",
        description = "Adds a half of list of rooms to a specific hotel")
   @ApiResponse(responseCode = "201", 
