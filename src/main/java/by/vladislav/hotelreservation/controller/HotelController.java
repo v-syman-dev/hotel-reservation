@@ -137,4 +137,5 @@ public class HotelController {
   public ResponseEntity<List<HotelDto>> createListWithError(@Valid @RequestBody List<HotelDto> hotelRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.saveBulkNonTransactional(hotelRequest, true));
   }
+
 }

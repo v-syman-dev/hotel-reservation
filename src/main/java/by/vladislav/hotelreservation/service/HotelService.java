@@ -85,7 +85,7 @@ public class HotelService {
 
         savedHotel.setRooms(rooms);
       }
-      hotelDTOs.add(dto);
+      hotelDTOs.add(hotelMapper.toDTO(savedHotel));
     }
 
     searchCache.clear();
