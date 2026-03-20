@@ -18,7 +18,7 @@ import by.vladislav.hotelreservation.mapper.AddressMapper;
 import by.vladislav.hotelreservation.repository.AddressRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class AddressServiceTest {
+class AddressServiceTest {
   @Mock
   private AddressRepository addressRepository;
   @Mock

@@ -24,7 +24,7 @@ import by.vladislav.hotelreservation.repository.HotelRepository;
 import by.vladislav.hotelreservation.repository.RoomRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class RoomServiceTest {
+class RoomServiceTest {
   @Mock
   private RoomRepository roomRepository;
   @Mock
@@ -61,9 +61,11 @@ public class RoomServiceTest {
   void createHotelNotFoundThrowsException() {
 
     Long hotelId = 99L;
+    RoomDto dto = new RoomDto(null, 1, "Type", BigDecimal.ZERO);
+
     when(hotelRepository.findById(hotelId)).thenReturn(Optional.empty());
 
     assertThrows(EntityNotFoundException.class,
-        () -> roomService.create(hotelId, new RoomDto(null, 1, "Type", BigDecimal.ZERO)));
+        () -> roomService.create(hotelId, dto));
   }
 }

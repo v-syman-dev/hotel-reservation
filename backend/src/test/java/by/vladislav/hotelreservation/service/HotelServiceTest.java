@@ -25,7 +25,7 @@ import by.vladislav.hotelreservation.mapper.HotelMapper;
 import by.vladislav.hotelreservation.repository.HotelRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class HotelServiceTest {
+class HotelServiceTest {
   @Mock
   private HotelRepository hotelRepository;
   @Mock

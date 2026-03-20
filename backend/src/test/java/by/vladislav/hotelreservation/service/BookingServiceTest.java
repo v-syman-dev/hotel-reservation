@@ -26,7 +26,7 @@ import by.vladislav.hotelreservation.repository.BookingRepository;
 import by.vladislav.hotelreservation.repository.RoomRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class BookingServiceTest {
+class BookingServiceTest {
   @Mock
   private BookingRepository bookingRepository;
   @Mock

@@ -81,7 +81,7 @@ public class HotelService {
         .stream().collect(Collectors.toMap(Convenience::getName, c -> c));
 
     List<HotelDto> resultDtos = new ArrayList<>(hotelRequest.size());
-    int batchSize = 50; 
+    int batchSize = 50;
 
     for (int i = 0; i < hotelRequest.size(); i++) {
       HotelDto dto = hotelRequest.get(i);
@@ -96,8 +96,11 @@ public class HotelService {
 
       if (dto.rooms() != null) {
         List<Room> rooms = dto.rooms().stream()
-            .map(roomMapper::toEntity)
-            .peek(room -> room.setHotel(hotel))
+            .map(room -> {
+              Room roomEntity = roomMapper.toEntity(room);
+              roomEntity.setHotel(hotel);
+              return roomEntity;
+            })
             .toList();
         hotel.setRooms(rooms);
       }
@@ -107,8 +110,8 @@ public class HotelService {
       resultDtos.add(hotelMapper.toDTO(hotel));
 
       if (i > 0 && i % batchSize == 0) {
-        entityManager.flush(); 
-        entityManager.clear(); 
+        entityManager.flush();
+        entityManager.clear();
       }
     }
 

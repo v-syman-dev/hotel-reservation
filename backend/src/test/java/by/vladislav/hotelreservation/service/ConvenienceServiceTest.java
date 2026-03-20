@@ -21,7 +21,7 @@ import by.vladislav.hotelreservation.mapper.ConvenienceMapper;
 import by.vladislav.hotelreservation.repository.ConvenienceRepository;
 
 @ExtendWith(MockitoExtension.class)
-public class ConvenienceServiceTest {
+class ConvenienceServiceTest {
   @Mock
   private ConvenienceRepository convenienceRepository;
 
