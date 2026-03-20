@@ -1,0 +1,22 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: hotelreservation
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate.default_batch_fetch_size: 50
+      hibernate.jdbc.batch_size: 50
+      hibernate.order_inserts: true
+      hibernate.order_updates: true
+      hibernate.generate_statistics: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/hotel-reservation?reWriteBatchedInserts=true
+    username: postgres
+    password: ${DB_PASSWORD:password}
