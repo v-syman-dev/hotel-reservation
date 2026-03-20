@@ -13,6 +13,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 @Service
 public class RoomAsyncService {
+  
   private final TaskStatusService taskStatusService;
   private final RoomService roomService;
   private final MetricsService taskMetricsService;
