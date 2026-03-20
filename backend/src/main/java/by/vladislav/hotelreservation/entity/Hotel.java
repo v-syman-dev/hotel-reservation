@@ -53,9 +53,11 @@ public class Hotel {
   private List<Room> rooms;
 
   @ManyToMany
-  @JoinTable(name = "hotel_conveniences", joinColumns = @JoinColumn(name = "hotel_id"), inverseJoinColumns = @JoinColumn(name = "convenience_id"), indexes = {
-      @Index(name = "idx_hotel_convenience_id", columnList = "convenience_id"),
-      @Index(name = "idx_convenience_hotel_id", columnList = "hotel_id")
-  })
+  @JoinTable(name = "hotel_conveniences", 
+      joinColumns = @JoinColumn(name = "hotel_id"), 
+      inverseJoinColumns = @JoinColumn(name = "convenience_id"), 
+      indexes = {
+        @Index(name = "idx_hotel_convenience_id", columnList = "convenience_id"),
+        @Index(name = "idx_convenience_hotel_id", columnList = "hotel_id")})
   private Set<Convenience> conveniences;
 }

@@ -27,7 +27,11 @@ import lombok.Setter;
 public class Convenience {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "convenience_seq")
-  @SequenceGenerator(name = "convenience_seq", sequenceName = "convenience_sequence", initialValue = 1, allocationSize = 50)
+  @SequenceGenerator(
+      name = "convenience_seq", 
+      sequenceName = "convenience_sequence", 
+      initialValue = 1, 
+      allocationSize = 50)
   private long id;
 
   @Column(unique = true, nullable = false)
