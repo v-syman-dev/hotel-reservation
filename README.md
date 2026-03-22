@@ -29,9 +29,8 @@ The project is a hotel booking service, it features 5 entities:
 - Booking
 - Address
 - Convenience
-  You can add new hotels, rooms, reservations, and conveniences. The application supports large bulk operations using multithreading, etc.
 
-The project is developing in stages and will be further expanded with additional functionality.
+You can add new hotels, rooms, reservations, and conveniences. The application supports large bulk operations using multithreading, etc.
 
 ## Launching
 
@@ -43,4 +42,5 @@ cd backend
 ```
 
 After launch, the application is avaible on: `http://localhost:8080`.
+
 To see endpoints open `http://localhost:8080/swagger-ui/index.html`.
