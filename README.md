@@ -4,33 +4,43 @@ REST API is a Java + Spring Boot application for managing the hotel booking syst
 
 [SonarCloud](https://sonarcloud.io/summary/overall?id=SosiskaKiller812_hotel-reservation&branch=main)
 
-## About the project
+## Technologies
 
-The project implements the basic architecture of a server application using:
-
+- Java 21
 - Spring Boot
 - Spring Web
-- Spring Data JPA
-- Relational database(postgres)
-- DTOs and mappers
-- Layered architecture (Controller → Service → Repository)
+- Spring Data JPA (Hibernate)
+- PostgreSQL
+- OpenAPI / Swagger UI (springdoc)
+- Maven
 
-## Implemented
+Next steps to develop:
 
-- CRUD operations
-- 5 entities:
+- SPA on React
+- Docker
+- Liquibase
+
+## About
+
+The project is a hotel booking service, it features 5 entities:
+
 - Hotel
-  - Room
-  - Booking
-  - Address
-  - Convenience
-- Connections:
-- OneToMany
-- ManyToMany
-- Working with CascadeType and FetchType
-- Demonstration and solution of the N+1 problem
-- Using `@Transactional`
-- DTO layer and mapping Entity ↔ DTO
-- Checkstyle is configured
+- Room
+- Booking
+- Address
+- Convenience
+  You can add new hotels, rooms, reservations, and conveniences. The application supports large bulk operations using multithreading, etc.
 
 The project is developing in stages and will be further expanded with additional functionality.
+
+## Launching
+
+From the root:
+
+```bash
+cd backend
+./mvnw spring-boot:run
+```
+
+After launch, the application is avaible on: `http://localhost:8080`.
+To see endpoints open `http://localhost:8080/swagger-ui/index.html`.
