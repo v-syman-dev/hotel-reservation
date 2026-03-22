@@ -18,5 +18,9 @@ spring:
 
   datasource:
     url: jdbc:postgresql://localhost:5432/hotel-reservation?reWriteBatchedInserts=true
-    username: postgres
+    username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:password}
+
+  output:
+    ansi:
+      enabled: always

@@ -1,5 +1,6 @@
 package by.vladislav.hotelreservation.controller;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ import org.springframework.http.ResponseEntity;
 import java.math.BigDecimal;
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @AllArgsConstructor
 @RestController
 @RequestMapping("/hotels")
@@ -103,12 +105,9 @@ public class HotelController {
       content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<Page<HotelDto>> search(
       @Parameter(description = "Country to filter", example = "USA", required = true) @RequestParam String country,
-
       @Parameter(description = "Minimum rating (inclusive)", 
       example = "4.5", required = true) @RequestParam BigDecimal minRating,
-
       @Parameter(description = "Page number (0‑based)", example = "0") @RequestParam(defaultValue = "0") int page,
-
       @Parameter(description = "Page size", example = "10") @RequestParam(defaultValue = "10") int size) {
     Page<HotelDto> result = hotelService.findByCountryAndGreaterThanMinRating(country, minRating, page, size);
     return ResponseEntity.ok(result);
