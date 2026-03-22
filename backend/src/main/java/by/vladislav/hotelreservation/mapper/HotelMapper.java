@@ -11,6 +11,7 @@ import by.vladislav.hotelreservation.entity.Hotel;
 import by.vladislav.hotelreservation.entity.dto.AddressDto;
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
 import by.vladislav.hotelreservation.entity.dto.HotelDto;
+import by.vladislav.hotelreservation.entity.dto.HotelShortDto;
 import by.vladislav.hotelreservation.entity.dto.RoomDto;
 import lombok.AllArgsConstructor;
 
@@ -36,7 +37,6 @@ public class HotelMapper {
   }
 
   public HotelDto toDTO(Hotel hotel) {
-
     AddressDto addressDTO = new AddressDto(
         hotel.getAddress().getId(),
         hotel.getAddress().getCountry(),
@@ -59,4 +59,24 @@ public class HotelMapper {
         roomsDTO,
         conveniencesDTOs);
   }
+
+  public HotelShortDto toShortDTO(Hotel hotel) {
+    AddressDto addressDTO = new AddressDto(
+        hotel.getAddress().getId(),
+        hotel.getAddress().getCountry(),
+        hotel.getAddress().getCity(),
+        hotel.getAddress().getStreet());
+
+    Set<ConvenienceDto> conveniencesDTOs = hotel.getConveniences().stream()
+        .map(convenienceMapper::toDTO)
+        .collect(Collectors.toSet());
+
+    return new HotelShortDto(
+        hotel.getId(),
+        hotel.getName(),
+        addressDTO,
+        hotel.getRating(),
+        conveniencesDTOs);
+  }
+
 }

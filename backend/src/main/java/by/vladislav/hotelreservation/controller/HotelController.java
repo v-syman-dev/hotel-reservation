@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
 import by.vladislav.hotelreservation.entity.dto.HotelDto;
+import by.vladislav.hotelreservation.entity.dto.HotelShortDto;
 import by.vladislav.hotelreservation.service.HotelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -80,6 +81,17 @@ public class HotelController {
       @RequestParam(defaultValue = "0") Integer page,
       @RequestParam(defaultValue = "10") Integer size) {
     return ResponseEntity.status(HttpStatus.OK).body(hotelService.findAll(page, size));
+  }
+
+  @Operation(summary = "Get all hotels without rooms", description = "Returns paged hotels without rooms")  
+  @ApiResponse(responseCode = "200", 
+      description = "List of all hotels withour rooms", 
+      content = @Content(schema = @Schema(implementation = HotelDto.class)))
+  @GetMapping("/short")
+  public ResponseEntity<Page<HotelShortDto>> findAllWithoutRooms(
+      @RequestParam(defaultValue = "0") Integer page,
+      @RequestParam(defaultValue = "10") Integer size) {
+    return ResponseEntity.status(HttpStatus.OK).body(hotelService.findAllWithoutRooms(page, size));
   }
 
   @GetMapping("/search")

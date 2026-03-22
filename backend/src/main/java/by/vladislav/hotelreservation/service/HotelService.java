@@ -24,6 +24,7 @@ import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
 import by.vladislav.hotelreservation.entity.dto.HotelDto;
+import by.vladislav.hotelreservation.entity.dto.HotelShortDto;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.HotelMapper;
 import by.vladislav.hotelreservation.mapper.RoomMapper;
@@ -124,6 +125,14 @@ public class HotelService {
     Hotel hotel = hotelRepository.findById(id)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", id));
     return hotelMapper.toDTO(hotel);
+  }
+
+  @Transactional(readOnly = true)
+  public Page<HotelShortDto> findAllWithoutRooms(int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    Page<Hotel> hotels = hotelRepository.findAll(pageable);
+
+    return hotels.map(hotelMapper::toShortDTO);
   }
 
   @Transactional(readOnly = true)

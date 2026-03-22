@@ -1,5 +1,6 @@
 package by.vladislav.hotelreservation.service;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.stereotype.Service;
@@ -34,6 +35,6 @@ public class MetricsService {
         totalProcessedUnsafe,
         activeTasks.get(),
         activeTasksUnsafe,
-        System.currentTimeMillis());
+        LocalDateTime.now());
   }
 }

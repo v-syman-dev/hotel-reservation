@@ -16,16 +16,11 @@ import by.vladislav.hotelreservation.entity.Hotel;
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
   Optional<Hotel> findByName(String name);
 
-  @EntityGraph(attributePaths = {"address"})
+  @EntityGraph(attributePaths = { "address" })
   Page<Hotel> findAll(Pageable pageable);
 
   @Query("SELECT h FROM Hotel h " +
-       "JOIN FETCH h.address a " +
-       "WHERE a.country = :country AND h.rating >= :minRating")
+      "JOIN FETCH h.address a " +
+      "WHERE a.country = :country AND h.rating >= :minRating")
   Page<Hotel> findBycountryAndMinRating(String country, BigDecimal minRating, Pageable pageable);
-
-  @Query(value = "SELECT h.* FROM hotels h " +
-      "JOIN addresses a ON h.address_id = a.id " +
-      "WHERE a.country = :country AND h.rating >= :minRating", nativeQuery = true)
-  Page<Hotel> findBycountryAndMinRatingNative(String country, BigDecimal minRating, Pageable pageable);
 }
