@@ -13,12 +13,10 @@ REST API is a Java + Spring Boot application for managing the hotel booking syst
 - PostgreSQL
 - OpenAPI / Swagger UI (springdoc)
 - Maven
-
-Next steps to develop:
-
-- SPA on React
 - Docker
 - Liquibase
+- CI/CD
+
 
 ## About
 
