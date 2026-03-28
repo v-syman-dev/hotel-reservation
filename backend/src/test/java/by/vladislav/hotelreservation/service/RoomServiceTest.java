@@ -99,9 +99,11 @@ class RoomServiceTest {
 
   @Test
   void saveBulkShouldThrowWhenHotelMissing() {
+    List<RoomDto> roomRequest = List.of();
+
     when(hotelRepository.findById(1L)).thenReturn(Optional.empty());
 
-    assertThrows(EntityNotFoundException.class, () -> roomService.saveBulk(1L, List.of()));
+    assertThrows(EntityNotFoundException.class, () -> roomService.saveBulk(1L, roomRequest));
   }
 
   @Test
@@ -216,12 +218,13 @@ class RoomServiceTest {
     RoomDto first = new RoomDto(null, 1, "Single", BigDecimal.TEN);
     RoomDto second = new RoomDto(null, 2, "Double", BigDecimal.ONE);
     Room firstEntity = new Room();
+    List<RoomDto> roomRequest = List.of(first, second);
 
     when(hotelRepository.findById(hotelId)).thenReturn(Optional.of(hotel));
     when(roomMapper.toEntity(first)).thenReturn(firstEntity);
     when(roomRepository.save(firstEntity)).thenReturn(new Room());
 
     assertThrows(IllegalArgumentException.class,
-        () -> roomService.saveBulkNonTransactional(hotelId, List.of(first, second), true));
+        () -> roomService.saveBulkNonTransactional(hotelId, roomRequest, true));
   }
 }

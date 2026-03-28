@@ -59,7 +59,8 @@ class AddressServiceTest {
 
     when(addressRepository.findByHotelId(hotelId)).thenReturn(Optional.empty());
 
-    assertThrows(EntityNotFoundException.class, () -> addressService.update(hotelId, new AddressDto(null, "A", "B", "C")));
+    AddressDto invalidDto = new AddressDto(null, "A", "B", "C");
+    assertThrows(EntityNotFoundException.class, () -> addressService.update(hotelId, invalidDto));
   }
 
   @Test

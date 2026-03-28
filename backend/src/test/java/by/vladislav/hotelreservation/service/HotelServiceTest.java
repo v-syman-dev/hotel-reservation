@@ -65,12 +65,14 @@ class HotelServiceTest {
     ConvenienceDto convenienceDto = new ConvenienceDto(1L, "WIFI");
     RoomDto roomDto = new RoomDto(null, 101, "Suite", BigDecimal.valueOf(150));
     AddressDto addressDto = new AddressDto(null, "Belarus", "Minsk", "Lenina");
-    HotelDto request = new HotelDto(null, "Grand", addressDto, BigDecimal.valueOf(5), List.of(roomDto), Set.of(convenienceDto));
+    HotelDto request = new HotelDto(null, "Grand", addressDto,
+        BigDecimal.valueOf(5), List.of(roomDto), Set.of(convenienceDto));
     Hotel hotel = Hotel.builder().address(new Address()).build();
     Hotel saved = Hotel.builder().id(1L).address(new Address()).build();
     Room room = new Room();
     Convenience convenience = Convenience.builder().id(1L).name("WIFI").build();
-    HotelDto expected = new HotelDto(1L, "Grand", addressDto, BigDecimal.valueOf(5), List.of(roomDto), Set.of(convenienceDto));
+    HotelDto expected = new HotelDto(1L, "Grand", addressDto,
+        BigDecimal.valueOf(5), List.of(roomDto), Set.of(convenienceDto));
 
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(hotelMapper.toEntity(request)).thenReturn(hotel);
@@ -117,7 +119,8 @@ class HotelServiceTest {
   @Test
   void findByIdShouldReturnMappedHotel() {
     Hotel hotel = Hotel.builder().build();
-    HotelDto expected = new HotelDto(1L, "Grand", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, List.of(), Set.of());
+    HotelDto expected = new HotelDto(1L, "Grand", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE,
+        List.of(), Set.of());
 
     when(hotelRepository.findById(1L)).thenReturn(Optional.of(hotel));
     when(hotelMapper.toDTO(hotel)).thenReturn(expected);
@@ -138,7 +141,8 @@ class HotelServiceTest {
   void findAllWithoutRoomsShouldMapPage() {
     Pageable pageable = PageRequest.of(0, 2);
     Hotel hotel = Hotel.builder().build();
-    HotelShortDto dto = new HotelShortDto(1L, "Short", new AddressDto(null, "C", "City", "Street"), BigDecimal.TEN, Set.of());
+    HotelShortDto dto = new HotelShortDto(1L, "Short", new AddressDto(null, "C", "City", "Street"), BigDecimal.TEN,
+        Set.of());
     Page<Hotel> page = new PageImpl<>(List.of(hotel), pageable, 1);
 
     when(hotelRepository.findAll(pageable)).thenReturn(page);
@@ -153,7 +157,8 @@ class HotelServiceTest {
   void findAllShouldMapPage() {
     Pageable pageable = PageRequest.of(0, 2);
     Hotel hotel = Hotel.builder().build();
-    HotelDto dto = new HotelDto(1L, "Full", new AddressDto(null, "C", "City", "Street"), BigDecimal.TEN, List.of(), Set.of());
+    HotelDto dto = new HotelDto(1L, "Full", new AddressDto(null, "C", "City", "Street"), BigDecimal.TEN, List.of(),
+        Set.of());
     Page<Hotel> page = new PageImpl<>(List.of(hotel), pageable, 1);
 
     when(hotelRepository.findAll(pageable)).thenReturn(page);
@@ -198,10 +203,12 @@ class HotelServiceTest {
         .conveniences(new HashSet<>())
         .build();
     HotelDto request = new HotelDto(99L, "New", new AddressDto(null, "Belarus", "Minsk", "Lenina"),
-        BigDecimal.valueOf(5), List.of(new RoomDto(1L, 10, "Suite", BigDecimal.valueOf(100))), Set.of(new ConvenienceDto(1L, "WIFI")));
+        BigDecimal.valueOf(5), List.of(new RoomDto(1L, 10, "Suite", BigDecimal.valueOf(100))),
+        Set.of(new ConvenienceDto(1L, "WIFI")));
     Room room = new Room();
     Convenience convenience = Convenience.builder().id(1L).name("WIFI").build();
-    HotelDto expected = new HotelDto(1L, "New", request.address(), request.rating(), request.rooms(), request.conveniences());
+    HotelDto expected = new HotelDto(1L, "New", request.address(), request.rating(), request.rooms(),
+        request.conveniences());
 
     when(hotelRepository.findById(1L)).thenReturn(Optional.of(hotel));
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
@@ -287,14 +294,17 @@ class HotelServiceTest {
 
   @Test
   void saveBulkNonTransactionalShouldThrowWhenExceptionRequested() {
-    HotelDto dto1 = new HotelDto(1L, "Hotel1", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null, Set.of());
-    HotelDto dto2 = new HotelDto(2L, "Hotel2", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null, Set.of());
+    HotelDto dto1 = new HotelDto(1L, "Hotel1", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null,
+        Set.of());
+    HotelDto dto2 = new HotelDto(2L, "Hotel2", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null,
+        Set.of());
     Hotel hotel1 = Hotel.builder().build();
+    List<HotelDto> request = List.of(dto1, dto2);
 
     when(convenienceRepository.findByNameIn(Set.of())).thenReturn(List.of());
     when(hotelMapper.toEntity(dto1)).thenReturn(hotel1);
     when(hotelRepository.save(hotel1)).thenReturn(hotel1);
 
-    assertThrows(IllegalArgumentException.class, () -> hotelService.saveBulkNonTransactional(List.of(dto1, dto2), true));
+    assertThrows(IllegalArgumentException.class, () -> hotelService.saveBulkNonTransactional(request, true));
   }
 }
