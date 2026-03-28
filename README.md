@@ -67,6 +67,6 @@ npm run dev
 
 After launch, services are avaible on next addresses:
 - Frontend : `http://localhost:5173`
-- Backend API: `http://localhost:8080`.
+- Backend API: `http://localhost:8080`
 
-- Also u can see endpoint on `http://localhost:8080/swagger-ui/index.html`.
+- Also u can see endpoint on : `http://localhost:8080/swagger-ui/index.html`.
