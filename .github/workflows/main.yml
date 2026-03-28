@@ -29,6 +29,7 @@ jobs:
     - name: Run Maven Tests
       run: |
         cd backend
+        chmod +x ./mvnw
         ./mvnw test
 
   # 2. CI : build & push
