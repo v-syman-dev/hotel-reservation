@@ -39,6 +39,7 @@ cd hotel-reservation
 ### Rename .env.example to .env:
 On Linux/Mac:
 ```cp .env.example .env```
+
 On Windows (PowerShell):
 ```copy .env.example .env```
 
@@ -52,9 +53,10 @@ Start with docker
 
 
 ### 2. Basic run
-Start database locally or on docker: `docker-compose up -d db`
 
 ```bash
+docker-compose up -d db
+
 cd backend
 ./mvnw spring-boot:run
 
@@ -66,7 +68,7 @@ npm run dev
 ## Ports
 
 After launch, services are avaible on next addresses:
-Frontend : `http://localhost:5173`
-Backend API: `http://localhost:8080`.
+- Frontend : `http://localhost:5173`
+- Backend API: `http://localhost:8080`.
 
-Also u can see endpoint on `http://localhost:8080/swagger-ui/index.html`.
+- Also u can see endpoint on `http://localhost:8080/swagger-ui/index.html`.
