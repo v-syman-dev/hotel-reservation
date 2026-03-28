@@ -1,0 +1,451 @@
+.appShell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+.appSidebar {
+  padding: 28px 20px;
+  border-right: 1px solid rgba(26, 34, 51, 0.06);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.65));
+  backdrop-filter: blur(18px);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.surfaceCard {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  box-shadow: var(--surface-shadow);
+  backdrop-filter: blur(14px);
+}
+
+.brandCard {
+  padding: 18px;
+  border-radius: 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  composes: surfaceCard;
+}
+
+.brandMark {
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: linear-gradient(135deg, var(--accent), #f0a35c);
+}
+
+.eyebrow {
+  color: #1f6d6f;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 6px;
+}
+
+.navList {
+  display: grid;
+  gap: 10px;
+}
+
+.navLink {
+  padding: 14px 16px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-soft);
+  transition: transform 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.navLink:hover,
+.navLinkActive {
+  color: var(--text-main);
+  background: rgba(209, 107, 61, 0.12);
+  transform: translateX(4px);
+}
+
+.sidebarNote {
+  margin-top: auto;
+  padding: 18px;
+  border-radius: 20px;
+  display: flex;
+  gap: 12px;
+  color: var(--text-soft);
+  composes: surfaceCard;
+}
+
+.appContent {
+  padding: 28px;
+}
+
+.pageStack {
+  display: grid;
+  gap: 20px;
+  animation: fadeSlide 320ms ease;
+}
+
+.heroCard {
+  padding: 28px;
+  border-radius: 32px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  composes: surfaceCard;
+}
+
+.heroCopy {
+  max-width: 720px;
+  color: var(--text-soft);
+  margin-top: 10px;
+}
+
+.heroActions,
+.cardActions,
+.inlineActions,
+.formActions,
+.pagination,
+.metaInline,
+.backLinkRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.statCard {
+  border-radius: 24px;
+  padding: 20px;
+  composes: surfaceCard;
+}
+
+.statCard span {
+  color: var(--text-soft);
+}
+
+.statCard strong {
+  display: block;
+  margin-top: 10px;
+  font-size: 2rem;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.pageColumns {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(320px, 0.9fr);
+  gap: 20px;
+}
+
+.pageMain,
+.pageSide {
+  display: grid;
+  gap: 20px;
+  align-content: start;
+}
+
+.panel {
+  border-radius: 28px;
+  padding: 22px;
+  display: grid;
+  gap: 18px;
+  composes: surfaceCard;
+}
+
+.sectionHeading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.filtersGrid,
+.formGrid,
+.detailsGrid,
+.relationMap {
+  display: grid;
+  gap: 14px;
+}
+
+.filtersGrid,
+.formGrid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field,
+.stackForm {
+  display: grid;
+  gap: 8px;
+}
+
+.field span {
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+.fieldWide {
+  grid-column: 1 / -1;
+}
+
+.field input,
+.field select {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(26, 34, 51, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  color: var(--text-main);
+}
+
+.field input:focus,
+.field select:focus {
+  outline: none;
+  border-color: rgba(209, 107, 61, 0.55);
+  box-shadow: 0 0 0 4px rgba(209, 107, 61, 0.12);
+}
+
+.button {
+  border: 0;
+  border-radius: 14px;
+  padding: 12px 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 180ms ease, opacity 180ms ease, background-color 180ms ease;
+}
+
+.button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.buttonPrimary {
+  color: white;
+  background: linear-gradient(135deg, var(--accent), #f0a35c);
+}
+
+.buttonGhost {
+  color: var(--text-main);
+  background: rgba(31, 109, 111, 0.08);
+}
+
+.buttonDanger {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.hotelGrid,
+.roomGrid,
+.bookingList,
+.simpleList,
+.hintList,
+.checkboxGrid,
+.chipsRow {
+  display: grid;
+  gap: 14px;
+}
+
+.hotelGrid {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+}
+
+.hotelCard,
+.roomCard,
+.bookingCard,
+.listCard {
+  border-radius: 24px;
+  padding: 18px;
+  display: grid;
+  gap: 14px;
+  composes: surfaceCard;
+}
+
+.hotelCardTop,
+.roomSelect {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.roomSelect {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+.roomCardActive {
+  border-color: rgba(209, 107, 61, 0.35);
+  box-shadow: 0 24px 48px rgba(209, 107, 61, 0.12);
+}
+
+.hotelMeta {
+  display: grid;
+  gap: 8px;
+  color: var(--text-soft);
+}
+
+.relationStrip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  color: var(--text-soft);
+  font-size: 0.92rem;
+}
+
+.ratingPill,
+.chip {
+  width: fit-content;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--chip-text);
+  font-size: 0.92rem;
+}
+
+.chipMuted {
+  background: rgba(95, 107, 127, 0.1);
+  color: var(--text-soft);
+}
+
+.checkboxGrid {
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+}
+
+.checkboxCard {
+  padding: 12px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(26, 34, 51, 0.08);
+  background: rgba(255, 255, 255, 0.76);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.alert {
+  padding: 14px 16px;
+  border-radius: 16px;
+}
+
+.alertError {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+
+.emptyState {
+  padding: 20px;
+  border-radius: 18px;
+  background: rgba(31, 109, 111, 0.08);
+  color: var(--text-soft);
+}
+
+.hintText,
+.hintList {
+  color: var(--text-soft);
+}
+
+.relationMap,
+.detailsGrid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.relationCard,
+.detailBox {
+  border-radius: 20px;
+  padding: 18px;
+  display: grid;
+  gap: 10px;
+  composes: surfaceCard;
+}
+
+.roomPrice {
+  font-size: 1.35rem;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.pagination {
+  justify-content: flex-end;
+}
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1180px) {
+  .pageColumns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 960px) {
+  .appShell {
+    grid-template-columns: 1fr;
+  }
+
+  .appSidebar {
+    border-right: 0;
+    border-bottom: 1px solid rgba(26, 34, 51, 0.06);
+  }
+
+  .statsGrid,
+  .filtersGrid,
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroCard,
+  .sectionHeading,
+  .roomSelect {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 640px) {
+  .appContent {
+    padding: 18px;
+  }
+
+  .heroCard,
+  .panel,
+  .statCard,
+  .hotelCard,
+  .roomCard,
+  .bookingCard,
+  .listCard {
+    padding: 18px;
+  }
+
+  .cardActions,
+  .heroActions,
+  .formActions,
+  .pagination {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

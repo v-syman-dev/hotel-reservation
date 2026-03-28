@@ -3,7 +3,7 @@ import type { HotelDto } from '../../entities/types';
 
 export const hotelService = {
   getAll: (page = 0, size = 100) => 
-    api.get(`/hotels?page=${page}&size=${size}`).then(res => res.data),
+    api.get(`/hotels?page=${page}&size=${size}`).then(res => res.data).catch(),
     
   getById: (id: number) => 
     api.get<HotelDto>(`/hotels/${id}`).then(res => res.data),

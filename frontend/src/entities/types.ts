@@ -9,7 +9,7 @@ export interface HotelDto {
   name: string;
   description: string;
   rating: number;
-  address?: AddressDto;
+  address: AddressDto;
 }
 
 export interface RoomDto {
