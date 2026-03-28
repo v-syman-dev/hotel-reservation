@@ -20,6 +20,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import by.vladislav.hotelreservation.entity.Booking;
 import by.vladislav.hotelreservation.entity.Room;
@@ -173,6 +174,22 @@ class BookingServiceTest {
   }
 
   @Test
+  void updateShouldThrowWhenCheckInDateIsNull() {
+    BookingDto dto = new BookingDto(1L, "guest", null, LocalDate.now().plusDays(1),
+        new RoomDto(1L, 1, "Type", BigDecimal.TEN));
+
+    assertThrows(IllegalArgumentException.class, () -> bookingService.update(1L, 1L, dto));
+  }
+
+  @Test
+  void updateShouldThrowWhenCheckOutDateIsNull() {
+    BookingDto dto = new BookingDto(1L, "guest", LocalDate.now(), null,
+        new RoomDto(1L, 1, "Type", BigDecimal.TEN));
+
+    assertThrows(IllegalArgumentException.class, () -> bookingService.update(1L, 1L, dto));
+  }
+
+  @Test
   void updateShouldThrowWhenRoomAlreadyBooked() {
     BookingDto dto = new BookingDto(1L, "guest", LocalDate.now(), LocalDate.now().plusDays(1),
         new RoomDto(1L, 1, "Type", BigDecimal.TEN));
@@ -211,5 +228,27 @@ class BookingServiceTest {
 
     assertNotNull(result);
     assertEquals(booking, result);
+  }
+
+  @Test
+  void calculatePriceShouldThrowWhenStartIsNull() {
+    assertThrows(IllegalArgumentException.class,
+        () -> ReflectionTestUtils.invokeMethod(
+            bookingService,
+            "calculatePrice",
+            null,
+            LocalDate.now().plusDays(1),
+            BigDecimal.TEN));
+  }
+
+  @Test
+  void calculatePriceShouldThrowWhenEndIsNull() {
+    assertThrows(IllegalArgumentException.class,
+        () -> ReflectionTestUtils.invokeMethod(
+            bookingService,
+            "calculatePrice",
+            LocalDate.now(),
+            null,
+            BigDecimal.TEN));
   }
 }
