@@ -30,7 +30,7 @@ public class BookingService {
   @Transactional
   public BookingDto create(Long roomId, BookingDto dto) {
 
-    if (dto.checkOutDate().isBefore(dto.checkInDate())) {
+    if (dto.checkInDate() == null || dto.checkOutDate() == null || dto.checkOutDate().isBefore(dto.checkInDate())) {
       throw new IllegalArgumentException("Check-out date must be after check-in date");
     }
 
@@ -74,7 +74,7 @@ public class BookingService {
   @Transactional
   public BookingDto update(Long roomId, Long bookingId, BookingDto dto) {
 
-    if (dto.checkOutDate().isBefore(dto.checkInDate())) {
+    if (dto.checkInDate() == null || dto.checkOutDate() == null || dto.checkOutDate().isBefore(dto.checkInDate())) {
       throw new IllegalArgumentException("Check-out date must be after check-in date");
     }
 

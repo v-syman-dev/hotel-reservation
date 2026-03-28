@@ -88,6 +88,22 @@ class BookingServiceTest {
   }
 
   @Test
+  void createShouldThrowWhenCheckInDateIsNull() {
+    LocalDate checkOut = LocalDate.now().plusDays(1);
+    BookingDto dto = new BookingDto(null, "guest", null, checkOut, null);
+
+    assertThrows(IllegalArgumentException.class, () -> bookingService.create(1L, dto));
+  }
+
+  @Test
+  void createShouldThrowWhenCheckOutDateIsNull() {
+    LocalDate checkIn = LocalDate.now();
+    BookingDto dto = new BookingDto(null, "guest", checkIn, null, null);
+
+    assertThrows(IllegalArgumentException.class, () -> bookingService.create(1L, dto));
+  }
+
+  @Test
   void createShouldThrowWhenRoomAlreadyBooked() {
     BookingDto dto = new BookingDto(null, "guest", LocalDate.now(), LocalDate.now().plusDays(2), null);
 

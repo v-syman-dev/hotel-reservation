@@ -217,12 +217,17 @@ class RoomServiceTest {
     Hotel hotel = new Hotel();
     RoomDto first = new RoomDto(null, 1, "Single", BigDecimal.TEN);
     RoomDto second = new RoomDto(null, 2, "Double", BigDecimal.ONE);
+    RoomDto third = new RoomDto(null, 3, "Twin", BigDecimal.ONE);
+    RoomDto fourth = new RoomDto(null, 4, "Suite", BigDecimal.TEN);
     Room firstEntity = new Room();
-    List<RoomDto> roomRequest = List.of(first, second);
+    Room secondEntity = new Room();
+    List<RoomDto> roomRequest = List.of(first, second, third, fourth);
 
     when(hotelRepository.findById(hotelId)).thenReturn(Optional.of(hotel));
     when(roomMapper.toEntity(first)).thenReturn(firstEntity);
+    when(roomMapper.toEntity(second)).thenReturn(secondEntity);
     when(roomRepository.save(firstEntity)).thenReturn(new Room());
+    when(roomRepository.save(secondEntity)).thenReturn(new Room());
 
     assertThrows(IllegalArgumentException.class,
         () -> roomService.saveBulkNonTransactional(hotelId, roomRequest, true));

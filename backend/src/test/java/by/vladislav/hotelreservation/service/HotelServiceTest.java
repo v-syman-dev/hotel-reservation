@@ -139,6 +139,22 @@ class HotelServiceTest {
   }
 
   @Test
+  void saveBulkShouldHandleHotelsWithoutRooms() {
+    HotelDto dto = new HotelDto(1L, "Hotel", new AddressDto(null, "C", "City", "Street"),
+        BigDecimal.valueOf(4), null, Set.of(new ConvenienceDto(1L, "WIFI")));
+    Hotel hotel = Hotel.builder().address(new Address()).build();
+    Convenience convenience = Convenience.builder().id(1L).name("WIFI").build();
+
+    when(convenienceRepository.findAllByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
+    when(hotelMapper.toEntity(dto)).thenReturn(hotel);
+    when(hotelMapper.toDTO(hotel)).thenReturn(dto);
+
+    List<HotelDto> result = hotelService.saveBulk(List.of(dto));
+
+    assertIterableEquals(List.of(dto), result);
+  }
+
+  @Test
   void findByIdShouldReturnMappedHotel() {
     Hotel hotel = Hotel.builder().build();
     HotelDto expected = new HotelDto(1L, "Grand", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE,
@@ -347,12 +363,19 @@ class HotelServiceTest {
         Set.of());
     HotelDto dto2 = new HotelDto(2L, "Hotel2", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null,
         Set.of());
+    HotelDto dto3 = new HotelDto(3L, "Hotel3", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null,
+        Set.of());
+    HotelDto dto4 = new HotelDto(4L, "Hotel4", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null,
+        Set.of());
     Hotel hotel1 = Hotel.builder().build();
-    List<HotelDto> request = List.of(dto1, dto2);
+    Hotel hotel2 = Hotel.builder().build();
+    List<HotelDto> request = List.of(dto1, dto2, dto3, dto4);
 
     when(convenienceRepository.findByNameIn(Set.of())).thenReturn(List.of());
     when(hotelMapper.toEntity(dto1)).thenReturn(hotel1);
+    when(hotelMapper.toEntity(dto2)).thenReturn(hotel2);
     when(hotelRepository.save(hotel1)).thenReturn(hotel1);
+    when(hotelRepository.save(hotel2)).thenReturn(hotel2);
 
     assertThrows(IllegalArgumentException.class, () -> hotelService.saveBulkNonTransactional(request, true));
   }
