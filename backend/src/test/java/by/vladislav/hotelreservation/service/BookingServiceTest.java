@@ -74,6 +74,20 @@ class BookingServiceTest {
   }
 
   @Test
+  void createShouldThrowWhenCheckInAndCheckOutAreEqual() {
+    LocalDate date = LocalDate.now();
+    BookingDto dto = new BookingDto(null, "guest", date, date, null);
+    Room room = Room.builder().pricePerNight(BigDecimal.valueOf(100)).build();
+
+    when(bookingRepository.existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(any(), any(), any()))
+        .thenReturn(false);
+    when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+    when(bookingMapper.toEntity(dto)).thenReturn(new Booking());
+
+    assertThrows(IllegalArgumentException.class, () -> bookingService.create(1L, dto));
+  }
+
+  @Test
   void createShouldThrowWhenRoomAlreadyBooked() {
     BookingDto dto = new BookingDto(null, "guest", LocalDate.now(), LocalDate.now().plusDays(2), null);
 

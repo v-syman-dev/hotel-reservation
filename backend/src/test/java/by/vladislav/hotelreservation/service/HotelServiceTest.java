@@ -89,6 +89,28 @@ class HotelServiceTest {
   }
 
   @Test
+  void createShouldSaveHotelWithoutRoomsWhenRoomsAreNull() {
+    AddressDto addressDto = new AddressDto(null, "Belarus", "Minsk", "Lenina");
+    ConvenienceDto convenienceDto = new ConvenienceDto(1L, "WIFI");
+    HotelDto request = new HotelDto(null, "No Rooms Hotel", addressDto, BigDecimal.valueOf(4), null,
+        Set.of(convenienceDto));
+    Hotel hotel = Hotel.builder().address(new Address()).build();
+    Hotel saved = Hotel.builder().id(10L).address(new Address()).build();
+    Convenience convenience = Convenience.builder().id(1L).name("WIFI").build();
+    HotelDto expected = new HotelDto(10L, "No Rooms Hotel", addressDto, BigDecimal.valueOf(4), null,
+        Set.of(convenienceDto));
+
+    when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
+    when(hotelMapper.toEntity(request)).thenReturn(hotel);
+    when(hotelRepository.save(hotel)).thenReturn(saved);
+    when(hotelMapper.toDTO(saved)).thenReturn(expected);
+
+    HotelDto result = hotelService.create(request);
+
+    assertEquals(expected, result);
+  }
+
+  @Test
   void saveBulkShouldSaveHotelsAndFlushBatch() {
     List<HotelDto> request = new ArrayList<>();
     Set<ConvenienceDto> conveniences = Set.of(new ConvenienceDto(1L, "WIFI"));
@@ -254,6 +276,16 @@ class HotelServiceTest {
   }
 
   @Test
+  void updateShouldThrowWhenMethodIdIsNullAndDtoHotelMissing() {
+    HotelDto request = new HotelDto(5L, "Name", new AddressDto(null, "Belarus", "Minsk", "Lenina"),
+        BigDecimal.valueOf(4), null, Set.of());
+
+    when(hotelRepository.findById(5L)).thenReturn(Optional.empty());
+
+    assertThrows(EntityNotFoundException.class, () -> hotelService.update(null, request));
+  }
+
+  @Test
   void deleteByIdShouldClearCacheAndDelete() {
     String country = "Belarus";
     BigDecimal rating = BigDecimal.valueOf(4);
@@ -286,6 +318,23 @@ class HotelServiceTest {
     when(hotelMapper.toEntity(dto)).thenReturn(hotel);
     when(hotelRepository.save(hotel)).thenReturn(savedHotel);
     when(roomMapper.toEntity(dto.rooms().get(0))).thenReturn(room);
+
+    List<HotelDto> result = hotelService.saveBulkNonTransactional(List.of(dto), false);
+
+    assertIterableEquals(List.of(dto), result);
+  }
+
+  @Test
+  void saveBulkNonTransactionalShouldHandleHotelWithoutRooms() {
+    HotelDto dto = new HotelDto(1L, "Hotel", new AddressDto(null, "C", "City", "Street"), BigDecimal.ONE, null,
+        Set.of(new ConvenienceDto(1L, "WIFI")));
+    Convenience convenience = Convenience.builder().id(1L).name("WIFI").build();
+    Hotel hotel = Hotel.builder().build();
+    Hotel savedHotel = Hotel.builder().build();
+
+    when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
+    when(hotelMapper.toEntity(dto)).thenReturn(hotel);
+    when(hotelRepository.save(hotel)).thenReturn(savedHotel);
 
     List<HotelDto> result = hotelService.saveBulkNonTransactional(List.of(dto), false);
 
