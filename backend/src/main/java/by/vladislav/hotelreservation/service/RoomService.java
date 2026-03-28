@@ -112,6 +112,7 @@ public class RoomService {
 
     int i = 0;
     for (RoomDto newRoomDto : roomRequest) {
+      i++;
       Room newRoom = roomMapper.toEntity(newRoomDto);
 
       newRoom.setHotel(hotel);

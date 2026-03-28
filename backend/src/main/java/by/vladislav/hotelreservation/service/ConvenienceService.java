@@ -53,7 +53,7 @@ public class ConvenienceService {
     List<Convenience> entityList = convenienceRepository.findAll();
 
     return entityList.stream()
-        .map(entity -> convenienceMapper.toDTO(entity))
+        .map(convenienceMapper::toDTO)
         .toList();
   }
 
