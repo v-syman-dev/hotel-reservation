@@ -6,11 +6,14 @@ target/
 #IDE
 .idea/
 .vscode/
-*.iml
 
 # GIT
 .git/
 .gitignore
+
+# Docker
+Dockerfile
+.dockerignore
 
 # LOGS / LOCAL CONFIGS
 logs/

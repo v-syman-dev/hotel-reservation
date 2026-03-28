@@ -1,38 +1,42 @@
-HELP.md
-target/
-.mvn/wrapper/maven-wrapper.jar
-**/src/main/**/target/
-**/src/test/**/target/
+# --- Secrets & logs ---
+.env
+.env.*
+!.env.example
+logs/
+*.log
 
-### STS ###
-.apt_generated
+# --- Java / Maven ---
+target/
+**/target/
+!.mvn/wrapper/maven-wrapper.jar
+*.jar
+*.war
+*.zip
+*.tar.gz
+
+# --- Node / Frontend ---
+node_modules/
+**/node_modules/
+dist/
+build/
+.npm/
+.eslintcache
+
+# --- IDEs (IntelliJ, VS Code, STS, NetBeans) ---
+.idea/
+*.iml
+.vscode/
+.settings/
 .classpath
-.factorypath
 .project
-.settings
+.factorypath
 .springBeans
 .sts4-cache
+nbproject/
+nbbuild/
+nbdist/
+*.swp
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-**/src/main/**/build/
-**/src/test/**/build/
-
-### VS Code ###
-.vscode/
-
-
-.env
-logs/
-**/logs/
+# --- System ---
+.DS_Store
+Thumbs.db

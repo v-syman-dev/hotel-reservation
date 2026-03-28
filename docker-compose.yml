@@ -1,17 +1,16 @@
 services:
   app:
     build: 
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     image: my-java-service:latest
     ports:
       - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/hotel-reservation
-      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME}
-      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD}
-      # NEED TO CHANGE TO VALIDATE WITH LIQIUBASE
-      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
+      - SPRING_DATASOURCE_USERNAME=${DB_USERNAME:-postgres}
+      - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD:-postgres}
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
     depends_on:
       db:
         condition: service_healthy
@@ -24,12 +23,12 @@ services:
       - "5432:5432"
     environment:
       - POSTGRES_DB=hotel-reservation
-      - POSTGRES_USER=${DB_USERNAME}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_USER=${DB_USERNAME:-postgres}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME} -d hotel-reservation"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d hotel-reservation"]
       interval: 5s
       timeout: 5s
       retries: 5

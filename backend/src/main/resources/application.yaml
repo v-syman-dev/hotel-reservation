@@ -1,14 +1,19 @@
 server:
-  port: 8080
+  port: ${BACKEND_PORT:8081}
 
 spring:
   application:
     name: hotelreservation
 
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+
   jpa:
     hibernate:
       ddl-auto: validate
     show-sql: true
+    format-sql: true
     properties:
       hibernate.default_batch_fetch_size: 50
       hibernate.jdbc.batch_size: 50
@@ -17,10 +22,19 @@ spring:
       hibernate.generate_statistics: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/hotel-reservation?reWriteBatchedInserts=true
+    url: jdbc:postgresql://localhost:${DB_PORT_HOST:5432}/${DB_NAME:hotel-reservation}?reWriteBatchedInserts=true
     username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:password}
+    password: ${DB_PASSWORD:postgres}
 
   output:
     ansi:
       enabled: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+    health:
+      show-details: always
