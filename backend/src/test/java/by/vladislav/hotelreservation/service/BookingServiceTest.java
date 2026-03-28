@@ -232,23 +232,27 @@ class BookingServiceTest {
 
   @Test
   void calculatePriceShouldThrowWhenStartIsNull() {
+    LocalDate end = LocalDate.now().plusDays(1);
+    BigDecimal price = BigDecimal.TEN;
     assertThrows(IllegalArgumentException.class,
         () -> ReflectionTestUtils.invokeMethod(
             bookingService,
             "calculatePrice",
             null,
-            LocalDate.now().plusDays(1),
-            BigDecimal.TEN));
+            end,
+            price));
   }
 
   @Test
   void calculatePriceShouldThrowWhenEndIsNull() {
+    LocalDate start = LocalDate.now();
+    BigDecimal price = BigDecimal.TEN;
     assertThrows(IllegalArgumentException.class,
         () -> ReflectionTestUtils.invokeMethod(
             bookingService,
             "calculatePrice",
-            LocalDate.now(),
+            start,
             null,
-            BigDecimal.TEN));
+            price));
   }
 }
