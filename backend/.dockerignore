@@ -1,0 +1,18 @@
+# ALREADY COMPILED
+target/
+*.jar
+*.war
+
+#IDE
+.idea/
+.vscode/
+*.iml
+
+# GIT
+.git/
+.gitignore
+
+# LOGS / LOCAL CONFIGS
+logs/
+*.log
+.env
