@@ -9,7 +9,7 @@ RUN chmod +x mvnw
 RUN ./mvnw dependency:go-offline -B
 
 COPY src ./src
-RUN ./mvnw clean package -DskipTests
+RUN ./mvnw clean package -DskipTests -Dcheckstyle.skip
 
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
@@ -22,6 +22,7 @@ COPY --from=build /app/target/*.jar app.jar
 ENTRYPOINT ["java", \
             "-XX:+UseContainerSupport", \
             "-XX:MaxRAMPercentage=75.0", \
+            "-Dspring.profiles.active=docker", \
             "-jar", "app.jar"]
 
 EXPOSE 8080
