@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import by.vladislav.hotelreservation.entity.Convenience;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.ConvenienceMapper;
 import by.vladislav.hotelreservation.repository.ConvenienceRepository;
@@ -24,6 +25,9 @@ public class ConvenienceService {
   @Transactional
   public ConvenienceDto create(ConvenienceDto convenienceDTO) {
     Convenience entity = convenienceMapper.toEntity(convenienceDTO);
+    if (convenienceRepository.exexistsByName(convenienceDTO.name())) {
+      throw new EntityAlreadyExistsException(convenienceDTO.name());
+    }
     entity = convenienceRepository.save(entity);
     return convenienceMapper.toDTO(entity);
   }

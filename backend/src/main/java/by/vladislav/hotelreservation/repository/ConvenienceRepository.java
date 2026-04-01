@@ -15,5 +15,7 @@ public interface ConvenienceRepository extends JpaRepository<Convenience, Long> 
 
   List<Convenience> findByNameIn(Set<String> conveniences);
 
+  boolean exexistsByName(String name);
+
   List<Convenience> findAllByNameIn(Set<String> allConvNames);
 }

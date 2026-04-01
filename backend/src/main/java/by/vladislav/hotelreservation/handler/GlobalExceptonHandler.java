@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import by.vladislav.hotelreservation.entity.dto.ErrorResponse;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 
 @RestControllerAdvice
@@ -26,6 +27,11 @@ public class GlobalExceptonHandler {
         .map(error -> error.getField() + ": " + error.getDefaultMessage())
         .toList();
     return buildResponse(HttpStatus.BAD_REQUEST, "Validation failed", errors);
+  }
+
+  @ExceptionHandler(EntityAlreadyExistsException.class)
+  public ResponseEntity<ErrorResponse> handleEntities(EntityAlreadyExistsException ex) {
+    return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), null);
   }
 
   @ExceptionHandler(Exception.class)
