@@ -25,7 +25,7 @@ public class ConvenienceService {
   @Transactional
   public ConvenienceDto create(ConvenienceDto convenienceDTO) {
     Convenience entity = convenienceMapper.toEntity(convenienceDTO);
-    if (convenienceRepository.exexistsByName(convenienceDTO.name())) {
+    if (convenienceRepository.existsByName(convenienceDTO.name())) {
       throw new EntityAlreadyExistsException(convenienceDTO.name());
     }
     entity = convenienceRepository.save(entity);
