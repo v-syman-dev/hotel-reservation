@@ -1,26 +1,24 @@
 # Hotel Reservation System
 
-REST API is a Java + Spring Boot application for managing the hotel booking system.
+Hotel Reservation System is a full-stack project for managing hotels, rooms, bookings, addresses, and conveniences.
 
-[SonarCloud](https://sonarcloud.io/summary/overall?id=SosiskaKiller812_hotel-reservation&branch=main)
+SonarCloud: [Project Overview](https://sonarcloud.io/summary/overall?id=SosiskaKiller812_hotel-reservation&branch=main)
 
-## Technologies
+## Stack
 
 - Java 21
-- Spring Boot
+- Spring Boot 4
 - Spring Web
 - Spring Data JPA (Hibernate)
 - PostgreSQL
-- OpenAPI / Swagger UI (springdoc)
-- Maven
-- Docker
 - Liquibase
-- CI/CD
+- OpenAPI / Swagger UI (`springdoc-openapi`)
+- Maven
+- Docker / Docker Compose
 
+## Domain Model
 
-## About
-
-The project is a hotel booking service, it features 5 entities:
+Main entities:
 
 - Hotel
 - Room
@@ -28,45 +26,123 @@ The project is a hotel booking service, it features 5 entities:
 - Address
 - Convenience
 
-You can add new hotels, rooms, reservations, and conveniences. The application supports large bulk operations using multithreading, etc.
+The API supports single and bulk operations for core entities.
 
-## Launching
-git clone https://github.com/your-username/hotel-reservation.git
-cd hotel-reservation
+## Prerequisites
 
-### Rename .env.example to .env:
-On Linux/Mac:
-```cp .env.example .env```
+For local run without Docker for everything:
 
-On Windows (PowerShell):
-```copy .env.example .env```
+- Java 21
+- Node.js 20+
+- npm 10+
+- Docker and Docker Compose (for PostgreSQL)
 
-Now you can change any variable to your own
+For Docker-only run:
 
-## Ways to start application:
+- Docker and Docker Compose
 
-### 1. The quickest way to run app
-Start with docker
-```docker-compose up -d --build```
+## Environment Configuration
 
+1. Create `.env` from `.env.example`.
 
-### 2. Basic run
+Linux/macOS:
 
 ```bash
-docker-compose up -d db
+cp .env.example .env
+```
 
+Windows (PowerShell):
+
+```powershell
+Copy-Item .env.example .env
+```
+
+2. Update values if needed:
+
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `DB_NAME`
+- `DB_PORT_HOST`
+- `BACKEND_PORT`
+- `FRONTEND_PORT`
+
+## Run Options
+
+### 1. Quick Start (Docker)
+
+Runs backend + PostgreSQL in containers.
+
+```bash
+docker compose up -d --build
+```
+
+### 2. Local Development (recommended for coding)
+
+Start database:
+
+```bash
+docker compose up -d db
+```
+
+Run backend:
+
+```bash
 cd backend
 ./mvnw spring-boot:run
+```
 
-cd ../frontend
+On Windows (PowerShell), you can also use:
+
+```powershell
+cd backend
+.\mvnw.cmd spring-boot:run
+```
+
+Run frontend:
+
+```bash
+cd frontend
 npm install
 npm run dev
 ```
 
-## Ports
+## URLs
 
-After launch, services are avaible on next addresses:
-- Frontend : `http://localhost:5173`
+- Frontend: `http://localhost:5173`
 - Backend API: `http://localhost:8080`
+- Swagger UI: `http://localhost:8080/swagger-ui/index.html`
+- Health endpoint: `http://localhost:8080/actuator/health`
 
-- Also u can see endpoint on : `http://localhost:8080/swagger-ui/index.html`.
+## Database Migrations
+
+Liquibase is enabled by default. Migrations run automatically on backend startup.
+
+Changelog entry point:
+
+- `backend/src/main/resources/db/changelog/db.changelog-master.yaml`
+
+## Quality Checks
+
+Backend:
+
+```bash
+cd backend
+./mvnw test
+```
+
+Frontend:
+
+```bash
+cd frontend
+npm run lint
+npm run build
+```
+
+## API Documentation
+
+OpenAPI docs are available through Swagger UI after backend startup.
+
+## Notes
+
+- Backend logs are written to `logs/hotel-app.log`.
+- Hibernate schema mode is `validate` (no auto schema generation in runtime).
