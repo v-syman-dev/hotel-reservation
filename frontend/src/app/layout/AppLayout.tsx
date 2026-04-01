@@ -1,11 +1,16 @@
 import { Building2, Hotel, Layers3, MapPinned } from 'lucide-react';
 import { NavLink, Outlet } from 'react-router-dom';
 import styles from '@/app/styles/ui.module.css';
+import { API_BASE_URL } from '@/shared/api/http';
 
 const navigation = [
   { to: '/', label: 'Hotels Hub', icon: Hotel },
   { to: '/conveniences', label: 'Conveniences', icon: Layers3 },
 ];
+
+const apiConnectionLabel = API_BASE_URL.startsWith('http')
+  ? API_BASE_URL
+  : `${API_BASE_URL} (same-origin proxy)`;
 
 export function AppLayout() {
   return (
@@ -39,7 +44,7 @@ export function AppLayout() {
         <div className={styles.sidebarNote}>
           <MapPinned size={18} />
           <div>
-            <p>Connected to the Spring API on `localhost:8080` by default.</p>
+            <p>Connected API base: `{apiConnectionLabel}`.</p>
             <p>One-to-many and many-to-many links are visible directly in the hotel workspace.</p>
           </div>
         </div>

@@ -21,6 +21,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -37,7 +38,7 @@ public class ConvenienceController {
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PostMapping
-  public ResponseEntity<ConvenienceDto> create(@RequestBody ConvenienceDto convenienceRequest) {
+  public ResponseEntity<ConvenienceDto> create(@Valid @RequestBody ConvenienceDto convenienceRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.create(convenienceRequest));
   }
 
@@ -48,7 +49,7 @@ public class ConvenienceController {
   @ApiResponse(responseCode = "400", 
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   @PostMapping("/bulk")
-  public ResponseEntity<List<ConvenienceDto>> createBulk(@RequestBody List<ConvenienceDto> convenienceRequest) {
+  public ResponseEntity<List<ConvenienceDto>> createBulk(@Valid @RequestBody List<ConvenienceDto> convenienceRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(convenienceService.saveBulk(convenienceRequest));
   }
 

@@ -1,12 +1,13 @@
 import axios from 'axios';
+import { env } from '@/shared/config/env';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? 'http://localhost:8080';
+export const API_BASE_URL = env.apiBaseUrl;
 
 export const http = axios.create({
   baseURL: API_BASE_URL,
+  timeout: 10_000,
   headers: {
+    Accept: 'application/json',
     'Content-Type': 'application/json',
   },
 });
-
-export { API_BASE_URL };

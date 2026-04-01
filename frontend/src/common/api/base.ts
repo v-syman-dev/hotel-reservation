@@ -1,3 +1,3 @@
-import axios from 'axios';
+import { http } from '@/shared/api/http';
 
-export const api = axios.create({baseURL: 'http://localhost:8080'});
+export const api = http;
