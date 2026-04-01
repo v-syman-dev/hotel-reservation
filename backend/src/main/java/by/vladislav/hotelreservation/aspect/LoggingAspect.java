@@ -11,16 +11,21 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class LoggingAspect {
-  @Around("execution(* by.vladislav.hotelreservation.service.*.*(..))")
+
+  @Around("execution(* by.vladislav.hotelreservation.service..*(..))")
   public Object logExecutionTime(ProceedingJoinPoint joinPoint) throws Throwable {
-    long start = System.currentTimeMillis();
+    String methodName = joinPoint.getSignature().toShortString();
+    long start = System.nanoTime();
 
-    Object result = joinPoint.proceed();
-
-    long executionTime = System.currentTimeMillis() - start;
-
-    log.info("Method {} completed in {} ms", joinPoint.getSignature().toShortString(), executionTime);
-
-    return result;
+    try {
+      Object result = joinPoint.proceed();
+      long executionTime = (System.nanoTime() - start) / 1_000_000;
+      log.info("Method {} completed in {} ms", methodName, executionTime);
+      return result;
+    } catch (Throwable ex) {
+      long executionTime = (System.nanoTime() - start) / 1_000_000;
+      log.error("Method {} failed after {} ms: {}", methodName, executionTime, ex.getMessage());
+      throw ex;
+    }
   }
 }

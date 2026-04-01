@@ -18,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import by.vladislav.hotelreservation.entity.Convenience;
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.ConvenienceMapper;
 import by.vladislav.hotelreservation.repository.ConvenienceRepository;
@@ -40,6 +41,7 @@ class ConvenienceServiceTest {
     Convenience saved = Convenience.builder().id(1L).name("WIFI").build();
     ConvenienceDto expected = new ConvenienceDto(1L, "WIFI");
 
+    when(convenienceRepository.existsByName("WIFI")).thenReturn(false);
     when(convenienceMapper.toEntity(request)).thenReturn(entity);
     when(convenienceRepository.save(entity)).thenReturn(saved);
     when(convenienceMapper.toDTO(saved)).thenReturn(expected);
@@ -60,6 +62,8 @@ class ConvenienceServiceTest {
     ConvenienceDto firstDto = new ConvenienceDto(1L, "WIFI");
     ConvenienceDto secondDto = new ConvenienceDto(2L, "SPA");
 
+    when(convenienceRepository.existsByName("WIFI")).thenReturn(false);
+    when(convenienceRepository.existsByName("SPA")).thenReturn(false);
     when(convenienceMapper.toEntity(first)).thenReturn(firstEntity);
     when(convenienceMapper.toEntity(second)).thenReturn(secondEntity);
     when(convenienceRepository.save(firstEntity)).thenReturn(savedFirst);
@@ -119,6 +123,7 @@ class ConvenienceServiceTest {
     ConvenienceDto expected = new ConvenienceDto(5L, "PARKING");
 
     when(convenienceRepository.findById(5L)).thenReturn(Optional.of(entity));
+    when(convenienceRepository.findByName("PARKING")).thenReturn(Optional.empty());
     when(convenienceRepository.save(entity)).thenReturn(entity);
     when(convenienceMapper.toDTO(entity)).thenReturn(expected);
 
@@ -135,6 +140,15 @@ class ConvenienceServiceTest {
     when(convenienceRepository.findById(5L)).thenReturn(Optional.empty());
 
     assertThrows(EntityNotFoundException.class, () -> convenienceService.update(request));
+  }
+
+  @Test
+  void createShouldThrowWhenNameAlreadyExists() {
+    ConvenienceDto request = new ConvenienceDto(null, "WIFI");
+
+    when(convenienceRepository.existsByName("WIFI")).thenReturn(true);
+
+    assertThrows(EntityAlreadyExistsException.class, () -> convenienceService.create(request));
   }
 
   @Test

@@ -26,6 +26,7 @@ import by.vladislav.hotelreservation.entity.Booking;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.dto.BookingDto;
 import by.vladislav.hotelreservation.entity.dto.RoomDto;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.BookingMapper;
 import by.vladislav.hotelreservation.repository.BookingRepository;
@@ -111,7 +112,7 @@ class BookingServiceTest {
     when(bookingRepository.existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(any(), any(), any()))
         .thenReturn(true);
 
-    assertThrows(IllegalStateException.class, () -> bookingService.create(1L, dto));
+    assertThrows(EntityAlreadyExistsException.class, () -> bookingService.create(1L, dto));
   }
 
   @Test
@@ -152,7 +153,11 @@ class BookingServiceTest {
     Booking booking = new Booking();
     BookingDto expected = new BookingDto(bookingId, "Updated Guest", in, out, roomDto);
 
-    when(bookingRepository.existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(any(), any(), any()))
+    when(bookingRepository.existsByRoomIdAndIdNotAndCheckInDateLessThanAndCheckOutDateGreaterThan(
+        any(),
+        any(),
+        any(),
+        any()))
         .thenReturn(false);
     when(bookingRepository.findByIdAndRoomId(bookingId, roomId)).thenReturn(Optional.of(booking));
     when(bookingRepository.save(booking)).thenReturn(booking);
@@ -194,10 +199,14 @@ class BookingServiceTest {
     BookingDto dto = new BookingDto(1L, "guest", LocalDate.now(), LocalDate.now().plusDays(1),
         new RoomDto(1L, 1, "Type", BigDecimal.TEN));
 
-    when(bookingRepository.existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(any(), any(), any()))
+    when(bookingRepository.existsByRoomIdAndIdNotAndCheckInDateLessThanAndCheckOutDateGreaterThan(
+        any(),
+        any(),
+        any(),
+        any()))
         .thenReturn(true);
 
-    assertThrows(IllegalStateException.class, () -> bookingService.update(1L, 1L, dto));
+    assertThrows(EntityAlreadyExistsException.class, () -> bookingService.update(1L, 1L, dto));
   }
 
   @Test

@@ -19,4 +19,10 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
       Long roomId,
       LocalDate checkOutDate,
       LocalDate checkInDate);
+
+  boolean existsByRoomIdAndIdNotAndCheckInDateLessThanAndCheckOutDateGreaterThan(
+      Long roomId,
+      Long id,
+      LocalDate checkOutDate,
+      LocalDate checkInDate);
 }

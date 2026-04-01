@@ -20,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import by.vladislav.hotelreservation.entity.Hotel;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.dto.RoomDto;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.RoomMapper;
 import by.vladislav.hotelreservation.repository.HotelRepository;
@@ -46,6 +47,7 @@ class RoomServiceTest {
     Room savedRoom = new Room();
     RoomDto expectedDto = new RoomDto(1L, 101, "Deluxe", BigDecimal.valueOf(100));
 
+    when(roomRepository.existsByHotelIdAndNumber(hotelId, 101)).thenReturn(false);
     when(roomMapper.toEntity(roomRequest)).thenReturn(roomEntity);
     when(hotelRepository.findById(hotelId)).thenReturn(Optional.of(hotel));
     when(roomRepository.save(roomEntity)).thenReturn(savedRoom);
@@ -69,6 +71,16 @@ class RoomServiceTest {
 
     assertThrows(EntityNotFoundException.class,
         () -> roomService.create(hotelId, dto));
+  }
+
+  @Test
+  void createShouldThrowWhenRoomNumberAlreadyExistsInHotel() {
+    Long hotelId = 1L;
+    RoomDto dto = new RoomDto(null, 101, "Deluxe", BigDecimal.valueOf(100));
+
+    when(roomRepository.existsByHotelIdAndNumber(hotelId, 101)).thenReturn(true);
+
+    assertThrows(EntityAlreadyExistsException.class, () -> roomService.create(hotelId, dto));
   }
 
   @Test
@@ -165,7 +177,9 @@ class RoomServiceTest {
     RoomDto expected = new RoomDto(1L, 202, "Suite", BigDecimal.valueOf(500));
 
     when(roomRepository.findById(1L)).thenReturn(Optional.of(room));
+    when(roomRepository.existsByHotelIdAndNumberAndIdNot(1L, 202, 1L)).thenReturn(false);
     when(roomMapper.toDTO(room)).thenReturn(expected);
+    room.setHotel(Hotel.builder().id(1L).build());
 
     RoomDto result = roomService.update(request);
 

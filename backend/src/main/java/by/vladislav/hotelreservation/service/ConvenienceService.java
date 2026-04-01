@@ -1,7 +1,10 @@
 package by.vladislav.hotelreservation.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 import org.springframework.stereotype.Service;
 
@@ -34,6 +37,13 @@ public class ConvenienceService {
 
   @Transactional
   public List<ConvenienceDto> saveBulk(List<ConvenienceDto> convenienceRequest) {
+    Set<String> names = new HashSet<>();
+    for (ConvenienceDto convenienceDto : convenienceRequest) {
+      if (!names.add(convenienceDto.name()) || convenienceRepository.existsByName(convenienceDto.name())) {
+        throw new EntityAlreadyExistsException("Convenience", "name", convenienceDto.name());
+      }
+    }
+
     List<ConvenienceDto> result = new ArrayList<>(convenienceRequest.size());
 
     for (ConvenienceDto newConvenienceDto : convenienceRequest) {
@@ -66,6 +76,11 @@ public class ConvenienceService {
     Convenience convenienceEntity = convenienceRepository.findById(convenienceDTO.id())
         .orElseThrow(
             () -> new EntityNotFoundException(EntityType.CONVENIENCE, "id", convenienceDTO.id()));
+    convenienceRepository.findByName(convenienceDTO.name()).ifPresent(existingConvenience -> {
+      if (!Objects.equals(existingConvenience.getId(), convenienceDTO.id())) {
+        throw new EntityAlreadyExistsException("Convenience", "name", convenienceDTO.name());
+      }
+    });
 
     convenienceEntity.setName(convenienceDTO.name());
 

@@ -9,6 +9,7 @@ import by.vladislav.hotelreservation.entity.Hotel;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
 import by.vladislav.hotelreservation.entity.dto.RoomDto;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.RoomMapper;
 import by.vladislav.hotelreservation.repository.HotelRepository;
@@ -25,6 +26,10 @@ public class RoomService {
 
   @Transactional
   public RoomDto create(Long hotelId, RoomDto roomRequest) {
+    if (roomRepository.existsByHotelIdAndNumber(hotelId, roomRequest.number())) {
+      throw new EntityAlreadyExistsException("Room", "number", roomRequest.number());
+    }
+
     Room newRoom = roomMapper.toEntity(roomRequest);
 
     Hotel hotel = hotelRepository.findById(hotelId)
@@ -45,6 +50,10 @@ public class RoomService {
     List<RoomDto> result = new ArrayList<>(roomRequest.size());
 
     for (RoomDto newRoomDto : roomRequest) {
+      if (roomRepository.existsByHotelIdAndNumber(hotelId, newRoomDto.number())) {
+        throw new EntityAlreadyExistsException("Room", "number", newRoomDto.number());
+      }
+
       Room newRoom = roomMapper.toEntity(newRoomDto);
 
       newRoom.setHotel(hotel);
@@ -90,6 +99,10 @@ public class RoomService {
   @Transactional
   public RoomDto update(RoomDto roomDTO) {
     Room room = roomRepository.findById(roomDTO.id()).orElseThrow();
+    Long hotelId = room.getHotel() == null ? null : room.getHotel().getId();
+    if (hotelId != null && roomRepository.existsByHotelIdAndNumberAndIdNot(hotelId, roomDTO.number(), roomDTO.id())) {
+      throw new EntityAlreadyExistsException("Room", "number", roomDTO.number());
+    }
 
     room.setNumber(roomDTO.number());
     room.setType(roomDTO.type());

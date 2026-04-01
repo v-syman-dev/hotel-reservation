@@ -25,6 +25,7 @@ import by.vladislav.hotelreservation.entity.constant.EntityType;
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
 import by.vladislav.hotelreservation.entity.dto.HotelDto;
 import by.vladislav.hotelreservation.entity.dto.HotelShortDto;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.HotelMapper;
 import by.vladislav.hotelreservation.mapper.RoomMapper;
@@ -49,6 +50,8 @@ public class HotelService {
 
   @Transactional
   public HotelDto create(HotelDto dto) {
+    ensureHotelNameIsUnique(dto.name(), null);
+
     Set<Convenience> conveniences = getConveniences(dto.conveniences());
 
     Hotel hotel = hotelMapper.toEntity(dto);
@@ -73,6 +76,8 @@ public class HotelService {
 
   @Transactional
   public List<HotelDto> saveBulk(List<HotelDto> hotelRequest) {
+    validateBulkHotelNames(hotelRequest);
+
     Set<String> allConvNames = hotelRequest.stream()
         .flatMap(h -> h.conveniences().stream())
         .map(h -> h.name())
@@ -157,6 +162,7 @@ public class HotelService {
 
   @Transactional
   public HotelDto update(Long id, HotelDto dto) {
+    Long hotelId = id == null ? dto.id() : id;
     Hotel hotel;
     if (id == null) {
       hotel = hotelRepository.findById(dto.id()).orElseThrow(
@@ -165,6 +171,7 @@ public class HotelService {
       hotel = hotelRepository.findById(id).orElseThrow(
           () -> new EntityNotFoundException(EntityType.HOTEL, "id", dto.id()));
     }
+    ensureHotelNameIsUnique(dto.name(), hotelId);
 
     hotel.setName(dto.name());
     hotel.setRating(dto.rating());
@@ -193,6 +200,33 @@ public class HotelService {
     searchCache.clear();
 
     return hotelMapper.toDTO(hotel);
+  }
+
+  private void validateBulkHotelNames(List<HotelDto> hotelRequest) {
+    Set<String> requestNames = new HashSet<>();
+    for (HotelDto hotelDto : hotelRequest) {
+      if (!requestNames.add(hotelDto.name())) {
+        throw new EntityAlreadyExistsException("Hotel", "name", hotelDto.name());
+      }
+    }
+
+    Set<String> names = hotelRequest.stream()
+        .map(HotelDto::name)
+        .collect(Collectors.toSet());
+
+    List<Hotel> existingHotels = hotelRepository.findAllByNameIn(names);
+    if (!existingHotels.isEmpty()) {
+      String duplicateName = existingHotels.get(0).getName();
+      throw new EntityAlreadyExistsException("Hotel", "name", duplicateName);
+    }
+  }
+
+  private void ensureHotelNameIsUnique(String name, Long currentHotelId) {
+    hotelRepository.findByName(name).ifPresent(existingHotel -> {
+      if (currentHotelId == null || !Objects.equals(existingHotel.getId(), currentHotelId)) {
+        throw new EntityAlreadyExistsException("Hotel", "name", name);
+      }
+    });
   }
 
   @Transactional

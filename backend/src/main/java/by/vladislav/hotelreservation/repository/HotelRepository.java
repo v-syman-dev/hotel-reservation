@@ -1,7 +1,9 @@
 package by.vladislav.hotelreservation.repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,6 +17,7 @@ import by.vladislav.hotelreservation.entity.Hotel;
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
   Optional<Hotel> findByName(String name);
+  List<Hotel> findAllByNameIn(Set<String> names);
 
   @EntityGraph(attributePaths = { "address" })
   Page<Hotel> findAll(Pageable pageable);

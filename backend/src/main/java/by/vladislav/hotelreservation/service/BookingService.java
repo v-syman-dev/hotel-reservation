@@ -13,6 +13,7 @@ import by.vladislav.hotelreservation.entity.Booking;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
 import by.vladislav.hotelreservation.entity.dto.BookingDto;
+import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.BookingMapper;
 import by.vladislav.hotelreservation.repository.BookingRepository;
@@ -41,7 +42,10 @@ public class BookingService {
             dto.checkInDate());
 
     if (exists) {
-      throw new IllegalStateException("Room is already booked for these dates");
+      throw new EntityAlreadyExistsException(
+          "Booking",
+          "roomId and date range",
+          roomId + " [" + dto.checkInDate() + " - " + dto.checkOutDate() + "]");
     }
 
     Room room = roomRepository.findById(roomId)
@@ -79,13 +83,17 @@ public class BookingService {
     }
 
     boolean exists = bookingRepository
-        .existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(
+        .existsByRoomIdAndIdNotAndCheckInDateLessThanAndCheckOutDateGreaterThan(
             roomId,
+            bookingId,
             dto.checkOutDate(),
             dto.checkInDate());
 
     if (exists) {
-      throw new IllegalStateException("Room is already booked for these dates");
+      throw new EntityAlreadyExistsException(
+          "Booking",
+          "roomId and date range",
+          roomId + " [" + dto.checkInDate() + " - " + dto.checkOutDate() + "]");
     }
 
     Booking entity = findBooking(roomId, bookingId);

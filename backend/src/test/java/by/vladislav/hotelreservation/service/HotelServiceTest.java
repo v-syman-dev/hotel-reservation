@@ -74,6 +74,7 @@ class HotelServiceTest {
     HotelDto expected = new HotelDto(1L, "Grand", addressDto,
         BigDecimal.valueOf(5), List.of(roomDto), Set.of(convenienceDto));
 
+    when(hotelRepository.findByName("Grand")).thenReturn(Optional.empty());
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(hotelMapper.toEntity(request)).thenReturn(hotel);
     when(hotelRepository.save(hotel)).thenReturn(saved);
@@ -100,6 +101,7 @@ class HotelServiceTest {
     HotelDto expected = new HotelDto(10L, "No Rooms Hotel", addressDto, BigDecimal.valueOf(4), null,
         Set.of(convenienceDto));
 
+    when(hotelRepository.findByName("No Rooms Hotel")).thenReturn(Optional.empty());
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(hotelMapper.toEntity(request)).thenReturn(hotel);
     when(hotelRepository.save(hotel)).thenReturn(saved);
@@ -129,6 +131,7 @@ class HotelServiceTest {
 
     when(convenienceRepository.findAllByNameIn(Set.of("WIFI")))
         .thenReturn(List.of(Convenience.builder().id(1L).name("WIFI").build()));
+    when(hotelRepository.findAllByNameIn(org.mockito.ArgumentMatchers.anySet())).thenReturn(List.of());
     ReflectionTestUtils.setField(hotelService, "entityManager", entityManager);
 
     List<HotelDto> result = hotelService.saveBulk(request);
@@ -145,6 +148,7 @@ class HotelServiceTest {
     Hotel hotel = Hotel.builder().address(new Address()).build();
     Convenience convenience = Convenience.builder().id(1L).name("WIFI").build();
 
+    when(hotelRepository.findAllByNameIn(org.mockito.ArgumentMatchers.anySet())).thenReturn(List.of());
     when(convenienceRepository.findAllByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(hotelMapper.toEntity(dto)).thenReturn(hotel);
     when(hotelMapper.toDTO(hotel)).thenReturn(dto);
@@ -249,6 +253,7 @@ class HotelServiceTest {
         request.conveniences());
 
     when(hotelRepository.findById(1L)).thenReturn(Optional.of(hotel));
+    when(hotelRepository.findByName("New")).thenReturn(Optional.empty());
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(roomMapper.toEntity(request.rooms().get(0))).thenReturn(room);
     when(hotelMapper.toDTO(hotel)).thenReturn(expected);
@@ -273,6 +278,7 @@ class HotelServiceTest {
     HotelDto expected = new HotelDto(5L, "Name", request.address(), request.rating(), null, Set.of());
 
     when(hotelRepository.findById(5L)).thenReturn(Optional.of(hotel));
+    when(hotelRepository.findByName("Name")).thenReturn(Optional.empty());
     when(convenienceRepository.findByNameIn(Set.of())).thenReturn(List.of());
     when(hotelMapper.toDTO(hotel)).thenReturn(expected);
 
