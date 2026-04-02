@@ -27,7 +27,6 @@
     <springProfile name="docker">
         <logger name="by.vladislav.hotelreservation" level="${LOG_LEVEL_APP:-DEBUG}" additivity="false">
             <appender-ref ref="Console" />
-            <appender-ref ref="RollingFile" />
         </logger>
         <root level="INFO">
             <appender-ref ref="Console" />
