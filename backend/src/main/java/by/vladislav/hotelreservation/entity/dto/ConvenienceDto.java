@@ -9,6 +9,6 @@ public record ConvenienceDto(
     Long id,
 
     @NotBlank(message = "name cannot be empty") 
-    @Schema(description = "Name of convenience", example = "Wi-Fi") 
+    @Schema(description = "Name of convenience", example = "WIFI") 
     String name) {
 }
