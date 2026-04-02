@@ -9,6 +9,11 @@ spring:
     enabled: true
     change-log: classpath:db/changelog/db.changelog-master.yaml
 
+  data:
+    redis:
+      host: localhost
+      port: ${REDIS_PORT:6379}
+      
   jpa:
     hibernate:
       ddl-auto: validate
