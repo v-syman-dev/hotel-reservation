@@ -10,7 +10,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Data transfer object for room")
 public record RoomDto(
-    @Schema(description = "Unique identifier", example = "20") 
+    @Schema(description = "Unique identifier", example = "20", accessMode = Schema.AccessMode.READ_ONLY) 
     Long id,
 
     @NotNull(message = "Number is required") 

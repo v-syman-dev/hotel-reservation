@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "Data transfer object for address")
 public record AddressDto(
-    @Schema(description = "Unique identifier", example = "1") 
+    @Schema(description = "Unique identifier", example = "1", accessMode = Schema.AccessMode.READ_ONLY) 
     Long id,
 
     @NotBlank(message = "Country is required") 

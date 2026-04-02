@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Data transfer object for booking")
 public record BookingDto(
-    @Schema(description = "Unique identifier", example = "100") 
+    @Schema(description = "Unique identifier", example = "100", accessMode = Schema.AccessMode.READ_ONLY) 
     Long id,
 
     @NotBlank(message = "Guest name is required") 

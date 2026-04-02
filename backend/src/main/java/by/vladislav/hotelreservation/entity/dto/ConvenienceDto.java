@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 
 @Schema(description = "Data transfer object for convenience")
 public record ConvenienceDto(
-    @Schema(description = "Unique identifier", example = "5") 
+    @Schema(description = "Unique identifier", example = "5", accessMode = Schema.AccessMode.READ_ONLY) 
     Long id,
 
     @NotBlank(message = "name cannot be empty") 

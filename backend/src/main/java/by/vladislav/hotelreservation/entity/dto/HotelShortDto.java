@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 
 @Schema(description = "Data transfer object for hotel without rooms")
 public record HotelShortDto(
-    @Schema(description = "Unique identifier", example = "10") 
+    @Schema(description = "Unique identifier", example = "10", accessMode = Schema.AccessMode.READ_ONLY) 
     Long id,
 
     @NotBlank(message = "Name cannot be empty") 
