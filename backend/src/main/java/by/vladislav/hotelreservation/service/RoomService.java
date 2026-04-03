@@ -130,7 +130,7 @@ public class RoomService {
 
       newRoom.setHotel(hotel);
 
-      Room createdRoom = roomRepository.save(newRoom);
+      Room createdRoom = roomRepository.saveAndFlush(newRoom);
 
       if (i >= roomRequest.size() / 2 && isException) {
         throw new IllegalArgumentException("Error");
