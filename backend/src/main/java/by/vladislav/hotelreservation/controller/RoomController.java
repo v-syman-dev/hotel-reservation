@@ -118,7 +118,7 @@ public class RoomController {
       description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
   public ResponseEntity<List<RoomDto>> createBulkWithError(
       @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId,
-      @Valid @RequestBody List<RoomDto> roomRequest) {
+      @RequestBody List<RoomDto> roomRequest) {
     return ResponseEntity.status(HttpStatus.CREATED).body(
       roomService.saveBulkNonTransactional(hotelId, roomRequest, true));
   }
