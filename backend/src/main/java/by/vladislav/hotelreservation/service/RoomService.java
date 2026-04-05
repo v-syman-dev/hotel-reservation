@@ -116,29 +116,4 @@ public class RoomService {
     Room room = roomRepository.findById(id).orElseThrow();
     roomRepository.delete(room);
   }
-
-  public List<RoomDto> saveBulkNonTransactional(Long hotelId, List<RoomDto> roomRequest, boolean isException) {
-    Hotel hotel = hotelRepository.findById(hotelId)
-        .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
-
-    List<RoomDto> result = new ArrayList<>(roomRequest.size());
-
-    int i = 0;
-    for (RoomDto newRoomDto : roomRequest) {
-      i++;
-      Room newRoom = roomMapper.toEntity(newRoomDto);
-
-      newRoom.setHotel(hotel);
-
-      Room createdRoom = roomRepository.saveAndFlush(newRoom);
-
-      if (i >= roomRequest.size() / 2 && isException) {
-        throw new IllegalArgumentException("Error");
-      }
-
-      result.add(roomMapper.toDTO(createdRoom));
-    }
-
-    return result;
-  }
 }

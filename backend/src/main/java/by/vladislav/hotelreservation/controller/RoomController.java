@@ -108,18 +108,4 @@ public class RoomController {
     roomService.deleteById(id);
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
   }
-
-  @PostMapping("/hotels/{hotelId}/rooms/bulk-non-transactional")
-  @Operation(summary = "Create new bulk rooms with error",
-       description = "Adds a half of list of rooms to a specific hotel")
-  @ApiResponse(responseCode = "201", 
-      description = "Rooms created successfully", content = @Content(schema = @Schema(implementation = RoomDto.class)))
-  @ApiResponse(responseCode = "400", 
-      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<List<RoomDto>> createBulkWithError(
-      @Parameter(description = "Hotel ID", example = "1", required = true) @PathVariable Long hotelId,
-      @RequestBody List<RoomDto> roomRequest) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(
-      roomService.saveBulkNonTransactional(hotelId, roomRequest, true));
-  }
 }

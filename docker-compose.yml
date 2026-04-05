@@ -1,26 +1,28 @@
 services:
   app:
-    build: 
+    build:
       context: ./backend
       dockerfile: Dockerfile
     image: my-java-service:latest
     ports:
-      - "8080:8080"
+      - "${BACKEND_PORT:-8080}:${BACKEND_PORT:-8080}"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/hotel-reservation
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:${DB_PORT_HOST:-5432}/hotel-reservation
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME:-postgres}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD:-postgres}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
     networks:
       - app-network
 
   db:
     image: postgres:15-alpine
     ports:
-      - "5432:5432"
+      - "${DB_PORT_HOST:-5432}:${DB_PORT_HOST:-5432}"
     environment:
       - POSTGRES_DB=hotel-reservation
       - POSTGRES_USER=${DB_USERNAME:-postgres}
@@ -28,12 +30,28 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USERNAME:-postgres} -d hotel-reservation"]
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${DB_USERNAME:-postgres} -d hotel-reservation",
+        ]
       interval: 5s
       timeout: 5s
       retries: 5
     networks:
       - app-network
+
+  redis:
+    image: redis:7-alpine
+    ports: 
+      - "${REDIS_PORT:-6379}:${REDIS_PORT:-6379}"
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
 
 volumes:
   pgdata:

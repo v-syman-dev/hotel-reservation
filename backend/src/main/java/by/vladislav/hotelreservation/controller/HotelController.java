@@ -137,16 +137,4 @@ public class HotelController {
     return ResponseEntity.status(HttpStatus.OK).body("Deleted");
   }
 
-  @PostMapping("/bulk-non-transactional")
-  @Operation(summary = "Create list of new hotels with exception",
-       description = "Adds half of hotels")
-  @ApiResponse(responseCode = "201", 
-      description = "Hotels created successfully", 
-      content = @Content(schema = @Schema(implementation = HotelDto.class)))
-  @ApiResponse(responseCode = "400", 
-      description = "Invalid input data", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
-  public ResponseEntity<List<HotelDto>> createListWithError(@Valid @RequestBody List<HotelDto> hotelRequest) {
-    return ResponseEntity.status(HttpStatus.CREATED).body(hotelService.saveBulkNonTransactional(hotelRequest, true));
-  }
-
 }

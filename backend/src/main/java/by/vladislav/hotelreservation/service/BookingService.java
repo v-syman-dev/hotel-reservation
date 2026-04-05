@@ -65,6 +65,7 @@ public class BookingService {
     return bookingMapper.toDTO(entity);
   }
 
+  @Transactional(readOnly = true)
   public List<BookingDto> findByRoomId(long roomId) {
     List<Booking> list = bookingRepository.findByRoomId(roomId);
     List<BookingDto> result = new ArrayList<>(list.size());
@@ -128,6 +129,7 @@ public class BookingService {
     return pricePerNight.multiply(BigDecimal.valueOf(nights));
   }
 
+  @Transactional(readOnly = true)
   public Booking findBooking(Long roomId, Long bookingId) {
     return bookingRepository.findByIdAndRoomId(bookingId, roomId)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.BOOKING, "id", bookingId));

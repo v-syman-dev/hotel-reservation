@@ -1,6 +1,7 @@
 package by.vladislav.hotelreservation.service;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import by.vladislav.hotelreservation.entity.Address;
 import by.vladislav.hotelreservation.entity.Hotel;
@@ -10,7 +11,6 @@ import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.AddressMapper;
 import by.vladislav.hotelreservation.repository.AddressRepository;
 import by.vladislav.hotelreservation.repository.HotelRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
@@ -32,6 +32,7 @@ public class AddressService {
     return addressMapper.toDTO(address);
   }
 
+  @Transactional(readOnly = true)
   public AddressDto findAddress(Long hotelId) {
     Hotel hotel = hotelRepository.findById(hotelId)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));

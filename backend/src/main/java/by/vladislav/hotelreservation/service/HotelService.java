@@ -8,9 +8,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import by.vladislav.hotelreservation.entity.Convenience;
 import by.vladislav.hotelreservation.entity.Hotel;
-import by.vladislav.hotelreservation.entity.HotelSearchKey;
 import by.vladislav.hotelreservation.entity.Room;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
 import by.vladislav.hotelreservation.entity.dto.ConvenienceDto;
@@ -34,9 +35,8 @@ import by.vladislav.hotelreservation.repository.HotelRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+@CacheConfig(cacheNames = "hotels")
 @AllArgsConstructor
 @Service
 public class HotelService {
@@ -47,8 +47,6 @@ public class HotelService {
   private final ConvenienceRepository convenienceRepository;
   @PersistenceContext
   private EntityManager entityManager;
-
-  private final Map<HotelSearchKey, Page<HotelDto>> searchCache = new ConcurrentHashMap<>();
 
   @Transactional
   public HotelDto create(HotelDto dto) {
@@ -70,8 +68,6 @@ public class HotelService {
 
       savedHotel.setRooms(rooms);
     }
-
-    searchCache.clear();
 
     return hotelMapper.toDTO(savedHotel);
   }
@@ -123,10 +119,10 @@ public class HotelService {
       }
     }
 
-    searchCache.clear();
     return resultDtos;
   }
 
+  @Cacheable(key = "#id")
   @Transactional(readOnly = true)
   public HotelDto findById(long id) {
     Hotel hotel = hotelRepository.findById(id)
@@ -152,16 +148,14 @@ public class HotelService {
 
   @Transactional(readOnly = true)
   public Page<HotelDto> findByCountryAndGreaterThanMinRating(String country, BigDecimal minRating, int page, int size) {
-    HotelSearchKey key = new HotelSearchKey(country, minRating, page, size);
 
-    return searchCache.computeIfAbsent(key, k -> {
-      Pageable pageable = PageRequest.of(page, size);
+    Pageable pageable = PageRequest.of(page, size);
 
-      Page<Hotel> hotels = hotelRepository.findBycountryAndMinRating(country, minRating, pageable);
-      return hotels.map(hotelMapper::toDTO);
-    });
+    Page<Hotel> hotels = hotelRepository.findBycountryAndMinRating(country, minRating, pageable);
+    return hotels.map(hotelMapper::toDTO);
   }
 
+  @CacheEvict(key = "#id")
   @Transactional
   public HotelDto update(Long id, HotelDto dto) {
     Long hotelId = id == null ? dto.id() : id;
@@ -199,9 +193,13 @@ public class HotelService {
       hotel.getRooms().addAll(rooms);
     }
 
-    searchCache.clear();
-
     return hotelMapper.toDTO(hotel);
+  }
+
+  @CacheEvict(key = "#id")
+  @Transactional
+  public void deleteById(long id) {
+    hotelRepository.deleteById(id);
   }
 
   private void validateBulkHotelNames(List<HotelDto> hotelRequest) {
@@ -231,12 +229,6 @@ public class HotelService {
     });
   }
 
-  @Transactional
-  public void deleteById(long id) {
-    hotelRepository.deleteById(id);
-    searchCache.clear();
-  }
-
   private Set<Convenience> getConveniences(Collection<ConvenienceDto> dtos) {
     Set<String> convenienceStrings = new HashSet<>();
     for (ConvenienceDto dto : dtos) {
@@ -244,40 +236,5 @@ public class HotelService {
     }
 
     return new HashSet<>(convenienceRepository.findByNameIn(convenienceStrings));
-  }
-
-  public List<HotelDto> saveBulkNonTransactional(List<HotelDto> hotelRequest, boolean isException) {
-    List<HotelDto> hotelDTOs = new ArrayList<>(hotelRequest.size());
-
-    int i = 0;
-
-    for (HotelDto dto : hotelRequest) {
-      i++;
-      Set<Convenience> conveniences = getConveniences(dto.conveniences());
-
-      Hotel hotel = hotelMapper.toEntity(dto);
-      hotel.setConveniences(conveniences);
-
-      Hotel savedHotel = hotelRepository.save(hotel);
-
-      if (i >= hotelRequest.size() / 2 && isException) {
-        throw new IllegalArgumentException("Error");
-      }
-
-      if (dto.rooms() != null) {
-        List<Room> rooms = dto.rooms().stream()
-            .map(roomMapper::toEntity)
-            .toList();
-
-        rooms.forEach(room -> room.setHotel(savedHotel));
-
-        savedHotel.setRooms(rooms);
-      }
-      hotelDTOs.add(dto);
-    }
-
-    searchCache.clear();
-
-    return hotelDTOs;
   }
 }

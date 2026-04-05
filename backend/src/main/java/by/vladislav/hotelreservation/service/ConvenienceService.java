@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import by.vladislav.hotelreservation.entity.Convenience;
 import by.vladislav.hotelreservation.entity.constant.EntityType;
@@ -15,9 +20,9 @@ import by.vladislav.hotelreservation.exception.EntityAlreadyExistsException;
 import by.vladislav.hotelreservation.exception.EntityNotFoundException;
 import by.vladislav.hotelreservation.mapper.ConvenienceMapper;
 import by.vladislav.hotelreservation.repository.ConvenienceRepository;
-import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
+@CacheConfig(cacheNames = "conveniences")
 @AllArgsConstructor
 @Service
 public class ConvenienceService {
@@ -25,6 +30,7 @@ public class ConvenienceService {
   private final ConvenienceRepository convenienceRepository;
   private final ConvenienceMapper convenienceMapper;
 
+  @CacheEvict(key = "'all'")
   @Transactional
   public ConvenienceDto create(ConvenienceDto convenienceDTO) {
     Convenience entity = convenienceMapper.toEntity(convenienceDTO);
@@ -35,6 +41,7 @@ public class ConvenienceService {
     return convenienceMapper.toDTO(entity);
   }
 
+  @CacheEvict(key = "'all'")
   @Transactional
   public List<ConvenienceDto> saveBulk(List<ConvenienceDto> convenienceRequest) {
     Set<String> names = new HashSet<>();
@@ -56,6 +63,8 @@ public class ConvenienceService {
     return result;
   }
 
+  @Cacheable(key = "#id")
+  @Transactional(readOnly = true)
   public ConvenienceDto findById(long id) {
     Convenience entity = convenienceRepository.findById(id)
         .orElseThrow(
@@ -63,6 +72,8 @@ public class ConvenienceService {
     return convenienceMapper.toDTO(entity);
   }
 
+  @Cacheable(key = "'all'")
+  @Transactional(readOnly = true)
   public List<ConvenienceDto> findAll() {
     List<Convenience> entityList = convenienceRepository.findAll();
 
@@ -71,6 +82,10 @@ public class ConvenienceService {
         .toList();
   }
 
+  @Caching(evict = {
+      @CacheEvict(key = "#convenienceDTO.id()"),
+      @CacheEvict(key = "'all'")
+  })
   @Transactional
   public ConvenienceDto update(ConvenienceDto convenienceDTO) {
     Convenience convenienceEntity = convenienceRepository.findById(convenienceDTO.id())
@@ -89,6 +104,10 @@ public class ConvenienceService {
     return convenienceMapper.toDTO(newConvenience);
   }
 
+  @Caching(evict = {
+      @CacheEvict(key = "#id"),
+      @CacheEvict(key = "'all'")
+  })
   @Transactional
   public void removeById(long id) {
     convenienceRepository.deleteById(id);
