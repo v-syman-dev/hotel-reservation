@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +51,9 @@ public class HotelService {
 
   @Transactional
   public HotelDto create(HotelDto dto) {
-    ensureHotelNameIsUnique(dto.name(), null);
+    if (hotelRepository.existsByName(dto.name())) {
+      throw new EntityAlreadyExistsException(EntityType.HOTEL, "name", dto.name());
+    }
 
     Set<Convenience> conveniences = getConveniences(dto.conveniences());
 
@@ -155,19 +158,15 @@ public class HotelService {
     return hotels.map(hotelMapper::toDTO);
   }
 
-  @CacheEvict(key = "#id")
+  @CachePut(key = "#id")
   @Transactional
   public HotelDto update(Long id, HotelDto dto) {
-    Long hotelId = id == null ? dto.id() : id;
-    Hotel hotel;
-    if (id == null) {
-      hotel = hotelRepository.findById(dto.id()).orElseThrow(
-          () -> new EntityNotFoundException(EntityType.HOTEL, "id", dto.id()));
-    } else {
-      hotel = hotelRepository.findById(id).orElseThrow(
-          () -> new EntityNotFoundException(EntityType.HOTEL, "id", dto.id()));
+    Hotel hotel = hotelRepository.findById(id).orElseThrow(
+        () -> new EntityNotFoundException(EntityType.HOTEL, "id", dto.id()));
+
+    if (hotelRepository.existsByName(dto.name())) {
+      throw new EntityAlreadyExistsException(EntityType.HOTEL, "name", dto.name());
     }
-    ensureHotelNameIsUnique(dto.name(), hotelId);
 
     hotel.setName(dto.name());
     hotel.setRating(dto.rating());
@@ -219,14 +218,6 @@ public class HotelService {
       String duplicateName = existingHotels.get(0).getName();
       throw new EntityAlreadyExistsException("Hotel", "name", duplicateName);
     }
-  }
-
-  private void ensureHotelNameIsUnique(String name, Long currentHotelId) {
-    hotelRepository.findByName(name).ifPresent(existingHotel -> {
-      if (currentHotelId == null || !Objects.equals(existingHotel.getId(), currentHotelId)) {
-        throw new EntityAlreadyExistsException("Hotel", "name", name);
-      }
-    });
   }
 
   private Set<Convenience> getConveniences(Collection<ConvenienceDto> dtos) {

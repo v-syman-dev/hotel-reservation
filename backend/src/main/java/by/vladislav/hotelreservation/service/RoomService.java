@@ -27,7 +27,7 @@ public class RoomService {
   @Transactional
   public RoomDto create(Long hotelId, RoomDto roomRequest) {
     if (roomRepository.existsByHotelIdAndNumber(hotelId, roomRequest.number())) {
-      throw new EntityAlreadyExistsException("Room", "number", roomRequest.number());
+      throw new EntityAlreadyExistsException(EntityType.ROOM, "number", roomRequest.number());
     }
 
     Room newRoom = roomMapper.toEntity(roomRequest);
@@ -51,7 +51,7 @@ public class RoomService {
 
     for (RoomDto newRoomDto : roomRequest) {
       if (roomRepository.existsByHotelIdAndNumber(hotelId, newRoomDto.number())) {
-        throw new EntityAlreadyExistsException("Room", "number", newRoomDto.number());
+        throw new EntityAlreadyExistsException(EntityType.ROOM, "number", newRoomDto.number());
       }
 
       Room newRoom = roomMapper.toEntity(newRoomDto);
@@ -90,8 +90,7 @@ public class RoomService {
 
   public RoomDto findById(Long id) {
     Room room = roomRepository.findById(id).orElseThrow(
-
-    );
+        () -> new EntityNotFoundException(EntityType.ROOM, "id", id));
 
     return roomMapper.toDTO(room);
   }
@@ -101,7 +100,7 @@ public class RoomService {
     Room room = roomRepository.findById(roomDTO.id()).orElseThrow();
     Long hotelId = room.getHotel() == null ? null : room.getHotel().getId();
     if (hotelId != null && roomRepository.existsByHotelIdAndNumberAndIdNot(hotelId, roomDTO.number(), roomDTO.id())) {
-      throw new EntityAlreadyExistsException("Room", "number", roomDTO.number());
+      throw new EntityAlreadyExistsException(EntityType.ROOM, "number", roomDTO.number());
     }
 
     room.setNumber(roomDTO.number());

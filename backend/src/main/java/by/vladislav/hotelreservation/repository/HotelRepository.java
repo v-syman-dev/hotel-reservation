@@ -16,7 +16,11 @@ import by.vladislav.hotelreservation.entity.Hotel;
 
 @Repository
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
+
+  boolean existsByName(String name);
+
   Optional<Hotel> findByName(String name);
+
   List<Hotel> findAllByNameIn(Set<String> names);
 
   @EntityGraph(attributePaths = { "address" })

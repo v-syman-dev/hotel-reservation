@@ -3,7 +3,6 @@ package by.vladislav.hotelreservation.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import org.springframework.cache.annotation.CacheConfig;
@@ -47,7 +46,7 @@ public class ConvenienceService {
     Set<String> names = new HashSet<>();
     for (ConvenienceDto convenienceDto : convenienceRequest) {
       if (!names.add(convenienceDto.name()) || convenienceRepository.existsByName(convenienceDto.name())) {
-        throw new EntityAlreadyExistsException("Convenience", "name", convenienceDto.name());
+        throw new EntityAlreadyExistsException(EntityType.CONVENIENCE, "name", convenienceDto.name());
       }
     }
 
@@ -91,11 +90,10 @@ public class ConvenienceService {
     Convenience convenienceEntity = convenienceRepository.findById(convenienceDTO.id())
         .orElseThrow(
             () -> new EntityNotFoundException(EntityType.CONVENIENCE, "id", convenienceDTO.id()));
-    convenienceRepository.findByName(convenienceDTO.name()).ifPresent(existingConvenience -> {
-      if (!Objects.equals(existingConvenience.getId(), convenienceDTO.id())) {
-        throw new EntityAlreadyExistsException("Convenience", "name", convenienceDTO.name());
-      }
-    });
+
+    if (convenienceRepository.existsByName(convenienceDTO.name())) {
+      throw new EntityAlreadyExistsException(EntityType.CONVENIENCE, "name", convenienceDTO.name());
+    }
 
     convenienceEntity.setName(convenienceDTO.name());
 

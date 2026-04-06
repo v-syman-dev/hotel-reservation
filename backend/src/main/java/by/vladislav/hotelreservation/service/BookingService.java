@@ -43,7 +43,7 @@ public class BookingService {
 
     if (exists) {
       throw new EntityAlreadyExistsException(
-          "Booking",
+          EntityType.ROOM,
           "roomId and date range",
           roomId + " [" + dto.checkInDate() + " - " + dto.checkOutDate() + "]");
     }
@@ -76,6 +76,12 @@ public class BookingService {
     return result;
   }
 
+  @Transactional(readOnly = true)
+  public Booking findBooking(Long roomId, Long bookingId) {
+    return bookingRepository.findByIdAndRoomId(bookingId, roomId)
+        .orElseThrow(() -> new EntityNotFoundException(EntityType.BOOKING, "id", bookingId));
+  }
+
   @Transactional
   public BookingDto update(Long roomId, Long bookingId, BookingDto dto) {
 
@@ -92,7 +98,7 @@ public class BookingService {
 
     if (exists) {
       throw new EntityAlreadyExistsException(
-          "Booking",
+          EntityType.ROOM,
           "roomId and date range",
           roomId + " [" + dto.checkInDate() + " - " + dto.checkOutDate() + "]");
     }
@@ -129,9 +135,4 @@ public class BookingService {
     return pricePerNight.multiply(BigDecimal.valueOf(nights));
   }
 
-  @Transactional(readOnly = true)
-  public Booking findBooking(Long roomId, Long bookingId) {
-    return bookingRepository.findByIdAndRoomId(bookingId, roomId)
-        .orElseThrow(() -> new EntityNotFoundException(EntityType.BOOKING, "id", bookingId));
-  }
 }

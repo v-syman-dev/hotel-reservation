@@ -20,6 +20,14 @@ public class AddressService {
   private final AddressRepository addressRepository;
   private final AddressMapper addressMapper;
 
+  @Transactional(readOnly = true)
+  public AddressDto findAddress(Long hotelId) {
+    Hotel hotel = hotelRepository.findById(hotelId)
+        .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
+
+    return addressMapper.toDTO(hotel.getAddress());
+  }
+
   @Transactional
   public AddressDto update(Long hotelId, AddressDto addressDTO) {
     Address address = addressRepository.findByHotelId(hotelId)
@@ -32,11 +40,4 @@ public class AddressService {
     return addressMapper.toDTO(address);
   }
 
-  @Transactional(readOnly = true)
-  public AddressDto findAddress(Long hotelId) {
-    Hotel hotel = hotelRepository.findById(hotelId)
-        .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
-
-    return addressMapper.toDTO(hotel.getAddress());
-  }
 }
