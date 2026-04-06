@@ -11,6 +11,7 @@ SonarCloud: [Project Overview](https://sonarcloud.io/summary/overall?id=SosiskaK
 - Spring Web
 - Spring Data JPA (Hibernate)
 - PostgreSQL
+- Redis
 - Liquibase
 - OpenAPI / Swagger UI (`springdoc-openapi`)
 - Maven
@@ -35,7 +36,7 @@ For local run without Docker for everything:
 - Java 21
 - Node.js 20+
 - npm 10+
-- Docker and Docker Compose (for PostgreSQL)
+- Docker and Docker Compose (for PostgreSQL & Redis)
 
 For Docker-only run:
 
