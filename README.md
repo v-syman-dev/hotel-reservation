@@ -64,6 +64,8 @@ Copy-Item .env.example .env
 - `DB_PASSWORD`
 - `DB_NAME`
 - `DB_PORT_HOST`
+- `REDIS_HOST`
+- `REDIS_PORT`
 - `BACKEND_PORT`
 - `FRONTEND_PORT`
 
