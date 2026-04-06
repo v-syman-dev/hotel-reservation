@@ -167,7 +167,7 @@ class RoomServiceTest {
   void findByIdShouldThrowWhenMissing() {
     when(roomRepository.findById(1L)).thenReturn(Optional.empty());
 
-    assertThrows(java.util.NoSuchElementException.class, () -> roomService.findById(1L));
+    assertThrows(EntityNotFoundException.class, () -> roomService.findById(1L));
   }
 
   @Test

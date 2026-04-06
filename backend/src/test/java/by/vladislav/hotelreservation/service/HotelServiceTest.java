@@ -74,7 +74,7 @@ class HotelServiceTest {
     HotelDto expected = new HotelDto(1L, "Grand", addressDto,
         BigDecimal.valueOf(5), List.of(roomDto), Set.of(convenienceDto));
 
-    when(hotelRepository.findByName("Grand")).thenReturn(Optional.empty());
+    when(hotelRepository.existsByName("Grand")).thenReturn(false);
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(hotelMapper.toEntity(request)).thenReturn(hotel);
     when(hotelRepository.save(hotel)).thenReturn(saved);
@@ -101,7 +101,7 @@ class HotelServiceTest {
     HotelDto expected = new HotelDto(10L, "No Rooms Hotel", addressDto, BigDecimal.valueOf(4), null,
         Set.of(convenienceDto));
 
-    when(hotelRepository.findByName("No Rooms Hotel")).thenReturn(Optional.empty());
+    when(hotelRepository.existsByName("No Rooms Hotel")).thenReturn(false);
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(hotelMapper.toEntity(request)).thenReturn(hotel);
     when(hotelRepository.save(hotel)).thenReturn(saved);
@@ -232,7 +232,7 @@ class HotelServiceTest {
 
     assertNotNull(result1);
     assertEquals(result1.getContent(), result2.getContent());
-    verify(hotelRepository, times(1)).findBycountryAndMinRating(country, rating, pageable);
+    verify(hotelRepository, times(2)).findBycountryAndMinRating(country, rating, pageable);
   }
 
   @Test
@@ -253,7 +253,7 @@ class HotelServiceTest {
         request.conveniences());
 
     when(hotelRepository.findById(1L)).thenReturn(Optional.of(hotel));
-    when(hotelRepository.findByName("New")).thenReturn(Optional.empty());
+    when(hotelRepository.existsByName("New")).thenReturn(false);
     when(convenienceRepository.findByNameIn(Set.of("WIFI"))).thenReturn(List.of(convenience));
     when(roomMapper.toEntity(request.rooms().get(0))).thenReturn(room);
     when(hotelMapper.toDTO(hotel)).thenReturn(expected);
@@ -267,24 +267,11 @@ class HotelServiceTest {
   }
 
   @Test
-  void updateShouldUseDtoIdWhenMethodIdIsNull() {
-    Hotel hotel = Hotel.builder()
-        .address(Address.builder().country("A").city("B").street("C").build())
-        .rooms(new ArrayList<>())
-        .conveniences(new HashSet<>())
-        .build();
+  void updateShouldThrowWhenMethodIdIsNull() {
     HotelDto request = new HotelDto(5L, "Name", new AddressDto(null, "Belarus", "Minsk", "Lenina"),
         BigDecimal.valueOf(4), null, Set.of());
-    HotelDto expected = new HotelDto(5L, "Name", request.address(), request.rating(), null, Set.of());
-
-    when(hotelRepository.findById(5L)).thenReturn(Optional.of(hotel));
-    when(hotelRepository.findByName("Name")).thenReturn(Optional.empty());
-    when(convenienceRepository.findByNameIn(Set.of())).thenReturn(List.of());
-    when(hotelMapper.toDTO(hotel)).thenReturn(expected);
-
-    HotelDto result = hotelService.update(null, request);
-
-    assertEquals(expected, result);
+    when(hotelRepository.findById(null)).thenReturn(Optional.empty());
+    assertThrows(EntityNotFoundException.class, () -> hotelService.update(null, request));
   }
 
   @Test
@@ -302,7 +289,7 @@ class HotelServiceTest {
     HotelDto request = new HotelDto(5L, "Name", new AddressDto(null, "Belarus", "Minsk", "Lenina"),
         BigDecimal.valueOf(4), null, Set.of());
 
-    when(hotelRepository.findById(5L)).thenReturn(Optional.empty());
+    when(hotelRepository.findById(null)).thenReturn(Optional.empty());
 
     assertThrows(EntityNotFoundException.class, () -> hotelService.update(null, request));
   }

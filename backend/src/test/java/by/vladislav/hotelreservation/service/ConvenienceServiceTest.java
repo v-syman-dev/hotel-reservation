@@ -123,7 +123,6 @@ class ConvenienceServiceTest {
     ConvenienceDto expected = new ConvenienceDto(5L, "PARKING");
 
     when(convenienceRepository.findById(5L)).thenReturn(Optional.of(entity));
-    when(convenienceRepository.findByName("PARKING")).thenReturn(Optional.empty());
     when(convenienceRepository.save(entity)).thenReturn(entity);
     when(convenienceMapper.toDTO(entity)).thenReturn(expected);
 
