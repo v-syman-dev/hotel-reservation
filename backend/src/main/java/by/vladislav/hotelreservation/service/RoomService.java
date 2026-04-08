@@ -47,22 +47,21 @@ public class RoomService {
     Hotel hotel = hotelRepository.findById(hotelId)
         .orElseThrow(() -> new EntityNotFoundException(EntityType.HOTEL, "id", hotelId));
 
+    List<Room> roomsToSave = new ArrayList<>(roomRequest.size());
     List<RoomDto> result = new ArrayList<>(roomRequest.size());
 
     for (RoomDto newRoomDto : roomRequest) {
-      if (roomRepository.existsByHotelIdAndNumber(hotelId, newRoomDto.number())) {
-        throw new EntityAlreadyExistsException(EntityType.ROOM, "number", newRoomDto.number());
-      }
 
       Room newRoom = roomMapper.toEntity(newRoomDto);
 
       newRoom.setHotel(hotel);
 
-      Room createdRoom = roomRepository.save(newRoom);
+      roomsToSave.add(newRoom);
 
-      result.add(roomMapper.toDTO(createdRoom));
+      result.add(roomMapper.toDTO(newRoom));
     }
 
+    roomRepository.saveAll(roomsToSave);
     return result;
   }
 

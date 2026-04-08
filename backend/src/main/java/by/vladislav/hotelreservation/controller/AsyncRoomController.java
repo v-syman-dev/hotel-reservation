@@ -1,6 +1,7 @@
 package by.vladislav.hotelreservation.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import by.vladislav.hotelreservation.entity.dto.MetricsDto;
@@ -30,8 +31,13 @@ public class AsyncRoomController {
   private final MetricsService hotelMetricsService;
 
   @PostMapping("hotels/{hotelId}/rooms/bulk")
-  public ResponseEntity<UUID> bulkPostHotels(@PathVariable Long hotelId, @Valid @RequestBody List<RoomDto> dtos) {
+  public ResponseEntity<UUID> bulkPostHotels(@RequestParam boolean timer, @PathVariable Long hotelId,
+      @Valid @RequestBody List<RoomDto> dtos) {
     UUID uuid = taskStatusService.createTask();
+
+    if (timer) {
+      hotelAsyncService.processBulkSaveWithTimer(uuid, dtos, hotelId);
+    }
 
     hotelAsyncService.processBulkSave(uuid, dtos, hotelId);
 
