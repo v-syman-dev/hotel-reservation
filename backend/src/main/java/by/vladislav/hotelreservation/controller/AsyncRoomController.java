@@ -31,15 +31,16 @@ public class AsyncRoomController {
   private final MetricsService hotelMetricsService;
 
   @PostMapping("hotels/{hotelId}/rooms/bulk")
-  public ResponseEntity<UUID> bulkPostHotels(@RequestParam boolean timer, @PathVariable Long hotelId,
+  public ResponseEntity<UUID> bulkPostHotels(@RequestParam(defaultValue = "false") boolean timer,
+      @PathVariable Long hotelId,
       @Valid @RequestBody List<RoomDto> dtos) {
     UUID uuid = taskStatusService.createTask();
 
     if (timer) {
       hotelAsyncService.processBulkSaveWithTimer(uuid, dtos, hotelId);
+    } else {
+      hotelAsyncService.processBulkSave(uuid, dtos, hotelId);
     }
-
-    hotelAsyncService.processBulkSave(uuid, dtos, hotelId);
 
     return ResponseEntity.status(HttpStatus.ACCEPTED).body(uuid);
   }

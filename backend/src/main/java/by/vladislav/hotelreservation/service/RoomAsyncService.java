@@ -48,7 +48,7 @@ public class RoomAsyncService {
       roomService.saveBulk(hotelId, dtos);
 
       taskMetricsService.addProcessed(dtos.size());
-      Thread.sleep(Duration.ofSeconds(5));
+      Thread.sleep(Duration.ofSeconds(10));
       taskStatusService.updateStatus(taskId, "COMPLETED");
     } catch (Exception exc) {
       taskStatusService.updateStatus(taskId, "FAILED " + exc.getMessage());
