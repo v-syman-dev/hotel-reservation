@@ -15,7 +15,7 @@ public class AsyncConfig {
   public Executor taskExecutor() {
     ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
     executor.setCorePoolSize(2);
-    executor.setMaxPoolSize(5);
+    executor.setMaxPoolSize(7);
     executor.setQueueCapacity(500);
     executor.setThreadNamePrefix("HotelAsync");
     executor.initialize();

@@ -6,6 +6,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -74,6 +77,12 @@ public class BookingService {
       result.add(dto);
     }
     return result;
+  }
+
+  @Transactional(readOnly = true)
+  public Page<BookingDto> findByHotelId(long hotelId, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return bookingRepository.findByRoomHotelId(hotelId, pageable).map(bookingMapper::toDTO);
   }
 
   @Transactional(readOnly = true)

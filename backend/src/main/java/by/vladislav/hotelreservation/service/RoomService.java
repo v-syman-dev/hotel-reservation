@@ -3,6 +3,9 @@ package by.vladislav.hotelreservation.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import by.vladislav.hotelreservation.entity.Hotel;
@@ -74,6 +77,11 @@ public class RoomService {
     }
 
     return roomDTOs;
+  }
+
+  public Page<RoomDto> findAllByHotelPaged(Long hotelId, int page, int size) {
+    Pageable pageable = PageRequest.of(page, size);
+    return roomRepository.findByHotelId(hotelId, pageable).map(roomMapper::toDTO);
   }
 
   public List<RoomDto> findAll() {

@@ -6,6 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.ArgumentMatchers.anyList;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -91,22 +92,19 @@ class RoomServiceTest {
     RoomDto second = new RoomDto(null, 2, "Double", BigDecimal.ONE);
     Room firstEntity = new Room();
     Room secondEntity = new Room();
-    Room firstSaved = new Room();
-    Room secondSaved = new Room();
     RoomDto firstDto = new RoomDto(1L, 1, "Single", BigDecimal.TEN);
     RoomDto secondDto = new RoomDto(2L, 2, "Double", BigDecimal.ONE);
 
     when(hotelRepository.findById(hotelId)).thenReturn(Optional.of(hotel));
     when(roomMapper.toEntity(first)).thenReturn(firstEntity);
     when(roomMapper.toEntity(second)).thenReturn(secondEntity);
-    when(roomRepository.save(firstEntity)).thenReturn(firstSaved);
-    when(roomRepository.save(secondEntity)).thenReturn(secondSaved);
-    when(roomMapper.toDTO(firstSaved)).thenReturn(firstDto);
-    when(roomMapper.toDTO(secondSaved)).thenReturn(secondDto);
+    when(roomMapper.toDTO(firstEntity)).thenReturn(firstDto);
+    when(roomMapper.toDTO(secondEntity)).thenReturn(secondDto);
 
     List<RoomDto> result = roomService.saveBulk(hotelId, List.of(first, second));
 
     assertIterableEquals(List.of(firstDto, secondDto), result);
+    verify(roomRepository).saveAll(anyList());
   }
 
   @Test

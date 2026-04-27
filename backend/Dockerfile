@@ -14,6 +14,10 @@ RUN ./mvnw clean package -DskipTests -Dcheckstyle.skip
 FROM eclipse-temurin:21-jre-jammy
 WORKDIR /app
 
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN useradd -ms /bin/bash javauser
 USER javauser
 

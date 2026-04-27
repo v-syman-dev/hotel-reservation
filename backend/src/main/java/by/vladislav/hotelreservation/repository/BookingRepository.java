@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +16,7 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
   Optional<Booking> findByIdAndRoomId(Long id, Long roomId);
 
   List<Booking> findByRoomId(Long roomId);
+  Page<Booking> findByRoomHotelId(Long hotelId, Pageable pageable);
 
   boolean existsByRoomIdAndCheckInDateLessThanAndCheckOutDateGreaterThan(
       Long roomId,

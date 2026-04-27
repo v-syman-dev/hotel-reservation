@@ -30,6 +30,7 @@ spring:
     url: jdbc:postgresql://localhost:${DB_PORT_HOST:5432}/${DB_NAME:hotel-reservation}?reWriteBatchedInserts=true
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
 
   output:
     ansi:
