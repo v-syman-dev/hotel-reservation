@@ -48,7 +48,7 @@ export function ConveniencesPage() {
     <div className={styles.pageStack}>
       <section className={styles.heroCard}>
         <div>
-          <p className={styles.eyebrow}>Many-to-many directory</p>
+          <p className={styles.eyebrow}>Amenity directory</p>
           <h1>Convenience catalog</h1>
           <p className={styles.heroCopy}>
             Manage reusable conveniences here, then attach them to hotels from the detail or creation forms.
@@ -90,7 +90,7 @@ export function ConveniencesPage() {
               {items.map((item) => (
                 <article key={item.id} className={styles.listCard}>
                   <div>
-                    <p className={styles.eyebrow}>Convenience #{item.id}</p>
+                    <p className={styles.eyebrow}>Convenience</p>
                     <h3>{item.name}</h3>
                   </div>
 
@@ -134,7 +134,7 @@ export function ConveniencesPage() {
                 </div>
               </div>
               <div className={styles.hintList}>
-                <p>Conveniences are global shared entities for the many-to-many hotel relation.</p>
+                <p>Conveniences are reusable options that can be assigned to multiple hotels.</p>
                 <p>Once created here, they become selectable inside hotel creation and hotel editing forms.</p>
               </div>
             </section>

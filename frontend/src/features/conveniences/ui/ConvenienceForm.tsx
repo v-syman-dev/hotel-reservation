@@ -40,7 +40,7 @@ export function ConvenienceForm({
     <section className={styles.panel}>
       <div className={styles.sectionHeading}>
         <div>
-          <p className={styles.eyebrow}>Many-to-many catalog</p>
+          <p className={styles.eyebrow}>Convenience catalog</p>
           <h2>{title}</h2>
         </div>
       </div>

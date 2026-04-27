@@ -1,16 +1,11 @@
-import { Building2, Hotel, Layers3, MapPinned } from 'lucide-react';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Hotel, Layers3 } from 'lucide-react';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import styles from '@/app/styles/ui.module.css';
-import { API_BASE_URL } from '@/shared/api/http';
 
 const navigation = [
   { to: '/', label: 'Hotels Hub', icon: Hotel },
   { to: '/conveniences', label: 'Conveniences', icon: Layers3 },
 ];
-
-const apiConnectionLabel = API_BASE_URL.startsWith('http')
-  ? API_BASE_URL
-  : `${API_BASE_URL} (same-origin proxy)`;
 
 export function AppLayout() {
   return (
@@ -18,12 +13,11 @@ export function AppLayout() {
       <aside className={styles.appSidebar}>
         <div className={styles.brandCard}>
           <div className={styles.brandMark}>
-            <Building2 size={24} />
+            <img src="/hotel-icon.svg" alt="Hotel logo" className={styles.brandMarkImage} />
           </div>
-          <div>
-            <p className={styles.eyebrow}>Hotel Reservation SPA</p>
-            <h1>Operations Console</h1>
-          </div>
+          <Link to="/" className={styles.brandTextLink}>
+            Hotel reservations
+          </Link>
         </div>
 
         <nav className={styles.navList} aria-label="Main navigation">
@@ -41,13 +35,6 @@ export function AppLayout() {
           ))}
         </nav>
 
-        <div className={styles.sidebarNote}>
-          <MapPinned size={18} />
-          <div>
-            <p>Connected API base: `{apiConnectionLabel}`.</p>
-            <p>One-to-many and many-to-many links are visible directly in the hotel workspace.</p>
-          </div>
-        </div>
       </aside>
 
       <main className={styles.appContent}>

@@ -1,9 +1,17 @@
 import { http } from '@/shared/api/http';
 import type { Booking } from '@/entities/booking/model/types';
+import type { PagedResponse } from '@/shared/types/api';
 
 export const bookingsApi = {
   listByRoom: async (roomId: number) => {
     const response = await http.get<Booking[]>(`/rooms/${roomId}/bookings`);
+    return response.data;
+  },
+
+  listByHotelPaged: async (hotelId: number, page: number, size: number) => {
+    const response = await http.get<PagedResponse<Booking>>(`/hotels/${hotelId}/bookings`, {
+      params: { page, size },
+    });
     return response.data;
   },
 

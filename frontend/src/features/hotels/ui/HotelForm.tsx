@@ -156,7 +156,7 @@ export function HotelForm({
         </div>
 
         <div className={styles.field}>
-          <span>Conveniences (many-to-many)</span>
+          <span>Conveniences</span>
           <div className={styles.checkboxGrid}>
             {conveniences.length > 0 ? (
               conveniences.map((item) => (

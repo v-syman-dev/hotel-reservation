@@ -22,22 +22,44 @@
 }
 
 .brandCard {
-  padding: 18px;
-  border-radius: 28px;
-  display: flex;
+  padding: 14px;
+  border-radius: 24px;
+  display: inline-flex;
   align-items: center;
-  gap: 16px;
+  justify-content: flex-start;
+  gap: 10px;
+  align-self: flex-start;
   composes: surfaceCard;
 }
 
 .brandMark {
-  width: 52px;
-  height: 52px;
+  width: 58px;
+  height: 58px;
   border-radius: 16px;
   display: grid;
   place-items: center;
-  color: white;
+  padding: 10px;
   background: linear-gradient(135deg, var(--accent), #f0a35c);
+}
+
+.brandMarkImage {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.brandTextLink {
+  color: #1f6d6f;
+  font-size: 0.76rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  transition: color 180ms ease, opacity 180ms ease;
+}
+
+.brandTextLink:hover {
+  color: var(--text-main);
+  opacity: 0.9;
 }
 
 .eyebrow {
@@ -255,10 +277,16 @@
 .bookingList,
 .simpleList,
 .hintList,
-.checkboxGrid,
-.chipsRow {
+.checkboxGrid {
   display: grid;
   gap: 14px;
+}
+
+.chipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 .hotelGrid {
@@ -313,12 +341,17 @@
 
 .ratingPill,
 .chip {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
   width: fit-content;
-  padding: 8px 12px;
+  padding: 6px 10px;
   border-radius: 999px;
   background: var(--chip);
   color: var(--chip-text);
-  font-size: 0.92rem;
+  font-size: 0.78rem;
+  line-height: 1.2;
+  word-break: break-word;
 }
 
 .chipMuted {

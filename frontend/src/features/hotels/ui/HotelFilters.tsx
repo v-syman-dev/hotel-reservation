@@ -23,14 +23,14 @@ export function HotelFilters({
     <section className={styles.panel}>
       <div className={styles.sectionHeading}>
         <div>
-          <p className={styles.eyebrow}>Filtering</p>
-          <h2>Search the catalog</h2>
+          <p className={styles.eyebrow}>Filters</p>
+          <h2>Search hotels</h2>
         </div>
       </div>
 
       <div className={styles.filtersGrid}>
         <label className={styles.field}>
-          <span>Country filter via API</span>
+          <span>Country</span>
           <input
             value={country}
             onChange={(event) => onCountryChange(event.target.value)}
@@ -39,7 +39,7 @@ export function HotelFilters({
         </label>
 
         <label className={styles.field}>
-          <span>Minimum rating</span>
+          <span>Min rating</span>
           <input
             type="number"
             min="0"
@@ -51,7 +51,7 @@ export function HotelFilters({
         </label>
 
         <label className={[styles.field, styles.fieldWide].join(' ')}>
-          <span>Quick local search</span>
+          <span>Name or address</span>
           <input
             value={query}
             onChange={(event) => onQueryChange(event.target.value)}
