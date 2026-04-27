@@ -7,24 +7,39 @@ services:
     ports:
       - "${BACKEND_PORT:-8080}:${BACKEND_PORT:-8080}"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:${DB_PORT_HOST:-5432}/hotel-reservation
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/${DB_NAME:-hotel-reservation}
       - SPRING_DATASOURCE_USERNAME=${DB_USERNAME:-postgres}
       - SPRING_DATASOURCE_PASSWORD=${DB_PASSWORD:-postgres}
+      - DB_NAME=${DB_NAME:-hotel-reservation}
+      - DB_PORT_HOST=5432
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - BACKEND_PORT=${BACKEND_PORT:-8080}
       - SPRING_JPA_HIBERNATE_DDL_AUTO=validate
     depends_on:
       db:
         condition: service_healthy
       redis:
-        condition: service_started
+        condition: service_healthy
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fsS http://localhost:${BACKEND_PORT:-8080}/actuator/health | grep -q '\"status\":\"UP\"'",
+        ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 20s
     networks:
       - app-network
 
   db:
     image: postgres:15-alpine
     ports:
-      - "${DB_PORT_HOST:-5432}:${DB_PORT_HOST:-5432}"
+      - "${DB_PORT_HOST:-5432}:5432"
     environment:
-      - POSTGRES_DB=hotel-reservation
+      - POSTGRES_DB=${DB_NAME:-hotel-reservation}
       - POSTGRES_USER=${DB_USERNAME:-postgres}
       - POSTGRES_PASSWORD=${DB_PASSWORD:-postgres}
     volumes:
@@ -33,7 +48,7 @@ services:
       test:
         [
           "CMD-SHELL",
-          "pg_isready -U ${DB_USERNAME:-postgres} -d hotel-reservation",
+          "pg_isready -U ${DB_USERNAME:-postgres} -d ${DB_NAME:-hotel-reservation}",
         ]
       interval: 5s
       timeout: 5s
@@ -43,8 +58,8 @@ services:
 
   redis:
     image: redis:7-alpine
-    ports: 
-      - "${REDIS_PORT:-6379}:${REDIS_PORT:-6379}"
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
     networks:
       - app-network
     healthcheck:
@@ -52,6 +67,23 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_BASE_URL: /api
+    image: my-frontend-service:latest
+    environment:
+      - API_PROXY_TARGET=http://app:${BACKEND_PORT:-8080}
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - app-network
 
 volumes:
   pgdata:

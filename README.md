@@ -73,7 +73,7 @@ Copy-Item .env.example .env
 
 ### 1. Quick Start (Docker)
 
-Runs backend + PostgreSQL in containers.
+Runs frontend + backend + PostgreSQL + Redis in containers.
 
 ```bash
 docker compose up -d --build
@@ -81,10 +81,10 @@ docker compose up -d --build
 
 ### 2. Local Development (recommended for coding)
 
-Start database:
+Start dependencies:
 
 ```bash
-docker compose up -d db
+docker compose up -d db redis
 ```
 
 Run backend:
@@ -115,6 +115,29 @@ npm run dev
 - Backend API: `http://localhost:8080`
 - Swagger UI: `http://localhost:8080/swagger-ui/index.html`
 - Health endpoint: `http://localhost:8080/actuator/health`
+
+## CI/CD (GitHub Actions)
+
+Workflow file: `.github/workflows/main.yml`
+
+Pipeline includes:
+
+- backend tests (`./mvnw test`)
+- frontend lint + build (`npm run lint`, `npm run build`)
+- docker build for backend + frontend (for PR)
+- docker push to Docker Hub (for `main`)
+- deploy hooks trigger (for `main`)
+- post-deploy healthcheck
+
+Required GitHub Secrets:
+
+- `DOCKERHUB_USERNAME`
+- `DOCKERHUB_TOKEN`
+- `RENDER_BACKEND_DEPLOY_HOOK` (optional)
+- `RENDER_FRONTEND_DEPLOY_HOOK` (optional)
+- `APP_HEALTHCHECK_URL` (optional, e.g. `https://<backend-domain>/actuator/health`)
+
+If deploy hooks are not set, deploy steps are skipped.
 
 ## Database Migrations
 
