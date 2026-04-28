@@ -31,7 +31,9 @@ jobs:
 
       - name: Run Maven Tests
         working-directory: backend
-        run: ./mvnw test
+        run: |
+          chmod +x mvnw
+          ./mvnw test
 
   frontend-check:
     name: Frontend Lint & Build
