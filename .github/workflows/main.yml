@@ -133,26 +133,32 @@ jobs:
     needs: docker-build
     runs-on: ubuntu-latest
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env:
+      RENDER_BACKEND_DEPLOY_HOOK: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}
+      RENDER_FRONTEND_DEPLOY_HOOK: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}
     steps:
       - name: Trigger backend deploy hook
-        if: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK != '' }}
-        run: curl -fsS -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+        if: env.RENDER_BACKEND_DEPLOY_HOOK != ''
+        run: curl -fsS -X POST "${{ env.RENDER_BACKEND_DEPLOY_HOOK }}"
 
       - name: Trigger frontend deploy hook
-        if: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK != '' }}
-        run: curl -fsS -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
+        if: env.RENDER_FRONTEND_DEPLOY_HOOK != ''
+        run: curl -fsS -X POST "${{ env.RENDER_FRONTEND_DEPLOY_HOOK }}"
 
   post-deploy-healthcheck:
     name: Post-Deploy Healthcheck
     needs: deploy
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && secrets.APP_HEALTHCHECK_URL != ''
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    env:
+      APP_HEALTHCHECK_URL: ${{ secrets.APP_HEALTHCHECK_URL }}
     steps:
       - name: Probe health endpoint
+        if: env.APP_HEALTHCHECK_URL != ''
         run: |
-          echo "Healthcheck URL: ${{ secrets.APP_HEALTHCHECK_URL }}"
+          echo "Healthcheck URL: ${{ env.APP_HEALTHCHECK_URL }}"
           for i in {1..15}; do
-            if curl -fsS "${{ secrets.APP_HEALTHCHECK_URL }}" | grep -q '"status":"UP"'; then
+            if curl -fsS "${{ env.APP_HEALTHCHECK_URL }}" | grep -q '"status":"UP"'; then
               echo "Healthcheck passed"
               exit 0
             fi
