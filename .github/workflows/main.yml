@@ -10,6 +10,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   backend-tests:
     name: Backend Tests
@@ -88,12 +92,13 @@ jobs:
           build-args: |
             VITE_API_BASE_URL=/api
 
-      - name: Log in to Docker Hub
+      - name: Log in to GitHub Container Registry
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push backend image
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -103,10 +108,10 @@ jobs:
           file: ./backend/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/hotel-backend:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/hotel-backend:${{ github.sha }}
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/hotel-backend:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/hotel-backend:buildcache,mode=max
+            ghcr.io/${{ github.repository_owner }}/hotel-backend:latest
+            ghcr.io/${{ github.repository_owner }}/hotel-backend:${{ github.sha }}
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/hotel-backend:buildcache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/hotel-backend:buildcache,mode=max
 
       - name: Build and push frontend image
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
@@ -116,12 +121,12 @@ jobs:
           file: ./frontend/Dockerfile
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/hotel-frontend:latest
-            ${{ secrets.DOCKERHUB_USERNAME }}/hotel-frontend:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/hotel-frontend:latest
+            ghcr.io/${{ github.repository_owner }}/hotel-frontend:${{ github.sha }}
           build-args: |
             VITE_API_BASE_URL=/api
-          cache-from: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/hotel-frontend:buildcache
-          cache-to: type=registry,ref=${{ secrets.DOCKERHUB_USERNAME }}/hotel-frontend:buildcache,mode=max
+          cache-from: type=registry,ref=ghcr.io/${{ github.repository_owner }}/hotel-frontend:buildcache
+          cache-to: type=registry,ref=ghcr.io/${{ github.repository_owner }}/hotel-frontend:buildcache,mode=max
 
   deploy:
     name: Deploy (Render Hooks)
