@@ -102,10 +102,6 @@ jobs:
       if: env.RENDER_BACKEND_DEPLOY_HOOK != ''
       run: curl -fsS -X POST "${{ env.RENDER_BACKEND_DEPLOY_HOOK }}"
 
-    - name: Trigger frontend deploy
-      if: env.RENDER_FRONTEND_DEPLOY_HOOK != ''
-      run: curl -fsS -X POST "${{ env.RENDER_FRONTEND_DEPLOY_HOOK }}"
-
   healthcheck:
     name: Healthcheck
     needs: deploy
