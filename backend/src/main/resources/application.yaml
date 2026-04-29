@@ -1,5 +1,5 @@
 server:
-  port: ${BACKEND_PORT:8080}
+  port: ${PORT:${BACKEND_PORT:8080}}
 
 spring:
   application:
@@ -11,7 +11,7 @@ spring:
 
   data:
     redis:
-      host: ${REDIS_HOST:redis}
+      host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
       
   jpa:
@@ -27,7 +27,7 @@ spring:
       hibernate.generate_statistics: true
 
   datasource:
-    url: jdbc:postgresql://localhost:${DB_PORT_HOST:5432}/${DB_NAME:hotel-reservation}?reWriteBatchedInserts=true
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT_HOST:5432}/${DB_NAME:hotel-reservation}?reWriteBatchedInserts=true
     username: ${DB_USERNAME:postgres}
     password: ${DB_PASSWORD:postgres}
     driver-class-name: org.postgresql.Driver
