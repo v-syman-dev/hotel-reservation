@@ -3,3 +3,5 @@ databaseChangeLog:
     file: db/changelog/changeset/01-init-db.sql
 - include:
     file: db/changelog/changeset/02-insert-data.sql
+- include:
+    file: db/changelog/changeset/03-insert-mock-data.sql
