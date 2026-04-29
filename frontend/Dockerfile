@@ -18,6 +18,7 @@ COPY infra/nginx/default.conf.template /etc/nginx/templates/default.conf.templat
 COPY --from=build /app/dist /usr/share/nginx/html
 
 ENV API_PROXY_TARGET=http://app:8080
+ENV DOLLAR='$'
 
 EXPOSE 80
 
