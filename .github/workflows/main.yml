@@ -101,9 +101,10 @@ jobs:
     - name: Trigger backend deploy
       if: env.RENDER_BACKEND_DEPLOY_HOOK != ''
       run: curl -fsS -X POST "${{ env.RENDER_BACKEND_DEPLOY_HOOK }}"
-    # - name: Trigger frontend deploy
-    #   if: env.RENDER_FRONTEND_DEPLOY_HOOK != ''
-    #   run: curl -fsS -X POST "${{ env.RENDER_FRONTEND_DEPLOY_HOOK }}"
+
+    - name: Trigger frontend deploy
+      if: env.RENDER_FRONTEND_DEPLOY_HOOK != ''
+      run: curl -fsS -X POST "${{ env.RENDER_FRONTEND_DEPLOY_HOOK }}"
 
   healthcheck:
     name: Healthcheck
@@ -122,14 +123,32 @@ jobs:
 
     - name: Probe app health
       run: |
-        echo "Healthcheck URL: ${APP_HEALTHCHECK_URL}"
+        BASE_URL="${APP_HEALTHCHECK_URL%/}"
+        CANDIDATES=(
+          "${BASE_URL}"
+          "${BASE_URL}/actuator/health"
+          "${BASE_URL}/api/actuator/health"
+        )
+
+        echo "Healthcheck candidates:"
+        printf ' - %s\n' "${CANDIDATES[@]}"
+
         for i in {1..15}; do
-          if curl -fsS "${APP_HEALTHCHECK_URL}" | grep -q '"status":"UP"'; then
-            echo "Healthcheck passed"
-            exit 0
-          fi
+          for url in "${CANDIDATES[@]}"; do
+            BODY="$(curl -sS -m 10 "${url}" || true)"
+            if echo "${BODY}" | grep -q '"status":"UP"'; then
+              echo "Healthcheck passed: ${url}"
+              exit 0
+            fi
+          done
           echo "Attempt ${i}/15 failed, retrying in 10s..."
           sleep 10
         done
-        echo "Healthcheck failed after retries"
+
+        echo "Healthcheck failed after retries. Last responses:"
+        for url in "${CANDIDATES[@]}"; do
+          echo "URL: ${url}"
+          curl -sS -i -m 10 "${url}" || true
+          echo ""
+        done
         exit 1
