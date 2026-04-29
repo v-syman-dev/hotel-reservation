@@ -1,7 +1,7 @@
 --liquibase formatted sql
 --changeset vladislav:3
 
--- Part of MOCK_DATA.json: Meevee, Rhyloo, DabZ
+-- Add started data
 
 -- Addresses
 INSERT INTO addresses (id, country, city, street) VALUES
